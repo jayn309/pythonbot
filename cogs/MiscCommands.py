@@ -1,7 +1,6 @@
 import discord
 import random
 import asyncio
-import aiohttp
 
 from discord.ext import commands
 from random import choice as randchoice
@@ -130,24 +129,6 @@ class MicsCommands(commands.Cog):
             await ctx.send(f"{slotmachine} 2 in a row, you won! 🎉")
         else:
             await ctx.send(f"{slotmachine} No match, you lost 😢")
-
-    @commands.command()
-    async def urban(self, *, search_terms : str):
-        """Urban Dictionary search"""
-        search_terms = search_terms.split(" ")
-        search_terms = "+".join(search_terms)
-        search = "http://api.urbandictionary.com/v0/define?term=" + search_terms
-        try:
-            async with aiohttp.get(search) as r:
-                result = await r.json()
-            if result["list"] != []:
-                definition = result['list'][0]['definition']
-                example = result['list'][0]['example']
-                await self.clientt.say("**Definition:** " + definition + "\n\n" + "**Example:** " + example )
-            else:
-                await self.client.say("Your search terms gave no results.")
-        except:
-            await self.client.say("Error.")
 
 def setup(client):
     client.add_cog(MicsCommands(client))
