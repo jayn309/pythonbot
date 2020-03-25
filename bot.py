@@ -34,7 +34,7 @@ async def on_ready():
     change_status.start()
     print(f'{client.user} has connected to Discord!')
 
-@tasks.loop(minutes=5)
+@tasks.loop(minutes=1440)
 async def change_status():
     await client.change_presence(activity=discord.Activity(type=2,name=(next(status))))
 
