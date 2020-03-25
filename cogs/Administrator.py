@@ -1,4 +1,5 @@
 import discord
+import time
 from discord.ext import commands
 
 
@@ -85,6 +86,16 @@ class Administrator(commands.Cog):
         channel = discord.utils.get(channel_mentions, mention=channel)
         await ctx.message.delete()
         await channel.send(format(msg))
+
+    @commands.command()
+    @commands.has_guild_permissions(administrator=True)
+    async def ping(self, ctx):
+        """ Pong! """
+        before = time.monotonic()
+        before_ws = int(round(self.client.latency * 1000, 1))
+        message = await ctx.send("🏓 Pong")
+        ping = (time.monotonic() - before) * 1000
+        await message.edit(content=f"🏓 WS: {before_ws}ms  |  REST: {int(ping)}ms")
 
 def setup(client):
     client.add_cog(Administrator(client))
