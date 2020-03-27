@@ -14,8 +14,6 @@ client.remove_command('help')
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to Discord!')
-
-async def change_status():
     await client.change_presence(activity=discord.Activity(type=2,name="Spotify"))
 
 @client.command()
