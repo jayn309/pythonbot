@@ -8,7 +8,6 @@ class CommandEvents(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
-        await ctx.send(ctx.command.name + " was invoked incorrectly.")
         await ctx.send(error)
 
     @commands.Cog.listener()

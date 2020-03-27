@@ -12,6 +12,10 @@ class Administrator(commands.Cog):
     async def ban(self, ctx, member : discord.Member, *, reason=None):
         await member.ban(reason=reason)
         await ctx.send(f"{member.mention} got ban")
+    @ban.error
+    async def ban_error(self,ctx, error):
+        if isinstance(error, commands.CheckFailure):
+            await ctx.send("You are not allowed to ban people")
 
     @commands.command()
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
@@ -28,6 +32,10 @@ class Administrator(commands.Cog):
     async def kick(self,ctx, member : discord.Member, *, reason=None):
         await member.kick(reason=reason)
         await ctx.send(f"{member.mention} got kicked")
+    @kick.error
+    async def kick_error(self,ctx, error):
+        if isinstance(error, commands.CheckFailure):
+            await ctx.send("You are not allowed to kick people")
 
     @commands.command()
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
@@ -47,6 +55,10 @@ class Administrator(commands.Cog):
         else:
             await member.add_roles(role)
         await ctx.send(f"{member.mention} was muted")
+    @mute.error
+    async def mute_error(self,ctx, error):
+        if isinstance(error, commands.CheckFailure):
+            await ctx.send("You are not allowed to mute people")
 
     @commands.command()
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
@@ -54,6 +66,10 @@ class Administrator(commands.Cog):
         role = discord.utils.get(ctx.guild.roles, name="Muted")
         await member.remove_roles(role)
         await ctx.send(f"{member.mention} was unmuted")
+    @unmute.error
+    async def unmute_error(self,ctx, error):
+        if isinstance(error, commands.CheckFailure):
+            await ctx.send("You are not allowed to unmute people")
 
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
