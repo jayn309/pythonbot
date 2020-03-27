@@ -33,6 +33,8 @@ class Roles(commands.Cog):
                 role = discord.utils.get(guild.roles, name='Lieutenant Commander')
             if payload.emoji.name == 'wendyhide':
                 role = discord.utils.get(guild.roles, name='Ensign')
+            if payload.emoji.name == 'irenemunch':
+                role = discord.utils.get(guild.roles, name='Camping House')
 
             if role is not None:
                 member = discord.utils.find(lambda m: m.id == payload.user_id, guild.members)
@@ -87,6 +89,8 @@ class Roles(commands.Cog):
                 role = discord.utils.get(guild.roles, name='Lieutenant Commander')
             if payload.emoji.name == 'wendyhide':
                 role = discord.utils.get(guild.roles, name='Ensign')
+            if payload.emoji.name == 'irenemunch':
+                role = discord.utils.get(guild.roles, name='Camping House')
 
             if role is not None:
                 member = discord.utils.find(lambda m: m.id == payload.user_id, guild.members)
