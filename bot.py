@@ -19,10 +19,10 @@ async def on_ready():
     await client.change_presence(activity=discord.Activity(type=2,name="Spotify"))
 
 @client.command()
-async def load(ctx, extension_name : str):
-    client.load_extension(extension_name)
-    await ctx.send(f'loaded "{extension_name}"')
-    print(f'loaded "{extension_name}"')
+async def load(ctx, startup_extensions):
+    client.load_extension(startup_extensions)
+    await ctx.send(f'loaded "{startup_extensions}"')
+    print(f'loaded "{startup_extensions}"')
     return
 
 @client.command()
