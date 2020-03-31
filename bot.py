@@ -11,7 +11,12 @@ client = commands.Bot(command_prefix = '_')
 
 client.remove_command('help')
 
-startup_extensions = ["Administrator","CommandEvents","HelpCommands","MiscCommands","Roles", "Usersinfo"]
+client.load_extension(f'cogs.Administrator')
+client.load_extension(f'cogs.CommandEvents')
+client.load_extension(f'cogs.HelpCommands')
+client.load_extension(f'cogs.Usersinfo')
+client.load_extension(f'cogs.MiscCommands')
+client.load_extension(f'cogs.Roles')
 
 @client.event
 async def on_ready():
@@ -19,14 +24,7 @@ async def on_ready():
     await client.change_presence(activity=discord.Activity(type=2,name="Spotify"))
 
 @client.command()
-async def load(ctx, startup_extensions):
-    client.load_extension(startup_extensions)
-    await ctx.send(f'loaded "{startup_extensions}"')
-    print(f'loaded "{startup_extensions}"')
-    return
-
-@client.command()
-async def mload(ctx, extension):
+async def load(ctx, extension):
     client.load_extension(f'cogs.{extension}') #loads the extension in the "cogs" folder
     await ctx.send(f'loaded "{extension}"')
     print(f'loaded "{extension}"')
