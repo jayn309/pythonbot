@@ -99,7 +99,7 @@ class Administrator(commands.Cog):
             raise e
             
         if ctx.author == message.author and channel == ctx.message.channel:
-            await self.client.edit_message(content)
+            await self.client.message.edit(content)
 
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
