@@ -36,7 +36,7 @@ async def load(ctx, extension):
 async def unload(ctx, extension):
     client.unload_extension(f'cogs.{extension}') #unloads the extension in the "cogs" folder
     await ctx.send(f'unloaded "{extension}"')
-    print(f'unoaded "{extension}"')
+    print(f'unloaded "{extension}"')
     return
 
 client.run(os.environ['DISCORD_TOKEN'])
