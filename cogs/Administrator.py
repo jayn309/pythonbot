@@ -89,7 +89,7 @@ class Administrator(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(manage_messages=True)
-    async def edit(self,ctx,channel,message_id):
+    async def edit(self,ctx,channel,message_id,content):
         try:
             channel_mentions = ctx.message.channel_mentions
             channel = discord.utils.get(channel_mentions, mention=channel)
@@ -102,8 +102,7 @@ class Administrator(commands.Cog):
         def check(m):
             return m.author == message.author and m.channel == ctx.message.channel
 
-        new_text = await self.client.wait_for(check=check)
-        await self.client.edit_message(message, new_text.content)
+        await self.client.edit_message(message, content, check=check)
 
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
