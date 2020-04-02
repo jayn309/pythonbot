@@ -89,11 +89,11 @@ class Administrator(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(manage_messages=True)
-    async def edit(self,ctx,message_id,content):
+    async def edit(self,ctx, *,channel_id,message_id,content:str):
         try:
-            for channel in ctx.guild.channels:
-                message = await channel.fetch_message(message_id)
-                await message.edit(content)
+            channel = await self.client.fetch_channel(channel_id)
+            message = await channel.fetch_message(message_id)
+            await message.edit(content)
         except discord.NotFound as e:
             await ctx.send("Could not find that message")
             raise e
