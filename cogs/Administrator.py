@@ -97,8 +97,12 @@ class Administrator(commands.Cog):
         except discord.NotFound as e:
             await ctx.send("Could not find that message")
             raise e
-        await ctx.send("What would you like to change the message to?")
-        new_text = await self.client.wait_for(author=ctx.message.author, channel=ctx.message.channel)
+        await ctx.send("What would you like to change the message to?")\
+            
+        def check(m):
+            return m.author == message.author and m.channel == ctx.message.channel
+
+        new_text = await self.client.wait_for(check=check)
         await self.client.edit_message(message, new_text.content)
 
     @commands.command()
