@@ -23,6 +23,7 @@ class HelpCommands(commands.Cog):
         embed.add_field(name="_mute _unmute [user]", value="mute/unmute a member",inline=False)
         embed.add_field(name="_purge [number]", value="clear an amount of messages",inline=False)
         embed.add_field(name="_say [channel] [message]", value="make the bot say something in a channel",inline=False)
+        embed.add_field(name="_edit [channel] [message_id]", value="edit a bot's message in a channel",inline=False)
         
         await ctx.send(author.mention, embed=embed)
 
@@ -36,7 +37,7 @@ class HelpCommands(commands.Cog):
         embed.add_field(name="_8ball [question]", value="get random answer",inline=False)
         embed.add_field(name="_coinflip", value="flip a coin",inline=False)
         embed.add_field(name="_f", value="pay your respect",inline=False)
-        embed.add_field(name="_choose [2 choices]", value="choose between 2 choices",inline=False)
+        embed.add_field(name="_choose [choices]", value="choose between choices .Use "" if one of your choices are more than 2 words",inline=False)
         embed.add_field(name="_hug", value="give a hug to a member",inline=False)
         embed.add_field(name="_rate", value="rate something",inline=False)
         embed.add_field(name="_hot", value="how hot someone is",inline=False)
