@@ -89,7 +89,7 @@ class Administrator(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(manage_messages=True)
-    async def edit(self,ctx, *,channel_id,message_id,content:str):
+    async def edit(self,ctx,channel_id,message_id,content:str):
         try:
             channel = await self.client.fetch_channel(channel_id)
             message = await channel.fetch_message(message_id)
