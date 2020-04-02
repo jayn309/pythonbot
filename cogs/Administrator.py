@@ -81,7 +81,7 @@ class Administrator(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(manage_messages=True)
-    async def say(self, ctx, channel, *, msg = ""):
+    async def say(self, ctx, channel, *, msg):
         channel_mentions = ctx.message.channel_mentions
         channel = discord.utils.get(channel_mentions, mention=channel)
         await ctx.message.delete()
@@ -89,7 +89,7 @@ class Administrator(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(manage_messages=True)
-    async def edit(self,ctx,channel,message_id,content = ""):
+    async def edit(self,ctx,channel,message_id, *,content):
         try:
             channel_mentions = ctx.message.channel_mentions
             channel = discord.utils.get(channel_mentions, mention=channel)
