@@ -86,6 +86,15 @@ class Administrator(commands.Cog):
         channel = discord.utils.get(channel_mentions, mention=channel)
         await ctx.message.delete()
         await channel.send(format(msg))
+    async def edit(self,ctx,channel: discord.channel,message_id):
+        try:
+            message = await self.client.get_message(channel, message_id)
+        except discord.NotFound as e:
+            await ctx.send("Could not find that message")
+            raise e
+        await ctx.say("What would you like to change the message to?")
+        new_text = await self.client.wait_for_message(author=ctx.message.author, channel=ctx.message.channel)
+        await self.client.edit_message(message, new_text.content)
 
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
