@@ -24,6 +24,7 @@ async def on_ready():
     await client.change_presence(activity=discord.Activity(type=2,name="Spotify"))
 
 @client.command()
+@commands.has_guild_permissions(administrator=True)
 async def load(ctx, extension):
     client.load_extension(f'cogs.{extension}') #loads the extension in the "cogs" folder
     await ctx.send(f'loaded "{extension}"')
@@ -31,6 +32,7 @@ async def load(ctx, extension):
     return
 
 @client.command()
+@commands.has_guild_permissions(administrator=True)
 async def unload(ctx, extension):
     client.unload_extension(f'cogs.{extension}') #unloads the extension in the "cogs" folder
     await ctx.send(f'unloaded "{extension}"')
