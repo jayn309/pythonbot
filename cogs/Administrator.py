@@ -86,6 +86,9 @@ class Administrator(commands.Cog):
         channel = discord.utils.get(channel_mentions, mention=channel)
         await ctx.message.delete()
         await channel.send(format(msg))
+
+    @commands.command()
+    @commands.has_permissions(manage_messages=True)
     async def edit(self,ctx,channel: discord.channel,message_id):
         try:
             message = await self.client.get_message(channel, message_id)
