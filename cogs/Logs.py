@@ -10,7 +10,7 @@ class Logs(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_delete(self, message):
-        channel = discord.utils.get(self.client.get_channels, name='log')
+        channel = discord.utils.get(self.client.get_all_channels, name='log')
         em = discord.Embed(title=f"Message deleted in :"
                                          f" {str(message.channel.name)}",
                                    colour=discord.Color.purple)
