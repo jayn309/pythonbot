@@ -89,7 +89,7 @@ class Administrator(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(manage_messages=True)
-    async def edit(self,ctx, *,channel,message_id,content):
+    async def edit(self,ctx,channel,message_id, *,content):
         try:
             channel_mentions = ctx.message.channel_mentions
             channel = discord.utils.get(channel_mentions, mention=channel)
