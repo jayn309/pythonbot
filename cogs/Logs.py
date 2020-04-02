@@ -10,7 +10,7 @@ class Logs(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_delete(self, message):
-        log_channel = discord.utils.get(self.client.guild.channels, name='logs')
+        channel = discord.utils.get(self.client.get_channels, name='log')
         em = discord.Embed(title=f"Message deleted in :"
                                          f" {str(message.channel.name)}",
                                    colour=discord.Color.purple)
@@ -18,7 +18,7 @@ class Logs(commands.Cog):
                                   f"*`({str(message.author.id)})`* "
                                   f"deleted :", value=str(message.content))
         em.timestamp = datetime.datetime.utcnow()
-        await log_channel.send(embed=em)
+        await channel.send(embed=em)
 
 def setup(client):
     client.add_cog(Logs(client))
