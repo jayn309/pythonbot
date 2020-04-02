@@ -93,7 +93,7 @@ class Administrator(commands.Cog):
         try:
             channel_mentions = ctx.message.channel_mentions
             channel = discord.utils.get(channel_mentions, mention=channel)
-            message = await self.client.fetch_message(message_id)
+            message = await channel.fetch_message(message_id)
         except discord.NotFound as e:
             await ctx.send("Could not find that message")
             raise e
