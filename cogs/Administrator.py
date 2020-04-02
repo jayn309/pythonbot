@@ -89,9 +89,10 @@ class Administrator(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(manage_messages=True)
-    async def edit(self,ctx,channel_id,message_id,content:str):
+    async def edit(self,ctx,channel,message_id,content:str):
         try:
-            channel = await self.client.fetch_channel(channel_id)
+            channel_mentions = ctx.message.channel_mentions
+            channel = discord.utils.get(channel_mentions, mention=channel)
             message = await channel.fetch_message(message_id)
             await message.edit(content=content)
         except discord.NotFound as e:
