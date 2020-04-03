@@ -37,7 +37,7 @@ class HelpCommands(commands.Cog):
         embed.add_field(name="_8ball [question]", value="get random answer",inline=False)
         embed.add_field(name="_coinflip", value="flip a coin",inline=False)
         embed.add_field(name="_f", value="pay your respect",inline=False)
-        embed.add_field(name="_choose [choices]", value="choose between choices .Use quotation mark if one of your choices are more than 2 words",inline=False)
+        embed.add_field(name="_choose [choices]", value="choose between choices .Use , between your choices.",inline=False)
         embed.add_field(name="_hug", value="give a hug to a member",inline=False)
         embed.add_field(name="_rate", value="rate something",inline=False)
         embed.add_field(name="_hot", value="how hot someone is",inline=False)
