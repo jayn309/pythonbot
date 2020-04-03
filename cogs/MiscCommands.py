@@ -137,18 +137,20 @@ class MicsCommands(commands.Cog):
         def check(m):
             return m.channel == ctx.channel
         guess = 5
-        msg = await self.client.wait_for('message',check=check)
-        attempt = int(msg.content)
-        if attempt > number and guess != 0:
-            await ctx.send('Try going lower')
-            guess -= 1
-            await ctx.send(f"You have {guess} chances left.")
-        elif attempt < number and guess != 0:
-            await ctx.send('Try going higher')
-            guess -=1
-            await ctx.send(f"You have {guess} chances left.")
-        elif attempt == number:
-            await ctx.send('You guessed it! Good job!')
+        while guess != 0:
+            msg = await self.client.wait_for('message',check=check)
+            attempt = int(msg.content)
+            if attempt > number:
+                await ctx.send('Try going lower')
+                guess -= 1
+                await ctx.send(f"You have {guess} chances left.")
+            elif attempt < number:
+                await ctx.send('Try going higher')
+                guess -=1
+                await ctx.send(f"You have {guess} chances left.")
+            elif attempt == number:
+                await ctx.send('You guessed it! Good job!')
+                break
         else:
             guess == 0
             await ctx.send("<:ireneyikes:679733703647559720> What a loser!")
