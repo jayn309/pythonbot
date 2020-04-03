@@ -130,5 +130,31 @@ class MicsCommands(commands.Cog):
         else:
             await ctx.send(f"{slotmachine} No match, you lost 😢")
 
+    @commands.command()
+    async def numgame(self,ctx):
+        number = random.randint(1,10)
+        await ctx.send('Guess a number between 1 and 10. You have 5 chances.')
+        def check(m):
+            return m.channel == ctx.channel
+        guess = 5
+        while guess != 0:
+            msg = await self.client.wait_for('message',check=check)
+            attempt = int(msg.content)
+            if attempt > number:
+                await ctx.send('Try going lower')
+                await asyncio.sleep(1)
+                guess -= 1
+            elif attempt < number:
+                await ctx.send('Try going higher')
+                await asyncio.sleep(1)
+                guess -=1
+            elif attempt == number:
+                await ctx.send('You guessed it! Good job!')
+                break
+        else:
+            guess == 0
+            await ctx.send('What a loser!')
+
+
 def setup(client):
     client.add_cog(MicsCommands(client))
