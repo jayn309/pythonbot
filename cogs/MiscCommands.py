@@ -133,27 +133,21 @@ class MicsCommands(commands.Cog):
     @commands.command()
     async def numgame(self,ctx):
         number = random.randint(1,100)
-        await ctx.send('Guess a number between 1 and 100. You have 5 chances.')
+        await ctx.send('Guess a number between 1 and 100. You have 10 chances.')
         def check(m):
             return m.channel == ctx.channel
-        guess = 5
+        guess = 10
         while guess != 0:
             msg = await self.client.wait_for('message',check=check)
             attempt = int(msg.content)
             if attempt > number:
-                if guess != 0:
-                    await ctx.send('Try going lower')
-                    guess -= 1
-                    await ctx.send(f"You have {guess} chances left.")
-                else:
-                    await ctx.send("<:ireneyikes:679733703647559720> What a loser!")
+                await ctx.send('Try going lower')
+                guess -= 1
+                await ctx.send(f"You have {guess} chances left.")
             elif attempt < number:
-                if guess != 0:
-                    await ctx.send('Try going higher')
-                    guess -=1
-                    await ctx.send(f"You have {guess} chances left.")
-                else:
-                    await ctx.send("<:ireneyikes:679733703647559720> What a loser!")
+                await ctx.send('Try going higher')
+                guess -=1
+                await ctx.send(f"You have {guess} chances left.")
             elif attempt == number:
                 await ctx.send('You guessed it! Good job!')
                 break
