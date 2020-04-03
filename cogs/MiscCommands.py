@@ -63,7 +63,7 @@ class MicsCommands(commands.Cog):
         await ctx.send(f"**{ctx.author.name}** has paid their respect {reason}{random.choice(hearts)}")
 
     @commands.command()
-    async def choose(self,ctx, *choices: str):
+    async def choose(self,ctx, *,choices: str):
         """Chooses between multiple choices."""
         realchoices = str.split(choices,',')
         if len(realchoices) < 2:
