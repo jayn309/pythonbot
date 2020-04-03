@@ -150,10 +150,9 @@ class MicsCommands(commands.Cog):
                 await ctx.send(f"You have {guess} chances left.")
             elif attempt == number:
                 await ctx.send('You guessed it! Good job!')
+            elif guess == 0:
+                await ctx.send("<:ireneyikes:679733703647559720> What a loser!")
                 break
-        else:
-            guess == 0
-            await ctx.send("<:ireneyikes:679733703647559720> What a loser!")
 
 
 def setup(client):
