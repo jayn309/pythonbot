@@ -152,7 +152,6 @@ class MicsCommands(commands.Cog):
                 await ctx.send('You guessed it! Good job!')
                 break
         else:
-            guess == 0
             await ctx.send("<:ireneyikes:679733703647559720> What a loser!")
 
 
