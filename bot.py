@@ -23,6 +23,17 @@ async def on_ready():
     print(f'{client.user} has connected to Discord!')
     await client.change_presence(activity=discord.Activity(type=2,name="Spotify"))
 
+@client.event
+async def on_message():
+    if (message.content[0]==":" and message.content[-1]==":") or (message.content[0]=="," and message.content[-1]==","):
+            if not " " in message.content:
+                requestedemoji=message.content[1:-1]
+                emotes=self.client.emojis
+                for i in range(len(emotes)):
+                    if emotes[i].name==requestedemoji:
+                        await message.channel.send(emotes[i])
+                        return
+
 @client.command()
 @commands.has_guild_permissions(administrator=True)
 async def load(ctx, extension):
