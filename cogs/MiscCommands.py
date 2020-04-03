@@ -133,10 +133,10 @@ class MicsCommands(commands.Cog):
     @commands.command()
     async def numgame(self,ctx):
         number = random.randint(1,100)
-        await ctx.send('Guess a number between 1 and 100. You have 10 chances.')
+        await ctx.send('Guess a number between 1 and 100. You have 5 chances.')
         def check(m):
             return m.channel == ctx.channel
-        guess = 10
+        guess = 5
         while guess != 0:
             msg = await self.client.wait_for('message',check=check)
             attempt = int(msg.content)
