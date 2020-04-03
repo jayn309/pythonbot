@@ -46,6 +46,7 @@ class HelpCommands(commands.Cog):
         embed.add_field(name="_add _subtract _multiply _divide [2 numbers]", value="do basic maths",inline=False)
         embed.add_field(name="_avatar", value="get avatar of a user",inline=False)
         embed.add_field(name="_usersinfo", value="get info of a user",inline=False)
+        embed.add_field(name="_numgame", value="guess a number",inline=False)
 
         await ctx.send(author.mention, embed=embed)
 
