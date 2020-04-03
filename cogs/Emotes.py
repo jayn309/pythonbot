@@ -11,18 +11,18 @@ class Emotes(commands.Cog):
         guild = message.guild
         if len(args) > 0:
             try:
-                server = client.get_server(args[0])
-                if not (isowner(message.author) or server.get_member(message.author.id)):
-                    server = message.server
-                emojis = ' '.join(['<:{0.name}:{0.id}>'.format(emoji) if server==message.server else '<:{0.name}:{0.id}> `<:{0.name}:{0.id}>`\n'.format(emoji) for emoji in server.emojis])
+                guild = client.get_guild(args[0])
+                if not (isowner(message.author) or guild.get_member(message.author.id)):
+                    guild = message.guild
+                emojis = ' '.join(['<:{0.name}:{0.id}>'.format(emoji) if guild == message.guild else '<:{0.name}:{0.id}> `<:{0.name}:{0.id}>`\n'.format(emoji) for emoji in server.emojis])
             except:
                 await self.client.send_message(message.channel,message.author.mention + ' You provided an invalid server ID.')
                 return
 
         if not 'emojis' in locals():
-            emojis = ' '.join(['<:{0.name}:{0.id}>'.format(emoji) if server==message.server else '`<:{0.name}:{0.id}>`'.format(emoji) for emoji in server.emojis])
+            emojis = ' '.join(['<:{0.name}:{0.id}>'.format(emoji) if guild == message.guild else '`<:{0.name}:{0.id}>`'.format(emoji) for emoji in server.emojis])
             
-        await self.client.send_message(message.channel,'Emoji in __{}__\n'.format(server.name) + emojis)
+        await self.client.send_message(message.channel,emojis)
 
 def setup(client):
     client.add_cog(Emotes(client))
