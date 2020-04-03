@@ -24,11 +24,11 @@ async def on_ready():
     await client.change_presence(activity=discord.Activity(type=2,name="Spotify"))
 
 @client.event
-async def on_message():
+async def on_message(message):
     if (message.content[0]==":" and message.content[-1]==":") or (message.content[0]=="," and message.content[-1]==","):
             if not " " in message.content:
                 requestedemoji=message.content[1:-1]
-                emotes=self.client.emojis
+                emotes= client.emojis
                 for i in range(len(emotes)):
                     if emotes[i].name==requestedemoji:
                         await message.channel.send(emotes[i])
