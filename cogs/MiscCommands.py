@@ -140,14 +140,16 @@ class MicsCommands(commands.Cog):
         while guess != 0:
             msg = await self.client.wait_for('message',check=check)
             attempt = int(msg.content)
-            if attempt > number and guess !=0:
-                await ctx.send('Try going lower')
-                guess -= 1
-                await ctx.send(f"You have {guess} left.")
-            elif attempt < number and guess !=0:
-                await ctx.send('Try going higher')
-                guess -=1
-                await ctx.send(f"You have {guess} left.")
+            if attempt > number:
+                if guess != 0:
+                    await ctx.send('Try going lower')
+                    guess -= 1
+                    await ctx.send(f"You have {guess} left.")
+            elif attempt < number:
+                if guess != 0:
+                    await ctx.send('Try going higher')
+                    guess -=1
+                    await ctx.send(f"You have {guess} left.")
             elif attempt == number:
                 await ctx.send('You guessed it! Good job!')
                 break
