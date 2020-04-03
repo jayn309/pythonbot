@@ -65,10 +65,11 @@ class MicsCommands(commands.Cog):
     @commands.command()
     async def choose(self,ctx, *choices: str):
         """Chooses between multiple choices."""
-        if len(choices) < 2:
+        realchoices = str.split(choices,',')
+        if len(realchoices) < 2:
             await ctx.send('Not enough choices to pick from.')
         else:
-            await ctx.send(randchoice(choices))
+            await ctx.send(randchoice(realchoices))
 
     @commands.command(no_pm=True, hidden=True)
     async def hug(self,ctx, user : discord.Member):
@@ -141,10 +142,12 @@ class MicsCommands(commands.Cog):
             msg = await self.client.wait_for('message',check=check)
             attempt = int(msg.content)
             if attempt > number:
+                await asyncio.sleep(1)
                 await ctx.send('Try going lower')
                 guess -= 1
                 await ctx.send(f"You have {guess} chances left.")
             elif attempt < number:
+                await asyncio.sleep(1)
                 await ctx.send('Try going higher')
                 guess -=1
                 await ctx.send(f"You have {guess} chances left.")
