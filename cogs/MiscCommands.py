@@ -142,16 +142,17 @@ class MicsCommands(commands.Cog):
             attempt = int(msg.content)
             if attempt > number:
                 await ctx.send('Try going lower')
-                await ctx.send(f"You have {guess} chances left.")
+                await asyncio.sleep(1)
                 guess -= 1
             elif attempt < number:
                 await ctx.send('Try going higher')
-                await ctx.send(f"You have {guess} chances left.")
+                await asyncio.sleep(1)
                 guess -=1
             elif attempt == number:
                 await ctx.send('You guessed it! Good job!')
                 break
         else:
+            guess == 0
             await ctx.send("<:ireneyikes:679733703647559720> What a loser!")
 
 
