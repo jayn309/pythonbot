@@ -18,6 +18,17 @@ class CommandEvents(commands.Cog):
             else:
                 commands_tally[ctx.command.name] = 1
             print(commands_tally)
+
+    @commands.Cog.listener()
+    async def on_message(self, message):
+     if (message.content[0]==":" and message.content[-1]==":") or (message.content[0]=="," and message.content[-1]==","):
+            if not " " in message.content:
+                requestedemoji=message.content[1:-1]
+                emotes=self.client.emojis
+                for i in range(len(emotes)):
+                    if emotes[i].name==requestedemoji:
+                        await message.channel.send(emotes[i])
+                        return
     
 def setup(client):
     client.add_cog(CommandEvents(client))
