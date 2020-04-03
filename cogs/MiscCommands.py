@@ -137,16 +137,14 @@ class MicsCommands(commands.Cog):
         def check(m):
             return m.channel == ctx.channel
         guess = 5
-        if guess != 0:
+        while guess != 0:
             msg = await self.client.wait_for('message',check=check)
             attempt = int(msg.content)
             if attempt > number:
                 await ctx.send('Try going lower')
-                await asyncio.sleep(1)
                 guess -= 1
             elif attempt < number:
                 await ctx.send('Try going higher')
-                await asyncio.sleep(1)
                 guess -=1
             elif attempt == number:
                 await ctx.send('You guessed it! Good job!')
