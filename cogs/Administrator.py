@@ -100,6 +100,18 @@ class Administrator(commands.Cog):
             raise e
 
     @commands.command()
+    @commands.has_permissions(manage_messages=True)
+    async def pin(self,ctx,channel,message_id):
+        try:
+            channel_mentions = ctx.message.channel_mentions
+            channel = discord.utils.get(channel_mentions, mention=channel)
+            message = await channel.fetch_message(message_id)
+            await message.pin(message)
+        except discord.NotFound as e:
+            await ctx.send("Could not find that message or channel")
+            raise e
+
+    @commands.command()
     @commands.has_guild_permissions(administrator=True)
     async def ping(self, ctx):
         """ Pong! """
