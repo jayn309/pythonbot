@@ -168,9 +168,9 @@ class MicsCommands(commands.Cog):
     async def rps(self,ctx, msg: str):
         t = ["rock","paper","scissors"]
         computer = t[randint(0, 2)]
-        win = ["<a:wendyhype:696114546850529341> , <a:irenelikeit:696142888500985896> , <a:wendyshrug:696150254441201674> , <:wendysip:681749452859506696>"]
-        lose = ["<a:wendyspeechless:684122984801107983> , <:wendypleading:695287540617445446> , <:irenepout:683431934860591128> , <a:irenefreeze:696114438092095489>"]
-        huh = ["<:wendywhat:681337728910098434> , <:seulgisquint:683715248645210152> , <:irenejudge:685426997224144916> , <:irenemunch:685426997337653258> "]
+        win = ["<a:wendyhype:696114546850529341>" , "<a:irenelikeit:696142888500985896>" , "<a:wendyshrug:696150254441201674>" , "<:wendysip:681749452859506696>"]
+        lose = ["<a:wendyspeechless:684122984801107983>" , "<:wendypleading:695287540617445446>" , "<:irenepout:683431934860591128>" , "<a:irenefreeze:696114438092095489>"]
+        huh = ["<:wendywhat:681337728910098434>" , "<:seulgisquint:683715248645210152>" , "<:irenejudge:685426997224144916>" , "<:irenemunch:685426997337653258>"]
         player = msg.lower()
         print(msg)
         if player == computer:
