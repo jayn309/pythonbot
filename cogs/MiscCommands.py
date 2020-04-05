@@ -4,6 +4,7 @@ import asyncio
 
 from discord.ext import commands
 from random import choice as randchoice
+from random import randint
 
 class MicsCommands(commands.Cog):
     def __init__(self, client):
@@ -162,7 +163,32 @@ class MicsCommands(commands.Cog):
         else:
             guess == 0
             await ctx.send("<:ireneyikes:679733703647559720> What a loser!")
-                
+
+    @commands.command()
+    async def rps(self,ctx, msg: str):
+        t = ["rock","paper","scissors"]
+        computer = t[randint(0, 2)]
+        player = msg.lower()
+        print(msg)
+        if player == computer:
+            await ctx.send("Tie!")
+        elif player == "rock":
+            if computer == "paper":
+                await ctx.send("You lose!")
+            else:
+                await ctx.send("You win!")
+        elif player == "paper":
+            if computer == "scissors":
+                await ctx.send("You lose!")
+            else:
+                await ctx.send("You win!")
+        elif player == "scissors":
+            if computer == "rock":
+                await ctx.send("You lose!")
+            else:
+                await ctx.send("You win!")
+        else:
+            await ctx.send("That's not a valid play. Check your spelling!")
 
 
 def setup(client):
