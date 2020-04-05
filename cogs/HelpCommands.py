@@ -47,6 +47,8 @@ class HelpCommands(commands.Cog):
         embed.add_field(name="_avatar", value="get avatar of a user",inline=False)
         embed.add_field(name="_usersinfo", value="get info of a user",inline=False)
         embed.add_field(name="_numgame", value="guess a number",inline=False)
+        embed.add_field(name="_rps [rock, paper, scissors]", value="play rps",inline=False)
+
 
         await ctx.send(author.mention, embed=embed)
 
