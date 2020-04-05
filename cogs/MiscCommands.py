@@ -136,7 +136,12 @@ class MicsCommands(commands.Cog):
         number = random.randint(1,100)
         await ctx.send('Guess a number between 1 and 100. You have 5 chances.')
         def check(m):
-            return m.channel == ctx.channel
+            try:
+                int(m.content) and m.channel == ctx.channel
+                return True
+            except ValueError:
+                return False
+
         guess = 5
         while guess != 0:
             msg = await self.client.wait_for('message',check=check)
@@ -157,10 +162,6 @@ class MicsCommands(commands.Cog):
         else:
             guess == 0
             await ctx.send("<:ireneyikes:679733703647559720> What a loser!")
-    @numgame.error
-    async def numgame_error(self,ctx, error):
-        if isinstance(error, commands.BadArgument):
-            await ctx.send("Invalid input.Plese restart the game.")
                 
 
 
