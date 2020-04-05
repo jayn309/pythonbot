@@ -159,7 +159,7 @@ class MicsCommands(commands.Cog):
             await ctx.send("<:ireneyikes:679733703647559720> What a loser!")
     @numgame.error
     async def numgame_error(self,ctx, error):
-        if isinstance(error, commands.UserInputError):
+        if isinstance(error, discord.InvalidArgument):
             await ctx.send("Invalid input.Plese restart the game.")
                 
 
