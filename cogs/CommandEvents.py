@@ -22,7 +22,12 @@ class CommandEvents(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self,message):
-        if (message.content[0]==":" and message.content[-1]==":") or (message.content[0]=="," and message.content[-1]==",") and not message.guild==None:
+        if message.author.id == 685307035142586380:
+            return
+        #if message is empty
+        if len(message.content)==0:
+            return
+        if (message.content[0]==":" and message.content[-1]==":") or (message.content[0]=="," and message.content[-1]==","):
 
            #regex for finding emote matches
             pattern = re.compile(r"\s*[:,][\w]+[:,]\s*")
