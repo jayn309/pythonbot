@@ -10,7 +10,10 @@ class Emotes(commands.Cog):
 
 
     @commands.command()
-    async def showemoji(self,ctx, emoji: discord.Emoji =None):
+    @commands.has_permissions(manage_messages=True)
+    async def showemoji(self,ctx,channel,emoji: discord.Emoji =None):
+        channel_mentions = ctx.message.channel_mentions
+        channel = discord.utils.get(channel_mentions, mention=channel)
         def split_message(message: str, limit: int = 2000):
             """Splits a message into a list of messages if it exceeds limit.
             Messages are only split at new lines.
@@ -57,11 +60,11 @@ class Emotes(commands.Cog):
             fields = split_message(emojis_str, FIELD_VALUE_LIMIT)
             for i, value in enumerate(fields):
                 if i == 0:
-                    name = f"Animated (Nitro required) or ,emotename, to use in server ({len(animated)})"
+                    name = f"Animated (Nitro required) ({len(animated)})"
                 else:
                     name = "\u200F"
                 embed.add_field(name=name, value=value.replace("\n", ""))
-        await ctx.send(embed=embed)
+        await channel.send(embed=embed)
 
 def setup(client):
     client.add_cog(Emotes(client))
