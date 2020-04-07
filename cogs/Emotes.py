@@ -48,11 +48,11 @@ class Emotes(commands.Cog):
         if normal:
             emojis_str = "\n".join(normal)
             fields = split_message(emojis_str, FIELD_VALUE_LIMIT)
-            await channel.send(normal)
+            await channel.send(emojis_str)
         if animated:
             emojis_str = "\n".join(animated)
             fields = split_message(emojis_str, FIELD_VALUE_LIMIT)
-            await channel.send(animated)
+            await channel.send(emojis_str)
 
 def setup(client):
     client.add_cog(Emotes(client))
