@@ -57,7 +57,7 @@ class Emotes(commands.Cog):
             fields = split_message(emojis_str, FIELD_VALUE_LIMIT)
             for i, value in enumerate(fields):
                 if i == 0:
-                    name = f"Animated (Nitro required) ({len(animated)})"
+                    name = f"Animated (Nitro required) or ,emotename, to use in server ({len(animated)})"
                 else:
                     name = "\u200F"
                 embed.add_field(name=name, value=value.replace("\n", ""))
