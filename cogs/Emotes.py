@@ -50,10 +50,10 @@ class Emotes(commands.Cog):
             if e.animated:
                 animated = e
         if normal:
-            emojis_str = "\n".join(str(normal))
+            emojis_str = "\n".join(map(str, normal))
             await channel.send(normal)
         if animated:
-            emojis_str = "\n".join(str(animated))
+            emojis_str = "\n".join(map(str,animated))
             await channel.send(animated)
 
 def setup(client):
