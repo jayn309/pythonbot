@@ -2,7 +2,6 @@ import discord
 from discord.ext import commands
 from typing import List
 
-FIELD_VALUE_LIMIT = 1024
 
 class Emotes(commands.Cog):
     def __init__(self, client):
@@ -14,30 +13,6 @@ class Emotes(commands.Cog):
     async def showemoji(self,ctx,channel,emoji: discord.Emoji =None):
         channel_mentions = ctx.message.channel_mentions
         channel = discord.utils.get(channel_mentions, mention=channel)
-        def split_message(message: str, limit: int = 2000):
-            """Splits a message into a list of messages if it exceeds limit.
-            Messages are only split at new lines.
-            Discord message limits:
-            Normal message: 2000
-            Embed description: 2048
-            Embed field name: 256
-            Embed field value: 1024"""
-
-            if len(message) <= limit:
-                return [message]
-            else:
-                lines = message.splitlines()
-                new_message = ""
-                message_list = []
-                for line in lines:
-                    if len(new_message+line+"\n") <= limit:
-                        new_message += line+"\n"
-                    else:
-                        message_list.append(new_message)
-                        new_message = ""
-                if new_message:
-                    message_list.append(new_message)
-                return message_list
 
         """Displays all available custom emoji in this server"""
         emojis: List[discord.Emoji] = ctx.guild.emojis
@@ -46,12 +21,10 @@ class Emotes(commands.Cog):
         normal = [str(e) for e in emojis if not e.animated]
         animated = [str(e) for e in emojis if e.animated]
         if normal:
-            emojis_str = " ".join(normal)
-            fields = split_message(emojis_str, FIELD_VALUE_LIMIT)
+            emojis_str = "".join(normal)
             await channel.send(emojis_str)
         if animated:
-            emojis_str = " ".join(animated)
-            fields = split_message(emojis_str, FIELD_VALUE_LIMIT)
+            emojis_str = "".join(animated)
             await channel.send(emojis_str)
 
 def setup(client):
