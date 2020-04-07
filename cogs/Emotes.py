@@ -43,8 +43,12 @@ class Emotes(commands.Cog):
         emojis: List[discord.Emoji] = ctx.guild.emojis
         if not emojis:
             return await ctx.send("This server has no custom emojis.")
-        normal = [str(e) for e in emojis if not e.animated]
-        animated = [str(e) for e in emojis if e.animated]
+        for e in emojis:
+            if not e.animated:
+                normal = e
+        for e in emojis:
+            if e.animated:
+                animated = e
         if normal:
             emojis_str = "\n".join(normal)
             fields = split_message(emojis_str, FIELD_VALUE_LIMIT)
