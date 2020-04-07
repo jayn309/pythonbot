@@ -45,7 +45,6 @@ class Emotes(commands.Cog):
             return await ctx.send("This server has no custom emojis.")
         normal = [str(e) for e in emojis if not e.animated]
         animated = [str(e) for e in emojis if e.animated]
-        embed = discord.Embed(title="Custom Emojis", color=discord.Color.blurple())
         if normal:
             emojis_str = "\n".join(normal)
             fields = split_message(emojis_str, FIELD_VALUE_LIMIT)
@@ -54,7 +53,7 @@ class Emotes(commands.Cog):
                     name = f"Regular ({len(normal)})"
                 else:
                     name = "\u200F"
-                embed.add_field(name=name, value=value.replace("\n", ""))
+                await channel.send(name=name, value=value.replace("\n", ""))
         if animated:
             emojis_str = "\n".join(animated)
             fields = split_message(emojis_str, FIELD_VALUE_LIMIT)
@@ -63,8 +62,7 @@ class Emotes(commands.Cog):
                     name = f"Animated (Nitro required) ({len(animated)})"
                 else:
                     name = "\u200F"
-                embed.add_field(name=name, value=value.replace("\n", ""))
-        await channel.send(embed=embed)
+                await channel.send(name=name, value=value.replace("\n", ""))
 
 def setup(client):
     client.add_cog(Emotes(client))
