@@ -48,21 +48,11 @@ class Emotes(commands.Cog):
         if normal:
             emojis_str = "\n".join(normal)
             fields = split_message(emojis_str, FIELD_VALUE_LIMIT)
-            for i, value in enumerate(fields):
-                if i == 0:
-                    name = f"Regular ({len(normal)})"
-                else:
-                    name = "\u200F"
-                await channel.send(name=name, value=value.replace("\n", ""))
+            await channel.send(normal)
         if animated:
             emojis_str = "\n".join(animated)
             fields = split_message(emojis_str, FIELD_VALUE_LIMIT)
-            for i, value in enumerate(fields):
-                if i == 0:
-                    name = f"Animated (Nitro required) ({len(animated)})"
-                else:
-                    name = "\u200F"
-                await channel.send(name=name, value=value.replace("\n", ""))
+            await channel.send(animated)
 
 def setup(client):
     client.add_cog(Emotes(client))
