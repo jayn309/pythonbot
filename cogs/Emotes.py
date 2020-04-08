@@ -9,8 +9,8 @@ class Emotes(commands.Cog):
 
 
     @commands.command()
-    @commands.has_permissions(manage_messages=True)
-    async def showemoji(self,ctx,channel,emoji: discord.Emoji =None):
+    @commands.has_guild_permissions(administrator=True)
+    async def showemotes(self,ctx,channel,emoji: discord.Emoji =None):
         channel_mentions = ctx.message.channel_mentions
         channel = discord.utils.get(channel_mentions, mention=channel)
 
