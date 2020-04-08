@@ -42,6 +42,16 @@ async def unload(ctx, extension):
 
 gmOptionEnabled = False
 
+@client.command()
+async def morninggreet(ctx, onOrOff):
+    global gmOptionEnabled
+    if str.lower(onOrOff) == "on" and gmOptionEnabled == False:
+        gmOptionEnabled = True
+        await ctx.send("sonofthebae will now greet people when they say good morning")
+    elif str.lower(onOrOff) == "off" and gmOptionEnabled == True:
+        gmOptionEnabled = False
+        await ctx.send("sonofthebae will no longer greet people when they say good morning")
+
 @client.event
 async def on_message(message):
     global gmOptionEnabled
