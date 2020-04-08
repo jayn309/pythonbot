@@ -18,10 +18,10 @@ class Emotes(commands.Cog):
         emojis: List[discord.Emoji] = ctx.guild.emojis
         if not emojis:
             return await ctx.send("This server has no custom emojis.")
-        normal = [str(e) for e in emojis if not e.animated]
+        normal = [e for e in emojis if not e.animated]
         animated = [str(e) for e in emojis if e.animated]
         if normal:
-                emojis_str = "\n".join(["".join(normal[i:i+2]) for i in range(0,len(normal),2)])
+                emojis_str = "\n".join(["".join(normal[i:i+10]) for i in range(0,len(normal),10)])
                 await channel.send(emojis_str)
         if animated:
                 emojis_str = "\n".join(["".join(animated[i:i+10]) for i in range(0,len(animated),10)])
