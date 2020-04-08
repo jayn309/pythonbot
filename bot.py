@@ -40,4 +40,15 @@ async def unload(ctx, extension):
     print(f'unloaded "{extension}"')
     return
 
+gmOptionEnabled = False
+
+@client.event
+async def on_message(ctx, message):
+    global gmOptionEnabled
+    if gmOptionEnabled == True:
+        author = message.author
+        if str.lower(str(message.content)) == 'good morning' or str.lower(str(message.content)) == 'gmorning':
+            await ctx.send('Good morning, ' + str(author))
+    await client.process_commands(message)
+
 client.run(os.environ['DISCORD_TOKEN'])
