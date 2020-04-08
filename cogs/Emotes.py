@@ -68,6 +68,7 @@ class Emotes(commands.Cog):
              for i in range(0,len(animated),10):
                 emojis_str = "".join(animated[i:i+10])
                 await channel.send(emojis_str)
+        await channel.send(f"```For non nitro user, you can do ,emotename, or :emotename: to use available animated emotes in this server.```")
 
 def setup(client):
     client.add_cog(Emotes(client))
