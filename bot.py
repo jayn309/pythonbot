@@ -58,7 +58,7 @@ async def on_message(message):
     if gmOptionEnabled == True:
         author = message.author
         if str.lower(str(message.content)) == 'good morning' or str.lower(str(message.content)) == 'gmorning':
-            await message.channel.send(f'Good morning, {author.mention} <a:wenrenewaveb:687193351589855265><a:wenrenewavea:687193349513674762>' )
+            await message.channel.send(f'Good morning, {author.mention}' )
     await client.process_commands(message)
 
 client.run(os.environ['DISCORD_TOKEN'])
