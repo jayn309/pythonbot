@@ -25,7 +25,8 @@ class Emotes(commands.Cog):
                 emojis_str = "".join(normal[i:i+10]) 
                 await channel.send(emojis_str)
         if animated:
-                emojis_str = "\n".join(["".join(animated[i:i+10]) for i in range(0,len(animated),10)])
+             for i in range(0,len(animated),10):
+                emojis_str = "".join(animated[i:i+10])
                 await channel.send(emojis_str)
 
 def setup(client):
