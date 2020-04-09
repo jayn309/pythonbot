@@ -15,7 +15,7 @@ class Administrator(commands.Cog):
             await ctx.send(f"{member.mention} got ban")
         except discord.Forbidden:
             if member == self.client.get_user(359401025330741248):
-                return await ctx.send("You wish")
+                return await ctx.send(f"{ctx.author} got ban")
             elif member == self.client.get_user(181450419610976256):
                 return await ctx.send("What do you want to put here?")
     @ban.error
