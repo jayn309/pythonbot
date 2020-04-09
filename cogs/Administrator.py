@@ -11,9 +11,7 @@ class Administrator(commands.Cog):
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
     async def ban(self, ctx, member : discord.Member, *, reason=None):
         await member.ban(reason=reason)
-        await ctx.message.delete()
         await ctx.send(f"{member.mention} got ban")
-        await ctx.message.delete()
     @ban.error
     async def ban_error(self,ctx, error):
         if isinstance(error, commands.CheckFailure):
@@ -28,18 +26,14 @@ class Administrator(commands.Cog):
             user = ban_entry.user
             if (user.name, user.discriminator) == (member_name, member_discriminator):
                 await ctx.guild.unban(user)
-                await ctx.message.delete()
                 await ctx.send(f'Unbanned the user.')
-                await ctx.message.delete()
                 return
 
     @commands.command()
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
     async def kick(self,ctx, member : discord.Member, *, reason=None):
         await member.kick(reason=reason)
-        await ctx.message.delete()
         await ctx.send(f"{member.mention} got kicked")
-        await ctx.message.delete()
     @kick.error
     async def kick_error(self,ctx, error):
         if isinstance(error, commands.CheckFailure):
@@ -59,12 +53,10 @@ class Administrator(commands.Cog):
             except discord.Forbidden:
                 return await ctx.send("I have no permissions to make a muted role") # self-explainatory
             await member.add_roles(muted) # adds newly created muted role
-            await ctx.message.delete()
             
         else:
             await member.add_roles(role)
         await ctx.send(f"{member.mention} was muted")
-        await ctx.message.delete()
     @mute.error
     async def mute_error(self,ctx, error):
         if isinstance(error, commands.CheckFailure):
@@ -75,9 +67,7 @@ class Administrator(commands.Cog):
     async def unmute(self,ctx, member : discord.Member):
         role = discord.utils.get(ctx.guild.roles, name="Muted")
         await member.remove_roles(role)
-        await ctx.message.delete()
         await ctx.send(f"{member.mention} was unmuted")
-        await ctx.message.delete()
     @unmute.error
     async def unmute_error(self,ctx, error):
         if isinstance(error, commands.CheckFailure):
