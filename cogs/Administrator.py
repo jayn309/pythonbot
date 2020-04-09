@@ -12,7 +12,7 @@ class Administrator(commands.Cog):
     async def ban(self, ctx, member : discord.Member, *, reason=None):
         await member.ban(reason=reason)
         await ctx.send(f"{member.mention} got ban")
-        await ctx.message.channel.purge(2)
+        await ctx.channel.purge(2)
     @ban.error
     async def ban_error(self,ctx, error):
         if isinstance(error, commands.CheckFailure):
@@ -28,7 +28,7 @@ class Administrator(commands.Cog):
             if (user.name, user.discriminator) == (member_name, member_discriminator):
                 await ctx.guild.unban(user)
                 await ctx.send(f'Unbanned the user.')
-                await ctx.message.channel.purge(2)
+                await ctx.channel.purge(2)
                 return
 
     @commands.command()
@@ -36,7 +36,7 @@ class Administrator(commands.Cog):
     async def kick(self,ctx, member : discord.Member, *, reason=None):
         await member.kick(reason=reason)
         await ctx.send(f"{member.mention} got kicked")
-        await ctx.message.channel.purge(2)
+        await ctx.channel.purge(2)
     @kick.error
     async def kick_error(self,ctx, error):
         if isinstance(error, commands.CheckFailure):
@@ -60,7 +60,7 @@ class Administrator(commands.Cog):
         else:
             await member.add_roles(role)
         await ctx.send(f"{member.mention} was muted")
-        await ctx.message.channel.purge(2)
+        await ctx.channel.purge(2)
     @mute.error
     async def mute_error(self,ctx, error):
         if isinstance(error, commands.CheckFailure):
@@ -72,7 +72,7 @@ class Administrator(commands.Cog):
         role = discord.utils.get(ctx.guild.roles, name="Muted")
         await member.remove_roles(role)
         await ctx.send(f"{member.mention} was unmuted")
-        await ctx.message.channel.purge(2)
+        await ctx.channel.purge(2)
     @unmute.error
     async def unmute_error(self,ctx, error):
         if isinstance(error, commands.CheckFailure):
