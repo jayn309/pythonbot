@@ -43,7 +43,7 @@ async def unload(ctx, extension):
 @client.event
 async def on_message(message):
     author = message.author
-    if str.lower(str(message.content)) == "good morning" or str.lower(str(message.content)) == "gmorning":
+    if "good morning" == message.content.lower or "gmorning" == message.content.lower:
         await message.channel.send(f'Good morning, {author.mention}' )
 
 client.run(os.environ['DISCORD_TOKEN'])
