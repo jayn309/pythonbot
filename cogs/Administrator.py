@@ -10,8 +10,11 @@ class Administrator(commands.Cog):
     @commands.command()
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
     async def ban(self, ctx, member : discord.Member, *, reason=None):
-        await member.ban(reason=reason)
-        await ctx.send(f"{member.mention} got ban")
+        try:
+            await member.ban(reason=reason)
+            await ctx.send(f"{member.mention} got ban")
+        except discord.Forbidden:
+            return await ctx.send("You wish")
     @ban.error
     async def ban_error(self,ctx, error):
         if isinstance(error, commands.CheckFailure):
