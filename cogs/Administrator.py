@@ -48,23 +48,21 @@ class Administrator(commands.Cog):
     @commands.command()
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
     async def mute(self,ctx, member : discord.Member,*, reason=None):
-        try:
-            role = discord.utils.get(ctx.guild.roles, name="Muted")
-            if not role: # checks if there is muted role
-                try: # creates muted role 
-                    muted = await ctx.guild.create_role(name="Muted", reason="To use for muting")
-                    for channel in ctx.guild.channels: # removes permission to view and send in the channels 
-                        await channel.set_permissions(muted, send_messages=False,
-                                                read_message_history=True,
-                                                read_messages=True)
-                except discord.Forbidden:
-                    return await ctx.send("I have no permissions to make a muted role") # self-explainatory
-                await member.add_roles(muted) # adds newly created muted role
-            else:
-                await member.add_roles(role)
-            await ctx.send(f"{member.mention} was muted")
-        except discord.Forbidden:
-            return await ctx.send("You wish")
+        role = discord.utils.get(ctx.guild.roles, name="Muted")
+        if not role: # checks if there is muted role
+            try: # creates muted role 
+                muted = await ctx.guild.create_role(name="Muted", reason="To use for muting")
+                for channel in ctx.guild.channels: # removes permission to view and send in the channels 
+                    await channel.set_permissions(muted, send_messages=False,
+                                              read_message_history=True,
+                                              read_messages=True)
+            except discord.Forbidden:
+                return await ctx.send("I have no permissions to make a muted role") # self-explainatory
+            await member.add_roles(muted) # adds newly created muted role
+            
+        else:
+            await member.add_roles(role)
+        await ctx.send(f"{member.mention} was muted")
     @mute.error
     async def mute_error(self,ctx, error):
         if isinstance(error, commands.CheckFailure):
