@@ -30,6 +30,19 @@ class Log(commands.Cog):
             embed.timestamp = datetime.datetime.utcnow()
             await channel.send(embed=embed)
 
+    @commands.Cog.listener()
+    async def on_message_edit(self, before, after):
+        channel = self.client.get_channel(684130494023073865)
+        if channel:
+            embed = discord.Embed(
+                timestamp=after.created_at,
+                description = f"<@!{before.author.id}>**'s message was edited in** <#{before.channel.id}>.",
+                colour = discord.Colour.blurple) 
+            embed.set_author(name=f'{before.author.name}#{before.author.discriminator}', icon_url=before.author.avatar_url)
+            embed.set_footer(text=f"Author ID:{before.author.id} • Message ID: {before.id}")
+            embed.add_field(name='Before:', value=before.content, inline=False)
+            embed.add_field(name="After:", value=after.content, inline=False)
+            await channel.send(embed=embed)
 
 def setup(client):
     client.add_cog(Log(client))
