@@ -14,11 +14,11 @@ class Administrator(commands.Cog):
             await member.ban(reason=reason)
             await ctx.send(f"{member.mention} got ban")
         except discord.Forbidden:
-            return await ctx.send(f"{ctx.author} got ban")
+            return await ctx.send(f"{ctx.author.mention} got ban")
     @ban.error
     async def ban_error(self,ctx, error):
         if isinstance(error, commands.CheckFailure):
-            await ctx.send(f"{ctx.author} got ban")
+            await ctx.send(f"{ctx.author.mention} got ban")
 
     @commands.command()
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
@@ -39,11 +39,11 @@ class Administrator(commands.Cog):
             await member.kick(reason=reason)
             await ctx.send(f"{member.mention} got kicked")
         except discord.Forbidden:
-            return await ctx.send(f"{ctx.author} got ban")
+            return await ctx.send(f"{ctx.author.mention} got kicked")
     @kick.error
     async def kick_error(self,ctx, error):
         if isinstance(error, commands.CheckFailure):
-            await ctx.send(f"{ctx.author} got kicked")
+            await ctx.send(f"{ctx.author.mention} got kicked")
 
     @commands.command()
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
@@ -66,7 +66,7 @@ class Administrator(commands.Cog):
     @mute.error
     async def mute_error(self,ctx, error):
         if isinstance(error, commands.CheckFailure):
-            await ctx.send(f"{ctx.author} was muted")
+            await ctx.send(f"{ctx.author.mention} was muted")
 
     @commands.command()
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
@@ -77,7 +77,7 @@ class Administrator(commands.Cog):
     @unmute.error
     async def unmute_error(self,ctx, error):
         if isinstance(error, commands.CheckFailure):
-            await ctx.send("You are not allowed to unmute people")
+            await ctx.send(f"{ctx.author.mention} was unmuted")
 
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
