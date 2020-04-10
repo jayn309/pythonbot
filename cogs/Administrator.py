@@ -24,7 +24,7 @@ class Administrator(commands.Cog):
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
     async def unban(self,ctx, *, member):
         banned_users = await ctx.guild.bans()
-        member_name, member_discriminator = member.slpit('#')
+        member_name, member_discriminator = member.split('#')
         for ban_entry in banned_users:
             user = ban_entry.user
             if (user.name, user.discriminator) == (member_name, member_discriminator):
