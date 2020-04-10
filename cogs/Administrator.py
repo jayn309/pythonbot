@@ -18,7 +18,7 @@ class Administrator(commands.Cog):
     @ban.error
     async def ban_error(self,ctx, error):
         if isinstance(error, commands.CheckFailure):
-            await ctx.send("You are not allowed to ban people")
+            await ctx.send(f"{ctx.author} got ban")
 
     @commands.command()
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
@@ -43,7 +43,7 @@ class Administrator(commands.Cog):
     @kick.error
     async def kick_error(self,ctx, error):
         if isinstance(error, commands.CheckFailure):
-            await ctx.send("You are not allowed to kick people")
+            await ctx.send(f"{ctx.author} got kicked")
 
     @commands.command()
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
@@ -66,7 +66,7 @@ class Administrator(commands.Cog):
     @mute.error
     async def mute_error(self,ctx, error):
         if isinstance(error, commands.CheckFailure):
-            await ctx.send("You are not allowed to mute people")
+            await ctx.send(f"{ctx.author} was muted")
 
     @commands.command()
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
