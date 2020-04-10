@@ -14,12 +14,13 @@ class CommandEvents(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command(self, ctx):
+        channel = discord.utils.get(ctx.guild.channels, name="bot-errors")
         if ctx.command is not None:
             if ctx.command.name in commands_tally:
                 commands_tally[ctx.command.name] += 1
             else:
                 commands_tally[ctx.command.name] = 1
-            print(commands_tally)
+            await channel.send(commands_tally)
 
 def setup(client):
     client.add_cog(CommandEvents(client))
