@@ -9,7 +9,7 @@ class Log(commands.Cog):
         self.client = client
     
     @commands.Cog.listener()
-    async def on_member_remove(self, member):
+    async def on_member_join(self, member):
         channel = discord.utils.get(member.guild.text_channels, name="log")
         if channel:
             embed = discord.Embed(description=f'{len(member.guild.members)}th member joined', color=member.color)
@@ -20,7 +20,7 @@ class Log(commands.Cog):
             await channel.send(embed=embed)
 
     @commands.Cog.listener()
-    async def on_member_join(self, member):
+    async def on_member_remove(self, member):
         channel = discord.utils.get(member.guild.text_channels, name="log")
         if channel:
             embed = discord.Embed(description='Goodbye', color=member.color)
