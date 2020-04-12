@@ -109,20 +109,10 @@ class Administrator(commands.Cog):
 
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
-    async def role(self,ctx, role: discord.Role, user: discord.Member):
-        if role is None and user is None:
-            return await ctx.send("You haven't specified a role or a user! ")
+    async def removerole(self,ctx,user: discord.Member,*role: discord.Role):
+        await user.remove_roles(*role)
+        await ctx.send(f"Remove role from {user.name}")
 
-        if role not in ctx.message.guild.roles or user not in ctx.message.guild.members:
-            return await ctx.send("That role or user doesn't exist.")
-
-        if  user != None and role not in user.roles:
-            await user.add_roles(user, role)
-            return await ctx.send(f"{role} role has been added to {user}.")
-
-        if  user != None and role in user.roles:
-            await user.remove_roles(user, role)
-            return await ctx.send(f"{role} role has been removed from {user}.")
 
 def setup(client):
     client.add_cog(Administrator(client))
