@@ -109,13 +109,9 @@ class Administrator(commands.Cog):
 
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
-    async def ping(self, ctx):
-        """ Pong! """
-        before = time.monotonic()
-        before_ws = int(round(self.client.latency * 1000, 1))
-        message = await ctx.send("🏓 Pong")
-        ping = (time.monotonic() - before) * 1000
-        await message.edit(content=f"🏓 WS: {before_ws}ms  |  REST: {int(ping)}ms")
+    async def addrole(self, member: discord.Member, * role: discord.Role):
+        await member.add_roles(role)
+        
 
 def setup(client):
     client.add_cog(Administrator(client))
