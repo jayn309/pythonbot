@@ -111,7 +111,13 @@ class Administrator(commands.Cog):
     @commands.has_guild_permissions(administrator=True)
     async def removerole(self,ctx,user: discord.Member,*role: discord.Role):
         await user.remove_roles(*role)
-        await ctx.send(f"Remove role from {user.name}")
+        await ctx.send(f"Remove role from {user.mention}")
+
+    @commands.command()
+    @commands.has_guild_permissions(administrator=True)
+    async def addrole(self,ctx,user: discord.Member,*role: discord.Role):
+        await user.add_roles(*role)
+        await ctx.send(f"Add role to {user.mention}")
 
 
 def setup(client):
