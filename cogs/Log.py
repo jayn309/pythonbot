@@ -38,7 +38,7 @@ class Log(commands.Cog):
         if before.author == self.client.user:
             return
         if channel:
-            embed = discord.Embed(description = f'{before.author.nickname} edited a message in {before.channel.id}',colour = discord.Colour.blurple) 
+            embed = discord.Embed(description = f'{before.author.name} edited a message in {before.channel.id}',colour = discord.Colour.blurple) 
             embed.set_author(name=f"{before.author.name}#{before.author.discriminator}", icon_url=before.author.avatar_url)
             embed.set_footer(text=f"Author ID:{before.author.id} • Message ID: {before.id}")
             embed.add_field(name="Before:", value=before.content, inline=False)
