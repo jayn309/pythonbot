@@ -9,7 +9,7 @@ class CommandEvents(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
-        channel = discord.utils.get(ctx.guild.channels, name="bot-errors")
+        channel = discord.utils.get(ctx.guild.channels, name="testing")
         await channel.send(error)
 
     @commands.Cog.listener()
