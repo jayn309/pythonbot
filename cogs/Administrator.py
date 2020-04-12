@@ -109,7 +109,7 @@ class Administrator(commands.Cog):
 
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
-    async def role(self,ctx, role: discord.Role=None, user: discord.Member=None):
+    async def role(self,ctx, role: discord.Role, user: discord.Member):
         if role is None and user is None:
             return await ctx.send("You haven't specified a role or a user! ")
 
