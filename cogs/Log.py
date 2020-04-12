@@ -36,7 +36,7 @@ class Log(commands.Cog):
         server = ctx.guild
         entry = await server.audit_logs(limit=1, user=user).flatten()
         channel = discord.utils.get(ctx.guild.text_channels, name="log")
-        await channel.send(entry.user)
+        await channel.send(entry)
 
 def setup(client):
     client.add_cog(Log(client))
