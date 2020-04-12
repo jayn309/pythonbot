@@ -109,7 +109,7 @@ class Administrator(commands.Cog):
 
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
-    async def addrole(self, member: discord.Member, * role: discord.Role):
+    async def addrole(self,*,role: discord.Role,member: discord.Member):
         await member.add_roles(role)
         
 
