@@ -29,6 +29,14 @@ class Log(commands.Cog):
             embed.set_footer(text=member.guild, icon_url=member.guild.icon_url)
             embed.timestamp = datetime.datetime.utcnow()
             await channel.send(embed=embed)
+    
+    @commands.Cog.listener()
+    async def on_message_delete(self,ctx):
+        user = ctx.author
+        server = ctx.guild
+        entry = await server.audit_logs(limit=1, user=user).flatten()
+        channel = discord.utils.get(ctx.guild.text_channels, name="log")
+        await channel.send(entry.user)
 
 def setup(client):
     client.add_cog(Log(client))
