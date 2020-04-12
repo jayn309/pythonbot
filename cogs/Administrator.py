@@ -116,14 +116,6 @@ class Administrator(commands.Cog):
         if role not in ctx.message.guild.roles or user not in ctx.message.guild.members:
             return await ctx.send("That role or user doesn't exist.")
 
-        if role not in ctx.message.author.roles and user == None:
-            await user.add_roles(ctx.message.author, role)
-            return await ctx.send(f'{role} role has been added to {user}.')
-
-        if role in ctx.message.author.roles and user == None:
-            await user.remove_roles(ctx.message.author, role)
-            return await ctx.send(f'{role} role has been removed from {user}.')
-
         if  user != None and role not in user.roles:
             await user.add_roles(user, role)
             return await ctx.send(f"{role} role has been added to {user}.")
