@@ -64,7 +64,7 @@ class Log(commands.Cog):
         def emoji_repr(_emoji: discord.Emoji):
             fix = ":" if _emoji.require_colons else ""
             return f"{fix}{_emoji.name}{fix}"
-        embed = discord.Embed(colour=discord.Colour.blurple)
+        embed = discord.Embed(colour=discord.Colour.blurple())
         emoji: discord.Emoji = None
         # Emoji deleted
         if len(before) > len(after):
@@ -136,7 +136,7 @@ class Log(commands.Cog):
             return user.avatar_url if user.avatar_url is not None else user.default_avatar_url
 
         """Called every time a guild is updated"""
-        embed = discord.Embed(colour=discord.Colour.blurple)
+        embed = discord.Embed(colour=discord.Colour.blurple())
         embed.set_author(name=after.name, icon_url=after.icon_url)
 
         changes = True
