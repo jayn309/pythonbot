@@ -12,7 +12,7 @@ class Log(commands.Cog):
             
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        embed = discord.Embed(description=f'{len(member.guild.members)}th member joined', color=member.color)
+        embed = discord.Embed(description=f'{len(member.guild.members)}th member joined', colour=member.color)
         embed.set_thumbnail(url=member.avatar_url)
         embed.set_author(name=member.name, icon_url=member.avatar_url)
         embed.set_footer(text=member.guild, icon_url=member.guild.icon_url)
@@ -21,7 +21,7 @@ class Log(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
-        embed = discord.Embed(description='Goodbye', color=member.color)
+        embed = discord.Embed(description='Goodbye', colour=member.color)
         embed.set_thumbnail(url=member.avatar_url)
         embed.set_author(name=member.name, icon_url=member.avatar_url)
         embed.set_footer(text=member.guild, icon_url=member.guild.icon_url)
@@ -203,7 +203,7 @@ class Log(commands.Cog):
     @commands.Cog.listener()
     async def on_member_unban(self, guild: discord.Guild, member: discord.Member):
         """Called when a member is unbanned from a guild"""
-        embed = discord.Embed(description="Unbanned", color=member.color)
+        embed = discord.Embed(description="Unbanned", colour=member.color)
         embed.set_author(name="{0.name}#{0.discriminator} (ID {0.id})".format(member), icon_url=member.avatar_url(member))
 
         entry = await self.get_audit_entry(guild, discord.AuditLogAction.unban, member)
