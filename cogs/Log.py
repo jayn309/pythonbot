@@ -8,7 +8,8 @@ from typing import Any, List, Union, Optional
 class Log(commands.Cog):
     def __init__(self, client):
         self.client = client
-    
+        
+    @commands.Cog.listener()
     async def send_log_message(self,ctx, guild: discord.Guild, content=None, *, embed: discord.Embed = None):
         channel = discord.utils.get(guild.text_channels, name="log")
         try:
