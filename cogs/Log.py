@@ -1,5 +1,7 @@
 import discord
 import datetime
+
+from pythonbot import bot
 from random import choice
 from discord.ext import commands
 from discord.utils import get
@@ -9,22 +11,6 @@ class Log(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @staticmethod
-    async def send_log_message(self,ctx, guild: discord.Guild, content=None, *, embed: discord.Embed = None):
-        channel = discord.utils.get(guild.text_channels, name="log")
-        try:
-            await channel.send(content=content, embed=embed)
-            return True
-        except discord.HTTPException as e:
-            print(e)
-        if not channel:
-            try:
-                overwrites = {guild.default_role: discord.PermissionOverwrite(read_messages=False),
-                            guild.me: discord.PermissionOverwrite(read_messages=True)}
-                channel = await guild.create_text_channel('log', overwrites=overwrites)
-            except discord.Forbidden:
-                return await ctx.send("I have no permissions to create a channel")
-            
     @commands.Cog.listener()
     async def on_member_join(self, member):
         embed = discord.Embed(description=f'{len(member.guild.members)}th member joined', color=member.color)
