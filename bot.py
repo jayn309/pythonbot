@@ -46,20 +46,6 @@ async def on_message(message):
     if message.content.lower() == 'good morning' or message.content.lower() == 'gmorning' or message.content.lower() == 'gd morning':
         await message.channel.send(f'Good morning, {author.mention}' )
     await client.process_commands(message)
+    
 client.run(os.environ['DISCORD_TOKEN'])
 
-async def send_log_message(self,ctx, guild: discord.Guild, content=None, *, embed: discord.Embed = None):
-        channel = discord.utils.get(guild.text_channels, name="log")
-        try:
-            await channel.send(content=content, embed=embed)
-            return True
-        except discord.HTTPException as e:
-            print(e)
-        if not channel:
-            try:
-                overwrites = {guild.default_role: discord.PermissionOverwrite(read_messages=False),
-                            guild.me: discord.PermissionOverwrite(read_messages=True)}
-                channel = await guild.create_text_channel('log', overwrites=overwrites)
-            except discord.Forbidden:
-                return await ctx.send("I have no permissions to create a channel")
-            
