@@ -12,7 +12,7 @@ class Log(commands.Cog):
             
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        channel = discord.utils.get(member.guild.text_channel, name='log')
+        channel = discord.utils.get(member.guild.text_channels, name='log')
         if channel:
             embed = discord.Embed(description=f'{len(member.guild.members)}th member joined', colour=member.color)
             embed.set_thumbnail(url=member.avatar_url)
@@ -23,7 +23,7 @@ class Log(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
-        channel = discord.utils.get(member.guild.text_channel, name='log')
+        channel = discord.utils.get(member.guild.text_channels, name='log')
         if channel:
             embed = discord.Embed(description='Goodbye', colour=member.color)
             embed.set_thumbnail(url=member.avatar_url)

@@ -1,5 +1,7 @@
 import discord
 import time
+import datetime
+
 from discord.ext import commands
 
 
@@ -13,7 +15,7 @@ class Administrator(commands.Cog):
         try:
             await member.ban(reason=reason)
             await ctx.send(f"{member.mention} got ban")
-            channel = discord.utils.get(member.guild.text_channel, name='log')
+            channel = discord.utils.get(member.guild.text_channels, name='log')
             if channel:
                 embed = discord.Embed(description=f'{member.guild.members} got ban by {ctx.author}', colour=member.color)
                 embed.set_thumbnail(url=member.avatar_url)
