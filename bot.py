@@ -58,7 +58,9 @@ async def on_raw_reaction_add(payload):
         guild = discord.utils.find(lambda g : g.id == guild_id, client.guilds)
         channel = discord.utils.find(lambda c : c.id == channel_id, guild.channels)
         message = await channel.fetch_message(message_id)
-        await message.pin()
+        reaction = get(message.reactions, emoji=payload.emoji.name)
+        if reaction and reaction.count > 2:
+            await message.pin()
     
 client.run(os.environ['DISCORD_TOKEN'])
 
