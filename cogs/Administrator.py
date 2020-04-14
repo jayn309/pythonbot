@@ -18,9 +18,6 @@ class Administrator(commands.Cog):
             channel = discord.utils.get(member.guild.text_channels, name='log')
             if channel:
                 embed = discord.Embed(description=f'{ctx.author} banned {member.guild.members}', colour=member.color)
-                embed.set_thumbnail(url=member.avatar_url)
-                embed.set_author(name=member.name, icon_url=member.avatar_url)
-                embed.set_footer(text=member.guild, icon_url=member.guild.icon_url)
                 embed.timestamp = datetime.datetime.utcnow()
                 await channel.send(embed=embed)
         except discord.Forbidden:
