@@ -48,6 +48,17 @@ async def on_message(message):
         await message.channel.send(f'Good morning, {author.mention}' )
     await client.process_commands(message)
     
+@client.event
+async def on_raw_reaction_add(payload):
+    if payload.emoji.name == "\U0001F4CC":
+        message_id = payload.message_id
+        channel_id = payload.channel_id
+        guild_id = payload.guild_id
+            
+        guild = discord.utils.find(lambda g : g.id == guild_id, client.guilds)
+        channel = discord.utils.find(lambda c : c.id == channel_id, guild.channels)
+        message = await channel.fetch_message(message_id)
+        await message.pin(message)
     
 client.run(os.environ['DISCORD_TOKEN'])
 
