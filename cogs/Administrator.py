@@ -15,11 +15,6 @@ class Administrator(commands.Cog):
         try:
             await member.ban(reason=reason)
             await ctx.send(f"{member.mention} got ban")
-            channel = discord.utils.get(member.guild.text_channels, name='log')
-            if channel:
-                embed = discord.Embed(description=f'{ctx.author} banned {member.guild.members}', colour=member.color)
-                embed.timestamp = datetime.datetime.utcnow()
-                await channel.send(embed=embed)
         except discord.Forbidden:
             return await ctx.send(f"{ctx.author.mention} got ban")
         
