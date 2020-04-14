@@ -21,5 +21,17 @@ class CommandEvents(commands.Cog):
                 commands_tally[ctx.command.name] = 1
             print(commands_tally)
 
+    @commands.Cog.listener()
+    async def on_raw_reaction_add(self,payload):
+        if payload.emoji.name == "\U0001F4CC":
+            message_id = payload.message_id
+            channel_id = payload.channel_id
+            guild_id = payload.guild_id
+            
+            guild = discord.utils.find(lambda g : g.id == guild_id, self.client.guilds)
+            channel = discord.utils.find(lambda c : c.id == channel_id, guild.channels)
+            message = await channel.fetch_message(message_id)
+            await message.pin(message)
+
 def setup(client):
     client.add_cog(CommandEvents(client))
