@@ -49,7 +49,7 @@ class Roles(commands.Cog):
                     if log_channel:
                         addrole_embed = discord.Embed(title='Role Add',colour=member.color)
                         addrole_embed.add_field(name="Member", value=member.name,inline=False)
-                        addrole_embed.add_field(name="Role", value=member.role,inline=False)
+                        addrole_embed.add_field(name="Role", value=guild.role,inline=False)
                         addrole_embed.set_thumbnail(url=member.avatar_url)
                         addrole_embed.timestamp = datetime.datetime.utcnow()
                         await log_channel.send(embed=addrole_embed)
