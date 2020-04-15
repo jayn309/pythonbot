@@ -17,11 +17,13 @@ class Administrator(commands.Cog):
             await member.ban(reason=reason)
             await ctx.send(f"{member.mention} got ban")
             if channel:
-                kick_embed = discord.Embed(title='Moderation Kicked',colour=member.color)
-                kick_embed.add_field(name="Punished by", value=ctx.author,inline=True)
-                kick_embed.add_field(name="Punished User", value={member.name},inline=True)
-                kick_embed.timestamp = datetime.datetime.utcnow()
-                await channel.send(embed=kick_embed)
+                ban_embed = discord.Embed(title='Moderation Ban',colour=member.color)
+                ban_embed.add_field(name="Punished by", value=ctx.author,inline=False)
+                ban_embed.add_field(name="Punished User", value=member.name,inline=False)
+                ban_embed.set_thumbnail(url=member.avatar_url)
+                ban_embed.set_author(name=member.name, icon_url=member.avatar_url)
+                ban_embed.timestamp = datetime.datetime.utcnow()
+                await channel.send(embed=ban_embed)
         except discord.Forbidden:
             return await ctx.send(f"{ctx.author.mention} got ban")
         
@@ -35,11 +37,20 @@ class Administrator(commands.Cog):
     async def unban(self,ctx, *, member):
         banned_users = await ctx.guild.bans()
         member_name, member_discriminator = member.split('#')
+        channel = discord.utils.get(member.guild.text_channels, name='log')
         for ban_entry in banned_users:
             user = ban_entry.user
             if (user.name, user.discriminator) == (member_name, member_discriminator):
                 await ctx.guild.unban(user)
                 await ctx.send(f'Unbanned the user.')
+                if channel:
+                    unban_embed = discord.Embed(title='Moderation Unban',colour=member.color)
+                    unban_embed.add_field(name="Unban by", value=ctx.author,inline=False)
+                    unban_embed.add_field(name="User", value=member.name,inline=False)
+                    unban_embed.set_thumbnail(url=member.avatar_url)
+                    unban_embed.set_author(name=member.name, icon_url=member.avatar_url)
+                    unban_embed.timestamp = datetime.datetime.utcnow()
+                    await channel.send(embed=unban_embed)
                 return
 
     @commands.command()
