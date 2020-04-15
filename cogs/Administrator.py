@@ -37,7 +37,6 @@ class Administrator(commands.Cog):
     async def unban(self,ctx, *, member):
         banned_users = await ctx.guild.bans()
         member_name, member_discriminator = member.split('#')
-        channel = discord.utils.get(member.guild.text_channels, name='log')
         for ban_entry in banned_users:
             user = ban_entry.user
             if (user.name, user.discriminator) == (member_name, member_discriminator):
