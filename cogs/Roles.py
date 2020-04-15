@@ -40,7 +40,7 @@ class Roles(commands.Cog):
             if role is not None:
                 member = discord.utils.find(lambda m: m.id == payload.user_id, guild.members)
                 channel = discord.utils.find(lambda c : c.id == channel_id, guild.channels)
-                log_channel = discord.utils.get(member.guild.text_channels, name='log')
+                log_channel = discord.utils.get(member.guild.text_channels, name='role-log')
                 if member is not None:
                     await member.add_roles(role)
                     await channel.send(f'Role was added.')
@@ -67,13 +67,21 @@ class Roles(commands.Cog):
             if role is not None:
                 member = discord.utils.find(lambda m: m.id == payload.user_id, guild.members)
                 channel = discord.utils.find(lambda c : c.id == channel_id, guild.channels)
+                log_channel = discord.utils.get(member.guild.text_channels, name='role-log')
                 if member is not None:
                     await member.add_roles(role)
                     await channel.send(f'Have fun.')
                     await asyncio.sleep(2)
                     await channel.purge(limit=1)
                     await member.remove_roles(role1)
-                    print("Unvelvified role was removed.")
+                    if log_channel:
+                        addrole_embed = discord.Embed(title='Role Add',colour=member.color)
+                        addrole_embed.add_field(name="Member", value=member.name,inline=False)
+                        addrole_embed.add_field(name="Role", value=role,inline=False)
+                        addrole_embed.set_thumbnail(url=member.avatar_url)
+                        addrole_embed.timestamp = datetime.datetime.utcnow()
+                        await log_channel.send(embed=addrole_embed)
+                    
                 else:
                     print("Member not found.")
             else:
@@ -103,11 +111,19 @@ class Roles(commands.Cog):
 
             if role is not None:
                 member = discord.utils.find(lambda m: m.id == payload.user_id, guild.members)
+                log_channel = discord.utils.get(member.guild.text_channels, name='role-log')
                 if member is not None:
                     await member.remove_roles(role)
                     await channel.send(f'Role was removed.')
                     await asyncio.sleep(2)
                     await channel.purge(limit=1)
+                    if log_channel:
+                        removerole_embed = discord.Embed(title='Role Remove',colour=member.color)
+                        removerole_embed.add_field(name="Member", value=member.name,inline=False)
+                        removerole_embed.add_field(name="Role", value=role,inline=False)
+                        removerole_embed.set_thumbnail(url=member.avatar_url)
+                        removerole_embed.timestamp = datetime.datetime.utcnow()
+                        await log_channel.send(embed=removerole_embed)
                 else:
                     print("Member not found.")
             else:
@@ -123,9 +139,16 @@ class Roles(commands.Cog):
             
             if role is not None:
                 member = discord.utils.find(lambda m: m.id == payload.user_id, guild.members)
+                log_channel = discord.utils.get(member.guild.text_channels, name='role-log')
                 if member is not None:
                     await member.remove_roles(role)
-                    print("done")
+                    if log_channel:
+                        removerole_embed = discord.Embed(title='Role Remove',colour=member.color)
+                        removerole_embed.add_field(name="Member", value=member.name,inline=False)
+                        removerole_embed.add_field(name="Role", value=role,inline=False)
+                        removerole_embed.set_thumbnail(url=member.avatar_url)
+                        removerole_embed.timestamp = datetime.datetime.utcnow()
+                        await log_channel.send(embed=removerole_embed)
                 else:
                     print("Member not found.")
             else:
