@@ -1,5 +1,6 @@
 import discord
 import asyncio
+import datetime
 from discord.ext import commands
 from discord.utils import get
 
@@ -39,11 +40,19 @@ class Roles(commands.Cog):
             if role is not None:
                 member = discord.utils.find(lambda m: m.id == payload.user_id, guild.members)
                 channel = discord.utils.find(lambda c : c.id == channel_id, guild.channels)
+                log_channel = discord.utils.get(member.guild.text_channels, name='log')
                 if member is not None:
                     await member.add_roles(role)
                     await channel.send(f'Role was added.')
                     await asyncio.sleep(2)
                     await channel.purge(limit=1)
+                    if log_channel:
+                        embed = discord.Embed(description=f'{role} was added to {member.guild.members}', colour=member.color)
+                        embed.set_thumbnail(url=member.avatar_url)
+                        embed.set_author(name=member.name, icon_url=member.avatar_url)
+                        embed.set_footer(text=member.guild, icon_url=member.guild.icon_url)
+                        embed.timestamp = datetime.datetime.utcnow()
+                        await log_channel.send(embed=embed)
                 else:
                     print("Member not found.")
             else:
