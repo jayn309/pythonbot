@@ -47,12 +47,12 @@ class Roles(commands.Cog):
                     await asyncio.sleep(2)
                     await channel.purge(limit=1)
                     if log_channel:
-                        embed = discord.Embed(description=f'{role} was added to {member.guild.members}', colour=member.color)
-                        embed.set_thumbnail(url=member.avatar_url)
-                        embed.set_author(name=member.name, icon_url=member.avatar_url)
-                        embed.set_footer(text=member.guild, icon_url=member.guild.icon_url)
-                        embed.timestamp = datetime.datetime.utcnow()
-                        await log_channel.send(embed=embed)
+                        addrole_embed = discord.Embed(title='Role Add',colour=member.color)
+                        addrole_embed.add_field(name="Member", value=member.name,inline=False)
+                        addrole_embed.add_field(name="Role", value=member.role,inline=False)
+                        addrole_embed.set_thumbnail(url=member.avatar_url)
+                        addrole_embed.timestamp = datetime.datetime.utcnow()
+                        await log_channel.send(embed=addrole_embed)
                 else:
                     print("Member not found.")
             else:
