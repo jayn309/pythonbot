@@ -12,9 +12,16 @@ class Administrator(commands.Cog):
     @commands.command()
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
     async def ban(self, ctx, member : discord.Member, *, reason=None):
+        channel = discord.utils.get(member.guild.text_channels, name='log')
         try:
             await member.ban(reason=reason)
             await ctx.send(f"{member.mention} got ban")
+            if channel:
+                kick_embed = discord.Embed(title='Moderation Kicked',colour=member.color)
+                kick_embed.add_field(name="Punished by", value=ctx.author,inline=True)
+                kick_embed.add_field(name="Punished User", value={member.name},inline=True)
+                kick_embed.timestamp = datetime.datetime.utcnow()
+                await channel.send(embed=kick_embed)
         except discord.Forbidden:
             return await ctx.send(f"{ctx.author.mention} got ban")
         
