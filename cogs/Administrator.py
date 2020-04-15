@@ -43,14 +43,6 @@ class Administrator(commands.Cog):
             if (user.name, user.discriminator) == (member_name, member_discriminator):
                 await ctx.guild.unban(user)
                 await ctx.send(f'Unbanned the user.')
-                if channel:
-                    unban_embed = discord.Embed(title='Moderation Unban',colour=member.color)
-                    unban_embed.add_field(name="Unban by", value=ctx.author,inline=False)
-                    unban_embed.add_field(name="User", value=member.name,inline=False)
-                    unban_embed.set_thumbnail(url=member.avatar_url)
-                    unban_embed.set_author(name=member.name, icon_url=member.avatar_url)
-                    unban_embed.timestamp = datetime.datetime.utcnow()
-                    await channel.send(embed=unban_embed)
                 return
 
     @commands.command()
