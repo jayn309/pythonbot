@@ -47,9 +47,18 @@ class Administrator(commands.Cog):
     @commands.command()
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
     async def kick(self,ctx, member : discord.Member, *, reason=None):
+        channel = discord.utils.get(member.guild.text_channels, name='log')
         try:
             await member.kick(reason=reason)
             await ctx.send(f"{member.mention} got kicked")
+            if channel:
+                kick_embed = discord.Embed(title='Moderation Kick',colour=member.color)
+                kick_embed.add_field(name="Punished by", value=ctx.author,inline=False)
+                kick_embed.add_field(name="Punished User", value=member.name,inline=False)
+                kick_embed.set_thumbnail(url=member.avatar_url)
+                kick_embed.set_author(name=member.name, icon_url=member.avatar_url)
+                kick_embed.timestamp = datetime.datetime.utcnow()
+                await channel.send(embed=kick_embed)
         except discord.Forbidden:
             return await ctx.send(f"{ctx.author.mention} got kicked")
     @kick.error
@@ -61,6 +70,7 @@ class Administrator(commands.Cog):
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
     async def mute(self,ctx, member : discord.Member,*, reason=None):
         role = discord.utils.get(ctx.guild.roles, name="Muted")
+        channel = discord.utils.get(member.guild.text_channels, name='log')
         if not role: # checks if there is muted role
             try: # creates muted role 
                 muted = await ctx.guild.create_role(name="Muted", reason="To use for muting")
@@ -75,6 +85,14 @@ class Administrator(commands.Cog):
         else:
             await member.add_roles(role)
         await ctx.send(f"{member.mention} was muted")
+        if channel:
+                mute_embed = discord.Embed(title='Moderation Mute',colour=member.color)
+                mute_embed.add_field(name="Punished by", value=ctx.author,inline=False)
+                mute_embed.add_field(name="Punished User", value=member.name,inline=False)
+                mute_embed.set_thumbnail(url=member.avatar_url)
+                mute_embed.set_author(name=member.name, icon_url=member.avatar_url)
+                mute_embed.timestamp = datetime.datetime.utcnow()
+                await channel.send(embed=mute_embed)
     @mute.error
     async def mute_error(self,ctx, error):
         if isinstance(error, commands.CheckFailure):
@@ -84,8 +102,17 @@ class Administrator(commands.Cog):
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
     async def unmute(self,ctx, member : discord.Member):
         role = discord.utils.get(ctx.guild.roles, name="Muted")
+        channel = discord.utils.get(member.guild.text_channels, name='log')
         await member.remove_roles(role)
         await ctx.send(f"{member.mention} was unmuted")
+        if channel:
+                unmute_embed = discord.Embed(title='Moderation Unmute',colour=member.color)
+                unmute_embed.add_field(name="Unmuted by", value=ctx.author,inline=False)
+                unmute_embed.add_field(name="User", value=member.name,inline=False)
+                unmute_embed.set_thumbnail(url=member.avatar_url)
+                unmute_embed.set_author(name=member.name, icon_url=member.avatar_url)
+                unmute_embed.timestamp = datetime.datetime.utcnow()
+                await channel.send(embed=unmute_embed)
     @unmute.error
     async def unmute_error(self,ctx, error):
         if isinstance(error, commands.CheckFailure):
