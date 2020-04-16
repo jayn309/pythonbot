@@ -223,17 +223,28 @@ class MicsCommands(commands.Cog):
             'It belongs to you, but other people use it more than you do. What is it?']
         Answers =['egg','candle','all','darkness','piano','dictionary','window','secret','name']
 
-        await ctx.send('Pick a number from 1 to 10 to get a question')
-        num = await self.client.wait_for('number')
-        if (num < 0 or num >= len(Questions)):
-            await ctx.send('Invalid')
-        else:
-            await ctx.send(Questions[num])
+        await ctx.send('Pick a number from 0 to 9 to get a question')
+        def check(m):
+            try:
+                int(m.content) and m.channel == ctx.channel
+                return True
+            except ValueError:
+                return False
+        num = await self.client.wait_for('message',check=check)
+        position = int(num.content)
+        await ctx.send(Questions[position])
         guess = 5
         while guess != 0:
-            msg = await self.client.wait_for('message')
+            await ctx.send('Type answer along with your answer')
+            def check1(n):
+                try:
+                    str(n.content) and n.channel == ctx.channel
+                    return True
+                except ValueError:
+                    return False
+            msg = await self.client.wait_for('message',check=check1)
             ans = msg.slit()
-            i = num
+            i = position
             for i in Answers:
                 if ans.lower() != Answers[i].lower():
                     guess -=1
