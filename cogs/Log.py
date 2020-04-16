@@ -34,9 +34,13 @@ class Log(commands.Cog):
 
     @commands.Cog.listener()
     async def on_user_update(self,before,after):
-        print(before.avatar, after.avatar)
-        print(before.name, after.name)
-        print(before.discriminator, after.discriminator)
+        channel = discord.utils.get(after.guild.channels, name='users-log')
+        if before.name != after.name and after.name is not None:
+            await channel.send(f'{before.name}, {after.name}')
+        if before.avatar != after.avatar and after.avatar is not None:
+            pass
+        if before.discriminator != after.discriminator and after.discriminator is not None:
+            await channel.send(f'{before.discriminator}, {after.discriminator}')
 
 def setup(client):
     client.add_cog(Log(client))
