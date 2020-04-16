@@ -54,7 +54,7 @@ class Log(commands.Cog):
         if before.content == after.content:
             return
         else:
-            edit_embed = discord.Embed(description=f'@{before.author.name} edited a message in #{before.channel}')
+            edit_embed = discord.Embed(description=f'@{before.author.name} edited a message in #{before.channel}',colour=member.color)
             edit_embed.set_author(name=f'{before.author.name}#{before.author.discriminator}', icon_url=before.author.avatar_url)
             edit_embed.set_footer(text=f"Author ID:{before.author.id} • Message ID: {before.id}")
             edit_embed.add_field(name='Before:', value=before.content, inline=False)
