@@ -231,13 +231,14 @@ class MicsCommands(commands.Cog):
             except ValueError:
                 return False
         num = await self.client.wait_for('number',check=check)
-        await ctx.send(Questions[num])
+        index = int(num.content)
+        await ctx.send(Questions[index])
         guess = 5
         while guess != 0:
             msg = await self.client.wait_for('message',check=check)
             ans = msg.slit()
-            for num in Answers:
-                if ans.lower() != Answers[num].lower():
+            for index in Answers:
+                if ans.lower() != Answers[index].lower():
                     guess -=1
                     await ctx.send(f'Incorrect. you have {guess} chances left.')
                 else:
