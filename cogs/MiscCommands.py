@@ -222,8 +222,9 @@ class MicsCommands(commands.Cog):
             'If you’ve got me, you want to share me; if you share me, you haven’t kept me. What am I?',
             'It belongs to you, but other people use it more than you do. What is it?']
         Answers =['egg','candle','all','darkness','piano','dictionary','window','secret','name']
-        key = dict(zip(Questions, Answers))
-        await ctx.send(key)
+        key = list(zip(Questions, Answers))
+        s = sample(key, 2)
+        await ctx.send(s)
         
 
 def setup(client):
