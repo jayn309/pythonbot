@@ -235,7 +235,8 @@ class MicsCommands(commands.Cog):
         await ctx.send(Questions[position])
         guess = 5
         while guess != 0:
-            await ctx.send('Type answer along with your answer')
+            await asyncio.sleep(1)
+            await ctx.send('Type answer along with your answer. Ex: answer a')
             def check1(n):
                 try:
                     str(n.content) and n.channel == ctx.channel
