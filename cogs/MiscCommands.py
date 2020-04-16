@@ -232,7 +232,7 @@ class MicsCommands(commands.Cog):
                 return False
         num = await self.client.wait_for('number',check=check)
         index = int(num.content)
-        await ctx.send(Questions[index])
+        await ctx.send(Questions)
         guess = 5
         while guess != 0:
             msg = await self.client.wait_for('message',check=check)
