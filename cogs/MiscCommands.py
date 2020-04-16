@@ -223,7 +223,7 @@ class MicsCommands(commands.Cog):
             'It belongs to you, but other people use it more than you do. What is it?']
         Answers =['egg','candle','all','darkness','piano','dictionary','window','secret','name']
         key = dict(zip(Questions, Answers))
-        s = sample(key, 2)
+        s = sample(list(key), 2)
         await ctx.send(s)
         
 
