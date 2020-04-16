@@ -225,13 +225,15 @@ class MicsCommands(commands.Cog):
 
         await ctx.send('Pick a number from 1 to 10 to get a question')
         num = await self.client.wait_for('number')
-        position = int(num.content)
-        await ctx.send(Questions[position])
+        if (num < 0 or num >= len(Questions)):
+            await ctx.send('Invalid')
+        else:
+            await ctx.send(Questions[num])
         guess = 5
         while guess != 0:
             msg = await self.client.wait_for('message')
             ans = msg.slit()
-            i = position
+            i = num
             for i in Answers:
                 if ans.lower() != Answers[i].lower():
                     guess -=1
