@@ -223,6 +223,8 @@ class MicsCommands(commands.Cog):
             'It belongs to you, but other people use it more than you do. What is it?']
         Answers =['egg','candle','all','darkness','piano','dictionary','window','secret','name']
         key = dict(zip(Questions, Answers))
+        for i in key:
+            await ctx.send(i[0])
         def check(m):
             try:
                 int(m.content) and m.channel == ctx.channel
@@ -234,7 +236,6 @@ class MicsCommands(commands.Cog):
             msg = await self.client.wait_for('message',check=check)
             ans = msg.split()
             for i in key:
-                await ctx.send(i[0])
                 if ans == i[1].lower():
                     await ctx.send('Correct. Good job!')
                 else:
