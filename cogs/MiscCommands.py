@@ -212,7 +212,7 @@ class MicsCommands(commands.Cog):
 
     @commands.command()
     async def riddle(self,ctx):
-        Questions =['What has to be broken before you can use it?',
+        Questions =['What has to be broken before you can use it?', 
             'I’m tall when I’m young, and I’m short when I’m old. What am I?',
             'What month of the year has 28 days?', 
             'The more of this there is, the less you see. What is it?',
@@ -222,10 +222,27 @@ class MicsCommands(commands.Cog):
             'If you’ve got me, you want to share me; if you share me, you haven’t kept me. What am I?',
             'It belongs to you, but other people use it more than you do. What is it?']
         Answers =['egg','candle','all','darkness','piano','dictionary','window','secret','name']
-        key = list(zip(Questions, Answers))
-        s = sample(key, 2)
-        await ctx.send(s)
-        
+        Q=randchoice(range(len(Questions)))
+        await ctx.send(Q)
+        def check(m):
+            try:
+                int(m.content) and m.channel == ctx.channel
+                return True
+            except ValueError:
+                return False
+        guess = 5
+        while guess != 0:
+            msg = await self.client.wait_for('message',check=check)
+            ans = msg.slit()
+            for i in Answers == i in Q:
+                if ans.lower() != Answers[i].lower():
+                    guess -=1
+                    await ctx.send(f'Incorrect. you have {guess} chances left.')
+                else:
+                    await ctx.send('You got it')
+        else:
+            guess == 0
+            await ctx.send('Try again. Dumb Dumb!')
 
 def setup(client):
     client.add_cog(MicsCommands(client))
