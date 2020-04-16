@@ -35,7 +35,7 @@ class Log(commands.Cog):
     @commands.Cog.listener()
     async def on_user_update(self,before,after):
         print(before.avatar, after.avatar)
-        print(before.username, after.username)
+        print(before.name, after.name)
         print(before.discriminator, after.discriminator)
 
 def setup(client):
