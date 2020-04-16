@@ -13,6 +13,7 @@ class Log(commands.Cog):
     @commands.Cog.listener()
     async def on_member_join(self, member):
         channel = discord.utils.get(member.guild.text_channels, name='log')
+        welcome_channel = discord.utils.get(member.guild.text_channels, name='lounge')
         if channel:
             embed = discord.Embed(description=f'{len(member.guild.members)}th member joined', colour=member.color)
             embed.set_thumbnail(url=member.avatar_url)
@@ -20,6 +21,7 @@ class Log(commands.Cog):
             embed.set_footer(text=member.guild, icon_url=member.guild.icon_url)
             embed.timestamp = datetime.datetime.utcnow()
             await channel.send(embed=embed)
+            await welcome_channel.send(f'Ahoy! Welcome to WenRene Discord! {member.guild.members}, pick a role tag in #roles. Enjoy your stay!')
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
@@ -54,7 +56,7 @@ class Log(commands.Cog):
         if before.content == after.content:
             return
         else:
-            edit_embed = discord.Embed(description=f'@{before.author.name} edited a message in #{before.channel}',colour=member.color)
+            edit_embed = discord.Embed(description=f'@{before.author.name} edited a message in #{before.channel}')
             edit_embed.set_author(name=f'{before.author.name}#{before.author.discriminator}', icon_url=before.author.avatar_url)
             edit_embed.set_footer(text=f"Author ID:{before.author.id} • Message ID: {before.id}")
             edit_embed.add_field(name='Before:', value=before.content, inline=False)
