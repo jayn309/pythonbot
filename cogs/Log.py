@@ -34,7 +34,7 @@ class Log(commands.Cog):
 
     @commands.Cog.listener()
     async def on_user_update(self,before,after):
-        log_channel = self.client.get_channel(700137514572185662)
+        log_channel = discord.utils.get(before.guild.channels, name= 'users-log')
         if log_channel:
             user_embed = discord.Embed(title='User updates')
             user_embed.add_field(name="Name before:", value=before.name,inline=False)
@@ -45,6 +45,22 @@ class Log(commands.Cog):
             user_embed.add_field(name="Discriminator after", value=after.discriminator,inline=False)
             user_embed.timestamp = datetime.datetime.utcnow()
             await log_channel.send(embed=user_embed)
+
+    @commands.Cog.listener()
+    async def on_message_edit(self, before,after):
+        channel = discord.utils.get(before.guild.channels, name='log')
+        if before.message.author.id == 685307035142586380 or before.message.author.id == 325387620266016768:
+            return
+        if before.content == after.content:
+            return
+        else:
+            edit_embed = discord.Embed(description=f'@{before.author.name} edited a message in #{before.channel}')
+            edit_embed.set_author(name=f'{before.author.name}#{before.author.discriminator}', icon_url=before.author.avatar_url)
+            edit_embed.set_footer(text=f"Author ID:{before.author.id} • Message ID: {before.id}")
+            edit_embed.add_field(name='Before:', value=before.content, inline=False)
+            edit_embed.add_field(name="After:", value=after.content, inline=False)
+            await channel.send(embed=edit_embed)
+
 
 def setup(client):
     client.add_cog(Log(client))
