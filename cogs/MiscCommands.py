@@ -223,28 +223,9 @@ class MicsCommands(commands.Cog):
             'It belongs to you, but other people use it more than you do. What is it?']
         Answers =['egg','candle','all','darkness','piano','dictionary','window','secret','name']
         key = dict(zip(Questions, Answers))
-        for i in key:
-            await ctx.send(i[0])
-        def check(m):
-            try:
-                int(m.content) and m.channel == ctx.channel
-                return True
-            except ValueError:
-                return False
-        guess = 3
-        while guess != 0:
-            msg = await self.client.wait_for('message',check=check)
-            ans = msg.split()
-            for i in key:
-                if ans == i[1].lower():
-                    await ctx.send('Correct. Good job!')
-                else:
-                    guess -= 1
-                    await ctx.send('Incorrect')
-                    await ctx.send(f"You have {guess} chances left.")
-        else:
-            guess == 0
-            await ctx.send("Dumb Dumb. You lose!")
+        s = sample(key, 2)
+        await ctx.send(s)
+        
 
 def setup(client):
     client.add_cog(MicsCommands(client))
