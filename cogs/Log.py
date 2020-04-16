@@ -32,5 +32,11 @@ class Log(commands.Cog):
             embed.timestamp = datetime.datetime.utcnow()
             await channel.send(embed=embed)
 
+    @commands.Cog.listener()
+    async def on_user_update(self,before,after):
+        print(before.avatar, after.avatar)
+        print(before.username, after.username)
+        print(before.discriminator, after.discriminator)
+
 def setup(client):
     client.add_cog(Log(client))
