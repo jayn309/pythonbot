@@ -222,20 +222,22 @@ class MicsCommands(commands.Cog):
             'If you’ve got me, you want to share me; if you share me, you haven’t kept me. What am I?',
             'It belongs to you, but other people use it more than you do. What is it?']
         Answers =['egg','candle','all','darkness','piano','dictionary','window','secret','name']
-        Q=randchoice(range(len(Questions)))
-        await ctx.send(Q)
+
+        await ctx.send('Pick a number from 1 to 10 to get a question')
         def check(m):
             try:
                 int(m.content) and m.channel == ctx.channel
                 return True
             except ValueError:
                 return False
+        num = await self.client.wait_for('number',check=check)
+        await ctx.send(Questions[num])
         guess = 5
         while guess != 0:
             msg = await self.client.wait_for('message',check=check)
             ans = msg.slit()
-            for i in Answers == i in Q:
-                if ans.lower() != Answers[i].lower():
+            for num in Answers:
+                if ans.lower() != Answers[num].lower():
                     guess -=1
                     await ctx.send(f'Incorrect. you have {guess} chances left.')
                 else:
