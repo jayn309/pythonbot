@@ -224,18 +224,12 @@ class MicsCommands(commands.Cog):
         Answers =['egg','candle','all','darkness','piano','dictionary','window','secret','name']
 
         await ctx.send('Pick a number from 1 to 10 to get a question')
-        def check(m):
-            try:
-                int(m.content) and m.channel == ctx.channel
-                return True
-            except ValueError:
-                return False
-        num = await self.client.wait_for('number',check=check)
+        num = await self.client.wait_for('number')
         index = int(num.content)
-        await ctx.send(Questions)
+        await ctx.send(Questions[index])
         guess = 5
         while guess != 0:
-            msg = await self.client.wait_for('message',check=check)
+            msg = await self.client.wait_for('message')
             ans = msg.slit()
             for index in Answers:
                 if ans.lower() != Answers[index].lower():
