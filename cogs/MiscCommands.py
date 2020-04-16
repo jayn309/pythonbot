@@ -4,7 +4,8 @@ import asyncio
 
 from discord.ext import commands
 from random import choice as randchoice
-from random import randint
+from random import randint, sample
+from Riddles import Questions, Answers
 
 class MicsCommands(commands.Cog):
     def __init__(self, client):
@@ -209,6 +210,30 @@ class MicsCommands(commands.Cog):
             await asyncio.sleep(1)
             await ctx.send(randchoice(huh))
 
+    @commands.command()
+    async def riddle(self,ctx):
+        key = dict(zip(Questions, Answers))
+        def check(m):
+            try:
+                int(m.content) and m.channel == ctx.channel
+                return True
+            except ValueError:
+                return False
+        guess = 3
+        while guess != 0:
+            msg = await self.client.wait_for('message',check=check)
+            ans = msg.split()
+            for i in key:
+                await ctx.send(i[0])
+                if ans == i[1].lower():
+                    await ctx.send('Correct. Good job!')
+                else:
+                    guess -= 1
+                    await ctx.send('Incorrect')
+                    await ctx.send(f"You have {guess} chances left.")
+        else:
+            guess == 0
+            await ctx.send("Dumb Dumb. You lose!")
 
 def setup(client):
     client.add_cog(MicsCommands(client))
