@@ -244,7 +244,7 @@ class MicsCommands(commands.Cog):
                 except ValueError:
                     return False
             msg = await self.client.wait_for('message',check=check1)
-            ans = msg.slit()
+            ans = msg.slpit()
             i = position
             for i in Answers:
                 if ans.lower() != Answers[i].lower():
