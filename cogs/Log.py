@@ -34,13 +34,17 @@ class Log(commands.Cog):
 
     @commands.Cog.listener()
     async def on_user_update(self,before,after):
-        channel = self.client.get_channel(700137514572185662)
-        if before.name != after.name and after.name is not None:
-            await channel.send(f'{before.name}, {after.name}')
-        if before.avatar == after.avatar:
-            pass
-        if before.discriminator != after.discriminator and after.discriminator is not None:
-            await channel.send(f'{before.discriminator}, {after.discriminator}')
+        log_channel = self.client.get_channel(700137514572185662)
+        if log_channel:
+            user_embed = discord.Embed(title='User updates')
+            user_embed.add_field(name="Name before:", value=before.name,inline=False)
+            user_embed.add_field(name="Name after:", value=after.name,inline=False)
+            user_embed.add_field(name="Avatar before", value=before.avatar_url,inline=False)
+            user_embed.add_field(name="Avatar after", value=after.avatar_url,inline=False)
+            user_embed.add_field(name="Discriminator before", value=before.discriminator,inline=False)
+            user_embed.add_field(name="Discriminator after", value=after.discriminator,inline=False)
+            user_embed.timestamp = datetime.datetime.utcnow()
+            await log_channel.send(embed=user_embed)
 
 def setup(client):
     client.add_cog(Log(client))
