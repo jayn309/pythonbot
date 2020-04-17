@@ -245,9 +245,8 @@ class MicsCommands(commands.Cog):
                     return False
             msg = await self.client.wait_for('message',check=check1)
             ans = msg.split()
-            i = position
-            for i in Answers:
-                if ans.lower() != Answers[i].lower():
+            for position in Answers:
+                if ans.lower() != Answers[position].lower():
                     guess -=1
                     await ctx.send(f'Incorrect. you have {guess} chances left.')
                 else:
