@@ -209,48 +209,5 @@ class MicsCommands(commands.Cog):
             await asyncio.sleep(1)
             await ctx.send(randchoice(huh))
 
-
-    @commands.command()
-    async def riddle(self,ctx):
-        Questions =['What has to be broken before you can use it?', 
-            'I’m tall when I’m young, and I’m short when I’m old. What am I?',
-            'What month of the year has 28 days?', 
-            'The more of this there is, the less you see. What is it?',
-            'What has many keys but can’t open a single lock?', 
-            'Where does today come before yesterday?', 
-            'What invention lets you look right through a wall?',
-            'If you’ve got me, you want to share me; if you share me, you haven’t kept me. What am I?',
-            'It belongs to you, but other people use it more than you do. What is it?']
-        Answers =['egg','candle','all','darkness','piano','dictionary','window','secret','name']
-
-        await ctx.send('Pick a number from 0 to 9 to get a question')
-        def check(m):
-            try:
-                int(m.content) and m.channel == ctx.channel
-                return True
-            except ValueError:
-                return False
-        num = await self.client.wait_for('message',check=check)
-        position = int(num.content)
-        await ctx.send(Questions[position])
-        await asyncio.sleep(1)
-        await ctx.send('Type your answer below. You have 30 seconds and only 1 chance.')
-        def check1(n):
-            try:
-                n.channel == ctx.channel
-                return True
-            except ValueError:
-                return False
-        try:
-            msg = await self.client.wait_for('message',check=check1,timeout=30.0)
-            if msg.content.lower() != Answers[position]:
-                await asyncio.sleep(1)
-                await ctx.send(f'Incorrect. Try again. Dumb Dumb!')
-            elif msg.content.lower() == Answers[position]:
-                await ctx.send('You got it')
-        except TimeoutError:
-            return await ctx.send('Oops! Nobody solved it.')
-
-
 def setup(client):
     client.add_cog(MicsCommands(client))
