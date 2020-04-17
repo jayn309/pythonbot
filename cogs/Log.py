@@ -13,16 +13,13 @@ class Log(commands.Cog):
     @commands.Cog.listener()
     async def on_member_join(self, member):
         channel = discord.utils.get(member.guild.text_channels, name='log')
-        welcome_channel = discord.utils.get(member.guild.text_channels, name='log')
-        if channel and welcome_channel:
+        if channel:
             embed = discord.Embed(description=f'{len(member.guild.members)}th member joined', colour=member.color)
             embed.set_thumbnail(url=member.avatar_url)
             embed.set_author(name=member.name, icon_url=member.avatar_url)
             embed.set_footer(text=member.guild, icon_url=member.guild.icon_url)
             embed.timestamp = datetime.datetime.utcnow()
-            welcome_embed = discord.Embed(description=f'Welcome to WenRene Discord!@{member.guild.members}, pick a role tag in #roles. Enjoy your stay!')
             await channel.send(embed=embed)
-            await welcome_channel.send(embed=welcome_embed)
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
@@ -52,7 +49,7 @@ class Log(commands.Cog):
     @commands.Cog.listener()
     async def on_message_edit(self, before,after):
         channel = discord.utils.get(before.guild.channels, name='log')
-        if before.author.id == 685307035142586380 or before.author.id == 325387620266016768:
+        if before.author.id == 685307035142586380 or before.author.id == 325387620266016768 or before.author.id == 359401025330741248 or before.author.id == 181450419610976256:
             return
         if before.content == after.content:
             return
