@@ -21,7 +21,7 @@ class Log(commands.Cog):
             embed.set_footer(text=member.guild, icon_url=member.guild.icon_url)
             embed.timestamp = datetime.datetime.utcnow()
             await channel.send(embed=embed)
-            await welcome_channel.send(f'Ahoy! Welcome to WenRene Discord! {member.guild.members}, pick a role tag in #roles. Enjoy your stay!')
+            await welcome_channel.send(f'Welcome to WenRene Discord!@{member.guild.members}, pick a role tag in #roles. Enjoy your stay!')
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
