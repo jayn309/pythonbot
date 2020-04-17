@@ -243,12 +243,10 @@ class MicsCommands(commands.Cog):
                 return False
         try:
             msg = await self.client.wait_for('message',check=check1,timeout=40.0)
-            i = int(num.content)
-            for i in Answers:
-                if msg.content.lower() != Answers[i].content.lower():
-                    await ctx.send(f'Incorrect. Try again. Dumb Dumb!')
-                else:
-                    await ctx.send('You got it')
+            if msg.content.lower() != Answers[position].content.lower():
+                await ctx.send(f'Incorrect. Try again. Dumb Dumb!')
+            else:
+                    wait ctx.send('You got it')
         except TimeoutError:
             await ctx.send('Oops! Nobody solved it.')
           
