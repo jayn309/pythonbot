@@ -233,10 +233,10 @@ class MicsCommands(commands.Cog):
         num = await self.client.wait_for('message',check=check)
         position = int(num.content)
         await ctx.send(Questions[position])
-        guess = 5
+        guess = 3
         while guess != 0:
             await asyncio.sleep(1)
-            await ctx.send('Type answer along with your answer. Ex: answer a')
+            await ctx.send('Type your answer below. You have 3 chances')
             def check1(n):
                 try:
                     str(n.content) and n.channel == ctx.channel
@@ -244,9 +244,8 @@ class MicsCommands(commands.Cog):
                 except ValueError:
                     return False
             msg = await self.client.wait_for('message',check=check1)
-            ans = msg.split()
             for position in Answers:
-                if ans.lower() != Answers[position].lower():
+                if msg.lower() != Answers[position].lower():
                     guess -=1
                     await ctx.send(f'Incorrect. you have {guess} chances left.')
                 else:
