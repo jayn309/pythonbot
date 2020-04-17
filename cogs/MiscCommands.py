@@ -234,21 +234,30 @@ class MicsCommands(commands.Cog):
         position = int(num.content)
         await ctx.send(Questions[position])
         await asyncio.sleep(1)
-        await ctx.send('Type your answer below. You have 40 seconds')
+        await ctx.send('Type your answer below. You have 30 seconds and 3 chances')
         def check1(n):
             try:
                 n.channel == ctx.channel
                 return True
             except ValueError:
                 return False
-        try:
-            msg = await self.client.wait_for('message',check=check1,timeout=40.0)
-            if msg.content.lower() != Answers[position]:
-                await ctx.send(f'Incorrect. Try again. Dumb Dumb!')
-            else:
-                await ctx.send('You got it')
-        except TimeoutError:
-            await ctx.send('Oops! Nobody solved it.')
+        guess = 3
+        while guess !=3:
+            try:
+                msg = await self.client.wait_for('message',check=check1,timeout=30.0)
+                if msg.content.lower() != Answers[position]:
+                    guess -= 1
+                    await asyncio.sleep(1)
+                    await ctx.send(f'Incorrect. Try again. Dumb Dumb!')
+                    await ctx.send(f'You have {guess} chances left')
+                elif msg.content.lower() == Answers[position]:
+                    await ctx.send('You got it')
+                    break
+            except TimeoutError:
+                return await ctx.send('Oops! Nobody solved it.')
+        else:
+            guess == 0
+            await ctx.send('Time for school.')
           
 
 def setup(client):
