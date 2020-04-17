@@ -134,35 +134,38 @@ class MicsCommands(commands.Cog):
 
     @commands.command()
     async def numgame(self,ctx):
-        number = random.randint(1,100)
-        await ctx.send('Guess a number between 1 and 100. You have 5 chances.')
-        def check(m):
-            try:
-                int(m.content) and  ctx.channel.id == 680233219303800893
-                return True
-            except ValueError:
-                return False
+        if ctx.channel.id == 680233219303800893:
+            number = random.randint(1,100)
+            await ctx.send('Guess a number between 1 and 100. You have 5 chances.')
+            def check(m):
+                try:
+                    int(m.content)
+                    return True
+                except ValueError:
+                    return False
 
-        guess = 5
-        while guess != 0:
-            msg = await self.client.wait_for('message',check=check)
-            attempt = int(msg.content)
-            if attempt > number:
-                await asyncio.sleep(1)
-                await ctx.send('Try going lower')
-                guess -= 1
-                await ctx.send(f"You have {guess} chances left.")
-            elif attempt < number:
-                await asyncio.sleep(1)
-                await ctx.send('Try going higher')
-                guess -=1
-                await ctx.send(f"You have {guess} chances left.")
-            elif attempt == number:
-                await ctx.send('You guessed it! Good job!')
-                break
+            guess = 5
+            while guess != 0:
+                msg = await self.client.wait_for('message',check=check)
+                attempt = int(msg.content)
+                if attempt > number:
+                    await asyncio.sleep(1)
+                    await ctx.send('Try going lower')
+                    guess -= 1
+                    await ctx.send(f"You have {guess} chances left.")
+                elif attempt < number:
+                    await asyncio.sleep(1)
+                    await ctx.send('Try going higher')
+                    guess -=1
+                    await ctx.send(f"You have {guess} chances left.")
+                elif attempt == number:
+                    await ctx.send('You guessed it! Good job!')
+                    break
+            else:
+                guess == 0
+                await ctx.send("<:ireneyikes:679733703647559720> What a loser!")
         else:
-            guess == 0
-            await ctx.send("<:ireneyikes:679733703647559720> What a loser!")
+            await ctx.send("Please go to bot channel to use the command.")
 
     @commands.command()
     async def rps(self,ctx, msg: str):
