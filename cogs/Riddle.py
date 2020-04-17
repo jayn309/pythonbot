@@ -31,16 +31,17 @@ class Riddle(commands.Cog):
                     return str(m.content) and m.channel.id == 680233219303800893
                 except ValueError:
                     return False
-            if ctx.channel.id == 680233219303800893:        
-                msg = await self.client.wait_for('message',check=check,timeout=30.0)
-                if msg.content.lower() != Answers[i]:
-                    await asyncio.sleep(1)
-                    await ctx.send(f'Incorrect. Game over. Dumb Dumb!')
-                elif msg.content.lower() == Answers[i]:
-                    await asyncio.sleep(1)
-                    await ctx.send('You got it')
-                elif msg is None:
-                    await ctx.send('Oops! Nobody solved it.')
+            if ctx.channel.id == 680233219303800893:   
+                try:     
+                    msg = await self.client.wait_for('message',check=check,timeout=30.0)
+                    if msg.content.lower() != Answers[i]:
+                        await asyncio.sleep(1)
+                        await ctx.send(f'Incorrect. Game over. Dumb Dumb!')
+                    elif msg.content.lower() == Answers[i]:
+                        await asyncio.sleep(1)
+                        await ctx.send('You got it')
+                except TimeoutError:
+                    return await ctx.send('Oops! Nobody solved it.')
         else:
             await ctx.send("Please go to bot channel to use the command.")
 
