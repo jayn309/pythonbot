@@ -47,6 +47,10 @@ async def on_message(message):
     if message.content.lower() == 'good morning' or message.content.lower() == 'gmorning' or message.content.lower() == 'gd morning':
         await message.channel.send(f'Good morning, {author.mention}' )
     await client.process_commands(message)
+
+@client.command()
+async def ping(ctx):
+    await ctx.send('Pong! {0}'.format(round(bot.latency, 1)))
     
 @client.event
 async def on_raw_reaction_add(payload):
