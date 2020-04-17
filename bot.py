@@ -50,7 +50,7 @@ async def on_message(message):
 
 @client.command()
 async def ping(ctx):
-    await ctx.send('Pong! {0}'.format(round(client.latency, 1)))
+    await ctx.send(f'Pong!{client.latency * 1000} ms')
     
 @client.event
 async def on_raw_reaction_add(payload):
