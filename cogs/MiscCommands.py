@@ -249,7 +249,7 @@ class MicsCommands(commands.Cog):
             elif msg.content.lower() == Answers[position]:
                 await ctx.send('You got it')
         except TimeoutError:
-                return await ctx.send('Oops! Nobody solved it.')
+            return await ctx.send('Oops! Nobody solved it.')
 
 
 def setup(client):
