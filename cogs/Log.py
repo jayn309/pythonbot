@@ -13,15 +13,16 @@ class Log(commands.Cog):
     @commands.Cog.listener()
     async def on_member_join(self, member):
         channel = discord.utils.get(member.guild.text_channels, name='log')
-        welcome_channel = discord.utils.get(member.guild.text_channels, name='lounge')
-        if channel:
+        welcome_channel = discord.utils.get(member.guild.text_channels, name='log')
+        if channel and welcome_channel:
             embed = discord.Embed(description=f'{len(member.guild.members)}th member joined', colour=member.color)
             embed.set_thumbnail(url=member.avatar_url)
             embed.set_author(name=member.name, icon_url=member.avatar_url)
             embed.set_footer(text=member.guild, icon_url=member.guild.icon_url)
             embed.timestamp = datetime.datetime.utcnow()
+            welcome_embed = discord.Embed(description=f'Welcome to WenRene Discord!@{member.guild.members}, pick a role tag in #roles. Enjoy your stay!')
             await channel.send(embed=embed)
-            await welcome_channel.send(f'Welcome to WenRene Discord!@{member.guild.members}, pick a role tag in #roles. Enjoy your stay!')
+            await welcome_channel.send(embed=welcome_embed)
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
