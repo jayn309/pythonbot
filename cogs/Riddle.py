@@ -40,7 +40,7 @@ class Riddle(commands.Cog):
                     elif msg.content.lower() == Answers[i]:
                         await asyncio.sleep(1)
                         await ctx.send('You got it')
-                except TimeoutError:
+                except asyncio.TimeoutError:
                     return await ctx.send('Oops! Nobody solved it.')
         else:
             await ctx.send("Please go to bot channel to use the command.")
