@@ -28,8 +28,7 @@ class Riddle(commands.Cog):
             await ctx.send('Type your answer below. You have 30 seconds and only 1 chance.')
             def check(m):
                 try:
-                    str(m.content) and m.channel.id == 680233219303800893
-                    return True
+                    return str(m.content) and m.channel.id == 680233219303800893
                 except ValueError:
                     return False
             if ctx.channel.id == 680233219303800893:        
