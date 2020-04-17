@@ -249,7 +249,7 @@ class MicsCommands(commands.Cog):
                     await ctx.send(f'Incorrect. Try again. Dumb Dumb!')
                 else:
                     await ctx.send('You got it')
-        except msg is None:
+        except TimeoutError:
             await ctx.send('Oops! Nobody solved it.')
           
 
