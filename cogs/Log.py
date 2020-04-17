@@ -36,7 +36,7 @@ class Log(commands.Cog):
 
     @commands.Cog.listener()
     async def on_user_update(self,before,after):
-        log_channel = discord.utils.get(before.guild.channels, name= 'users-log')
+        log_channel = self.client.get_channel(700137514572185662)
         if log_channel:
             user_embed = discord.Embed(title='User updates')
             user_embed.add_field(name="Name before:", value=before.name,inline=False)
