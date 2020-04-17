@@ -246,7 +246,7 @@ class MicsCommands(commands.Cog):
             if msg.content.lower() != Answers[position].content.lower():
                 await ctx.send(f'Incorrect. Try again. Dumb Dumb!')
             else:
-                    wait ctx.send('You got it')
+                await ctx.send('You got it')
         except TimeoutError:
             await ctx.send('Oops! Nobody solved it.')
           
