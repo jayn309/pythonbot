@@ -21,11 +21,12 @@ class Riddle(commands.Cog):
                 'What invention lets you look right through a wall?',
                 'If you’ve got me, you want to share me; if you share me, you haven’t kept me. What am I?',
                 'It belongs to you, but other people use it more than you do. What is it?']
+                
         Answers =['egg','candle','all','darkness','piano','dictionary','window','secret','name']
         if ctx.channel.id == 680233219303800893:
             i = random.choice(range(len(Questions)))
             await ctx.send(Questions[i])
-            await ctx.send('Type your answer below. You have 30 seconds and only 1 chance.')
+            await ctx.send('Type your answer(1 word) below. You have 30 seconds and only 1 chance.')
             def check(m):
                 try:
                     return str(m.content) and m.channel.id == 680233219303800893
@@ -36,10 +37,10 @@ class Riddle(commands.Cog):
                     msg = await self.client.wait_for('message',check=check,timeout=30.0)
                     if msg.content.lower() != Answers[i]:
                         await asyncio.sleep(1)
-                        await ctx.send(f'Incorrect. Game over. Dumb Dumb!')
+                        await ctx.send(f'Incorrect. Game over. Dumb Dumb! <:wendyyikes:682673361725554785>')
                     elif msg.content.lower() == Answers[i]:
                         await asyncio.sleep(1)
-                        await ctx.send('You got it')
+                        await ctx.send('You got it <:wensun:699102648229691402> ')
                 except asyncio.TimeoutError:
                     return await ctx.send('Oops! Nobody solved it.')
         else:
