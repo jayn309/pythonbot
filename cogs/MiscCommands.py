@@ -243,7 +243,7 @@ class MicsCommands(commands.Cog):
                 return False
         try:
             msg = await self.client.wait_for('message',check=check1,timeout=40.0)
-            if msg.content.lower() != Answers[position].content.lower():
+            if msg.content.lower() != Answers[position]:
                 await ctx.send(f'Incorrect. Try again. Dumb Dumb!')
             else:
                 await ctx.send('You got it')
