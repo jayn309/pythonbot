@@ -19,6 +19,7 @@ client.load_extension(f'cogs.MiscCommands')
 client.load_extension(f'cogs.Roles')
 client.load_extension(f'cogs.Emotes')
 client.load_extension(f'cogs.Log')
+client.load_extension(f'cogs.Riddle')
 
 @client.event
 async def on_ready():
