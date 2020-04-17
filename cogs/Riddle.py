@@ -28,14 +28,14 @@ class Riddle(commands.Cog):
         await ctx.send('Type your answer below. You have 30 seconds and only 1 chance.')
         def check(m):
             try:
-                str(m.content) and m.channel == ctx.channel
+                m.channel == ctx.channel
                 return True
             except ValueError:
                 return False
         msg = await self.client.wait_for('message',check=check,timeout=30.0)
         if msg.content.lower() != Answers[i]:
             await asyncio.sleep(1)
-            await ctx.send(f'Incorrect. Try again. Dumb Dumb!')
+            await ctx.send(f'Incorrect. Game over. Dumb Dumb!')
         elif msg.content.lower() == Answers[i]:
             await asyncio.sleep(1)
             await ctx.send('You got it')
