@@ -133,7 +133,7 @@ class MicsCommands(commands.Cog):
             await ctx.send(f"{slotmachine} No match, you lost 😢")
 
     @commands.command()
-    @commands.cooldown(rate=1, per=3.0, type=commands.BucketType.user)
+    @commands.cooldown(rate=1, per=20.0, type=commands.BucketType.user)
     async def numgame(self,ctx):
         if ctx.channel.id == 680233219303800893:
             number = random.randint(1,100)
