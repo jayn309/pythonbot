@@ -11,7 +11,7 @@ class Pun(commands.Cog):
         self.client = client
 
     @commands.command()
-    @commands.cooldown(rate=1, per=30.0, type=commands.BucketType.user)
+    @commands.cooldown(rate=1, per=10.0, type=commands.BucketType.user)
     async def pun(self,ctx):
         Questions =['What bird can write?',
         'What clothing does a house wear?',
