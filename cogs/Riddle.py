@@ -67,7 +67,7 @@ class Riddle(commands.Cog):
         Answers =['egg','candle','all','darkness','piano','dictionary','window','secret','name','ten','fingers','and','trouble','mailbox',
         'palm','clouds','fire','noon','time','teapot','cold','stamp','shadow','onion','table','sister','carrot','riverbank','future','alphabet',
         'mississippi','doorbell','map','breath','racecar','address','pillow','tongue','blueberry','holes','key','keyhole','silence',
-        'microsoft','fingerprint','baloon','memories','d','road','r']
+        'microsoft','fingerprint','balloon','memories','d','road','r']
         if ctx.channel.id == 680233219303800893:
             i = random.choice(range(len(Questions)))
             await ctx.send(Questions[i])
@@ -80,8 +80,6 @@ class Riddle(commands.Cog):
             if ctx.channel.id == 680233219303800893:   
                 try:     
                     msg = await self.client.wait_for('message',check=check,timeout=30.0)
-                    msg = ctx.message
-                    await ctx.message.delete()
                     if msg.content.lower() != Answers[i]:
                         await asyncio.sleep(1)
                         await ctx.send(f'Incorrect. Game over. Dumb Dumb! <:wendyyikes:682673361725554785>')
