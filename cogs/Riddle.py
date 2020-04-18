@@ -11,6 +11,7 @@ class Riddle(commands.Cog):
         self.client = client
 
     @commands.command()
+    @commands.cooldown(rate=1, per=3.0, type=commands.BucketType.user)
     async def riddle(self,ctx):
         Questions =['What has to be broken before you can use it?', 
                 'I’m tall when I’m young, and I’m short when I’m old. What am I?',
