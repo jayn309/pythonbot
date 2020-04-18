@@ -70,6 +70,7 @@ class Pun(commands.Cog):
             if ctx.channel.id == 680233219303800893:   
                 try:     
                     msg = await self.client.wait_for('message',check=check,timeout=30.0)
+                    await ctx.channel.purge(limit=1)
                     if msg.content.lower() != Answers[i]:
                         await ctx.message.delete()
                         await asyncio.sleep(1)

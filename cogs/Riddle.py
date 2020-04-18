@@ -80,6 +80,7 @@ class Riddle(commands.Cog):
             if ctx.channel.id == 680233219303800893:   
                 try:     
                     msg = await self.client.wait_for('message',check=check,timeout=30.0)
+                    await ctx.channel.purge(limit=1)
                     if msg.content.lower() != Answers[i]:
                         await asyncio.sleep(1)
                         await ctx.send(f'Incorrect. Game over. Dumb Dumb! <:wendyyikes:682673361725554785>')
