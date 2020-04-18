@@ -80,6 +80,7 @@ class Riddle(commands.Cog):
             if ctx.channel.id == 680233219303800893:   
                 try:     
                     msg = await self.client.wait_for('message',check=check,timeout=30.0)
+                    msg = ctx.message
                     await ctx.message.delete()
                     if msg.content.lower() != Answers[i]:
                         await asyncio.sleep(1)
