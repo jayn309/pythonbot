@@ -72,11 +72,9 @@ class Pun(commands.Cog):
                     msg = await self.client.wait_for('message',check=check,timeout=30.0)
                     await ctx.channel.purge(limit=1)
                     if msg.content.lower() != Answers[i]:
-                        await ctx.message.delete()
                         await asyncio.sleep(1)
                         await ctx.send(f'Incorrect. Game over. Dumb Dumb! <:wendyyikes:682673361725554785>')
                     elif msg.content.lower() == Answers[i]:
-                        await ctx.message.delete()
                         await asyncio.sleep(1)
                         await ctx.send('You got it <:wensun:699102648229691402> ')
                 except asyncio.TimeoutError:
