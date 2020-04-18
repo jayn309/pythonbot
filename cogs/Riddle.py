@@ -70,7 +70,9 @@ class Riddle(commands.Cog):
         'microsoft','fingerprint','balloon','memories','d','road','r']
         if ctx.channel.id == 680233219303800893:
             i = random.choice(range(len(Questions)))
+            await asyncio.sleep(1)
             await ctx.send(Questions[i])
+            await asyncio.sleep(1)
             await ctx.send('Type your answer(1 word) below. You have 30 seconds and only 1 chance.')
             def check(m):
                 try:
@@ -80,7 +82,7 @@ class Riddle(commands.Cog):
             if ctx.channel.id == 680233219303800893:   
                 try:     
                     msg = await self.client.wait_for('message',check=check,timeout=30.0)
-                    await ctx.channel.purge(limit=1)
+                    await ctx.channel.purge(limit=3)
                     if msg.content.lower() != Answers[i]:
                         await asyncio.sleep(1)
                         await ctx.send(f'Incorrect. Game over. Dumb Dumb! <:wendyyikes:682673361725554785>')

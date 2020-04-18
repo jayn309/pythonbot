@@ -54,13 +54,15 @@ class Pun(commands.Cog):
         'Which type of cucumber comes from the rainforest?',
         'What do a monkey wear while cooking?']
                 
-        Answers =['penguin','address','frydays','taxido','fsh','launch','penaltea','clauset','b','investigator','finland',
+        Answers =['penguin','address','fryday','taxido','fsh','launch','penaltea','clauset','b','investigator','finland',
         'meowntain','chipmonk','milkshake','depresso','irrelephant','adell','sandwitch','minimum','satisfactory','unawarewolf',
         'carrotee','moovie','moscows','cowculator','moody','cowlapse','pengrin','moolan','barbercue','carpool','necktarines',
-        'pantree','hamster','starfish','duckumentaries','ducktor','chemelon','tropickle','aperon']
+        'pastree','hamster','starfish','duckumentaries','ducktor','chemelon','tropickle','aperon']
         if ctx.channel.id == 680233219303800893:
             i = random.choice(range(len(Questions)))
+            await asyncio.sleep(1)
             await ctx.send(Questions[i])
+            await asyncio.sleep(1)
             await ctx.send('Type your answer(1 word) below. You have 30 seconds and only 1 chance.')
             def check(m):
                 try:
@@ -70,7 +72,7 @@ class Pun(commands.Cog):
             if ctx.channel.id == 680233219303800893:   
                 try:     
                     msg = await self.client.wait_for('message',check=check,timeout=30.0)
-                    await ctx.channel.purge(limit=1)
+                    await ctx.channel.purge(limit=3)
                     if msg.content.lower() != Answers[i]:
                         await asyncio.sleep(1)
                         await ctx.send(f'Incorrect. Game over. Dumb Dumb! <:wendyyikes:682673361725554785>')
