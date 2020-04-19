@@ -80,8 +80,9 @@ class Pun(commands.Cog):
                         await asyncio.sleep(1)
                         await ctx.send('You got it <:wensun:699102648229691402> ')
                 except asyncio.TimeoutError:
-                    await ctx.channel.purge(limit=3)
-                    return  await ctx.send('Oops! Nobody solved it.')
+                    await ctx.send('Oops! Nobody solved it.')
+                    return  await ctx.channel.purge(limit=3)
+                      
         else:
             await ctx.send("Please go to bot channel to use the command.")
 
