@@ -62,12 +62,23 @@ class Riddle(commands.Cog):
                 'Look at me. I can bring a smile to your face, a tear to your eye, or even a thought to your mind. But, I cant be seen. What am I?',
                 'What does December have that other months dont have?',
                 'What goes through towns and over hills but never moves?',
-                'What can be seen in the middle of March and April that cannot be seen at the beginning or end of either month?']
+                'What can be seen in the middle of March and April that cannot be seen at the beginning or end of either month?',
+                'I make two people out of one. What am I?',
+                'What has six faces, but does not wear makeup, has twenty-one eyes, but cannot see? What is it?',
+                'I am white when I am dirty, and black when I am clean. What am I?',
+                'They have not flesh, nor feathers, nor scales, nor bone. Yet they have fingers and thumbs of their own. What are they?',
+                'Poor people have it. Rich people need it. If you eat it you die. what is it?',
+                'Always in you, Sometimes on you; If I surround you, I can kill you.What am I?',
+                'I have no feet, no hands, no wings, but I climb to the sky. What am I?',
+                'What 5 letter word typed in all capital letters can be read the same upside down?',
+                'What English word has three consecutive double letters?',
+                'What has a head and a tail but no body?']
                 
         Answers =['egg','candle','all','darkness','piano','dictionary','window','secret','name','ten','fingers','and','trouble','mailbox',
         'palm','clouds','fire','noon','time','teapot','cold','stamp','shadow','onion','table','sister','carrot','riverbank','future','alphabet',
         'mississippi','doorbell','map','breath','racecar','address','pillow','tongue','blueberry','holes','key','keyhole','silence',
-        'microsoft','fingerprint','balloon','memories','d','road','r']
+        'microsoft','fingerprint','balloon','memories','d','road','r','mirror','dice','blackboard','gloves','nothing','water','smoke',
+        'swims','bookkeeper','coin']
         if ctx.channel.id == 680233219303800893:
             i = random.choice(range(len(Questions)))
             await asyncio.sleep(1)
