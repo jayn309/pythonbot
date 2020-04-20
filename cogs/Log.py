@@ -49,7 +49,7 @@ class Log(commands.Cog):
     @commands.Cog.listener()
     async def on_message_edit(self, before,after):
         channel = discord.utils.get(before.guild.channels, name='log')
-        if before.author.id == 685307035142586380 or before.author.id == 325387620266016768 or before.author.id == 359401025330741248 or before.author.id == 181450419610976256:
+        if before.author.id == 685307035142586380 or before.author.id == 325387620266016768 or before.author.id == 359401025330741248 or before.author.id == 181450419610976256 or before.author.id == 234395307759108106:
             return
         if before.content == after.content:
             return
