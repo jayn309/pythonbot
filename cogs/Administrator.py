@@ -70,6 +70,8 @@ class Administrator(commands.Cog):
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
     async def mute(self,ctx, member : discord.Member,*, reason=None):
         role = discord.utils.get(ctx.guild.roles, name="Muted")
+        privaterole = discord.utils.get(ctx.guild.roles, name="betunamluv")
+        privaterole1 = discord.utils.get(ctx.guild.roles, name="Test Subject")
         channel = discord.utils.get(member.guild.text_channels, name='log')
         if not role: # checks if there is muted role
             try: # creates muted role 
@@ -81,9 +83,17 @@ class Administrator(commands.Cog):
             except discord.Forbidden:
                 return await ctx.send("I have no permissions to make a muted role") # self-explainatory
             await member.add_roles(muted) # adds newly created muted role
-            
+            if privaterole:
+                await member.remove_roles(privaterole)
+            if privaterole1:
+                await member.remove_roles(privaterole1)
         else:
             await member.add_roles(role)
+            if privaterole:
+                await member.remove_roles(privaterole)
+            if privaterole1:
+                await member.remove_roles(privaterole1)
+                
         await ctx.send(f"{member.mention} was muted")
         if channel:
                 mute_embed = discord.Embed(title='Moderation Mute',colour=member.color)
