@@ -171,6 +171,7 @@ class Administrator(commands.Cog):
                     await privaterole_channel.send("Role for channel was added to this member." )
                     await privaterole_channel.send("Please type the private channel name below")
                 if number_of_roles == 0:
+                    await privaterole_channel.send("All roles are added.")
                     break
         else:
             await privaterole_channel.send("No private role need to be added to this member")
