@@ -39,6 +39,7 @@ class Administrator(commands.Cog):
         member = await self.client.fetch_user(int(member))
         await ctx.guild.unban(member, reason=reason)
         await ctx.send(f'Unbanned the user.')
+        channel = discord.utils.get(member.guild.text_channels, name='log')
         if channel:
                 unban_embed = discord.Embed(title='Moderation Unban',colour=member.color)
                 unban_embed.add_field(name="Unbanned by", value=ctx.author,inline=False)
