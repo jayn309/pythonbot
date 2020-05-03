@@ -151,7 +151,10 @@ class Administrator(commands.Cog):
                     return False
         msg = await self.client.wait_for('message',check=check)
         number_of_roles = int(msg.content)
-        await privaterole_channel.send("Please type the private channels name below")
+        if number_of_roles != 0:
+            await privaterole_channel.send("Please type the private channels name below")
+        else:
+            pass
         while number_of_roles != 0:
             msg_channel_name = await self.client.wait_for('message',check=check)
             if msg_channel_name.content.lower () == 'sansisquad':
