@@ -220,7 +220,7 @@ class Administrator(commands.Cog):
 
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
-    async def move(self,ctx, member:discord.Member = None, channel: discord.VoiceChannel = None):
+    async def move(self,ctx,members: commands.Greedy[discord.Member] = None, channel: discord.VoiceChannel = None):
         if ctx.author.voice:
             members = members or ctx.author.voice.channel.members
         else:
