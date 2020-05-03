@@ -158,18 +158,15 @@ class Administrator(commands.Cog):
                 if msg_channel_name.content.lower () == 'sansisquad':
                     await member.add_roles(privaterole)
                     number_of_roles -= 1
-                    await privaterole_channel.send("Role for channel was added to this member.")
-                    await privaterole_channel.send("Please type the private channel name below")
+                    await privaterole_channel.send("Role for channel was added to this member. Type next channel below or leave me alone if you're done.")
                 if msg_channel_name.content.lower () == 'tea':
                     await member.add_roles(privaterole1)
                     number_of_roles -= 1
-                    await privaterole_channel.send("Role for channel was added to this member.")
-                    await privaterole_channel.send("Please type the private channel name below")
+                    await privaterole_channel.send("Role for channel was added to this member. Type next channel below or leave me alone if you're done.")
                 if msg_channel_name.content.lower () == 'solitary-confinement' or msg_channel_name.content.lower () == 'solitary' or msg_channel_name.content.lower () == 'sc':
                     await member.add_roles(privaterole2)
                     number_of_roles -= 1
-                    await privaterole_channel.send("Role for channel was added to this member." )
-                    await privaterole_channel.send("Please type the private channel name below")
+                    await privaterole_channel.send("Role for channel was added to this member. Type next channel below or leave me alone if you're done." )
                 if number_of_roles == 0:
                     await privaterole_channel.send("All roles are added.")
                     break
@@ -220,6 +217,26 @@ class Administrator(commands.Cog):
     async def addrole(self,ctx,user: discord.Member,*role: discord.Role):
         await user.add_roles(*role)
         await ctx.send(f"Add role to {user.mention}")
+
+    @commands.command()
+    @commands.has_guild_permissions(administrator=True)
+    async def move(self,ctx, member:discord.Member, channel: discord.VoiceChannel = None):
+        if ctx.author.voice:
+            members = members or ctx.author.voice.channel.members
+        else:
+            if members is None:
+                return await ctx.send('Please specify users or join a voice channel')
+        total = len(members)
+        success = 0
+        for member in members:
+            try:
+                await member.move_to(channel)
+            except discord.HTTPException as e:
+                await ctx.send(f'Unable to move {member} - `{e}`', delete_after=7)
+            else:
+                success += 1
+                await ctx.message.add_reaction('\U00002705')  # React with checkmark
+        await ctx.send(f'Moved {success}/{total} users', delete_after=10)
 
 
 def setup(client):
