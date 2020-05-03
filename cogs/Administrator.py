@@ -22,7 +22,7 @@ class Administrator(commands.Cog):
                 ban_embed.add_field(name="Punished User", value=member.name,inline=False)
                 ban_embed.set_thumbnail(url=member.avatar_url)
                 ban_embed.set_author(name=member.name, icon_url=member.avatar_url)
-                ban_embed.set_footer(text=f"Member ID:{member.ID}")
+                ban_embed.set_footer(text=f"Member ID:{member.id}")
                 ban_embed.timestamp = datetime.datetime.utcnow()
                 await channel.send(embed=ban_embed)
         except discord.Forbidden:
@@ -58,7 +58,7 @@ class Administrator(commands.Cog):
                 kick_embed.add_field(name="Punished User", value=member.name,inline=False)
                 kick_embed.set_thumbnail(url=member.avatar_url)
                 kick_embed.set_author(name=member.name, icon_url=member.avatar_url)
-                kick_embed.set_footer(text=f"Member ID:{member.ID}")
+                kick_embed.set_footer(text=f"Member ID:{member.id}")
                 kick_embed.timestamp = datetime.datetime.utcnow()
                 await channel.send(embed=kick_embed)
         except discord.Forbidden:
@@ -108,7 +108,7 @@ class Administrator(commands.Cog):
                 mute_embed.add_field(name="Punished User", value=member.name,inline=False)
                 mute_embed.set_thumbnail(url=member.avatar_url)
                 mute_embed.set_author(name=member.name, icon_url=member.avatar_url)
-                mute_embed.set_footer(text=f"Member ID:{member.ID}")
+                mute_embed.set_footer(text=f"Member ID:{member.id}")
                 mute_embed.timestamp = datetime.datetime.utcnow()
                 await channel.send(embed=mute_embed)
     @mute.error
@@ -129,7 +129,7 @@ class Administrator(commands.Cog):
                 unmute_embed.add_field(name="User", value=member.name,inline=False)
                 unmute_embed.set_thumbnail(url=member.avatar_url)
                 unmute_embed.set_author(name=member.name, icon_url=member.avatar_url)
-                unmute_embed.set_footer(text=f"Member ID:{member.ID}")
+                unmute_embed.set_footer(text=f"Member ID:{member.id}")
                 unmute_embed.timestamp = datetime.datetime.utcnow()
                 await channel.send(embed=unmute_embed)
     @unmute.error
