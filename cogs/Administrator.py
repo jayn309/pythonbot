@@ -22,6 +22,7 @@ class Administrator(commands.Cog):
                 ban_embed.add_field(name="Punished User", value=member.name,inline=False)
                 ban_embed.set_thumbnail(url=member.avatar_url)
                 ban_embed.set_author(name=member.name, icon_url=member.avatar_url)
+                ban_embed.set_footer(text=f"Member ID:{member.ID}")
                 ban_embed.timestamp = datetime.datetime.utcnow()
                 await channel.send(embed=ban_embed)
         except discord.Forbidden:
@@ -57,6 +58,7 @@ class Administrator(commands.Cog):
                 kick_embed.add_field(name="Punished User", value=member.name,inline=False)
                 kick_embed.set_thumbnail(url=member.avatar_url)
                 kick_embed.set_author(name=member.name, icon_url=member.avatar_url)
+                kick_embed.set_footer(text=f"Member ID:{member.ID}")
                 kick_embed.timestamp = datetime.datetime.utcnow()
                 await channel.send(embed=kick_embed)
         except discord.Forbidden:
@@ -72,6 +74,7 @@ class Administrator(commands.Cog):
         role = discord.utils.get(ctx.guild.roles, name="Muted")
         privaterole = discord.utils.get(ctx.guild.roles, name="betunamluv")
         privaterole1 = discord.utils.get(ctx.guild.roles, name="Test Subject")
+        privaterole2 = discord.utils.get(ctx.guild.roles, name="Solitary Confinement")
         channel = discord.utils.get(member.guild.text_channels, name='log')
         if not role: # checks if there is muted role
             try: # creates muted role 
@@ -87,12 +90,16 @@ class Administrator(commands.Cog):
                 await member.remove_roles(privaterole)
             if privaterole1:
                 await member.remove_roles(privaterole1)
+            if privaterole2:
+                await member.remove_roles(privaterole2)
         else:
             await member.add_roles(role)
             if privaterole:
                 await member.remove_roles(privaterole)
             if privaterole1:
                 await member.remove_roles(privaterole1)
+            if privaterole2:
+                await member.remove_roles(privaterole2)
                 
         await ctx.send(f"{member.mention} was muted")
         if channel:
@@ -101,6 +108,7 @@ class Administrator(commands.Cog):
                 mute_embed.add_field(name="Punished User", value=member.name,inline=False)
                 mute_embed.set_thumbnail(url=member.avatar_url)
                 mute_embed.set_author(name=member.name, icon_url=member.avatar_url)
+                mute_embed.set_footer(text=f"Member ID:{member.ID}")
                 mute_embed.timestamp = datetime.datetime.utcnow()
                 await channel.send(embed=mute_embed)
     @mute.error
@@ -121,6 +129,7 @@ class Administrator(commands.Cog):
                 unmute_embed.add_field(name="User", value=member.name,inline=False)
                 unmute_embed.set_thumbnail(url=member.avatar_url)
                 unmute_embed.set_author(name=member.name, icon_url=member.avatar_url)
+                unmute_embed.set_footer(text=f"Member ID:{member.ID}")
                 unmute_embed.timestamp = datetime.datetime.utcnow()
                 await channel.send(embed=unmute_embed)
     @unmute.error
