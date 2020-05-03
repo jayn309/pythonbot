@@ -26,6 +26,7 @@ class HelpCommands(commands.Cog):
         embed.add_field(name="_edit [channel] [message_id]", value="edit a bot's message in a channel",inline=False)
         embed.add_field(name="_showemotes [channel]", value="show all server emotes in a channel",inline=False)
         embed.add_field(name="_addrole/_removerole [member] [role]", value="add or remove role",inline=False)
+        embed.add_field(name="_move [member] [channel]", value="move member to another voice chat or disconnect from voicechat",inline=False)
         
         await ctx.send(author.mention, embed=embed)
 
