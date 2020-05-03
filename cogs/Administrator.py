@@ -153,25 +153,23 @@ class Administrator(commands.Cog):
         number_of_roles = int(msg.content)
         if number_of_roles != 0:
             await privaterole_channel.send("Please type the private channels name below")
-        else:
-            pass
-        while number_of_roles != 0:
-            msg_channel_name = await self.client.wait_for('message',check=check)
-            if msg_channel_name.content.lower () == 'sansisquad':
-                await member.add_roles(privaterole)
-                number_of_roles -= 1
-                await privaterole_channel.send("Role for channel was added to this member.")
-            if msg_channel_name.content.lower () == 'tea':
-                await member.add_roles(privaterole1)
-                number_of_roles -= 1
-                await privaterole_channel.send("Role for channel was added to this member.")
-            if msg_channel_name.content.lower () == 'solitary-confinement' or msg_channel_name.content.lower () == 'solitary':
-                await member.add_roles(privaterole2)
-                number_of_roles -= 1
-                await privaterole_channel.send("Role for channel was added to this member." )
-        else:
-            number_of_roles == 0
-            await privaterole_channel.send("No private role need to be added to this member")
+            while number_of_roles != 0:
+                msg_channel_name = await self.client.wait_for('message',check=check)
+                if msg_channel_name.content.lower () == 'sansisquad':
+                    await member.add_roles(privaterole)
+                    number_of_roles -= 1
+                    await privaterole_channel.send("Role for channel was added to this member.")
+                if msg_channel_name.content.lower () == 'tea':
+                    await member.add_roles(privaterole1)
+                    number_of_roles -= 1
+                    await privaterole_channel.send("Role for channel was added to this member.")
+                if msg_channel_name.content.lower () == 'solitary-confinement' or msg_channel_name.content.lower () == 'solitary':
+                    await member.add_roles(privaterole2)
+                    number_of_roles -= 1
+                    await privaterole_channel.send("Role for channel was added to this member." )
+            else:
+                number_of_roles == 0
+                await privaterole_channel.send("No private role need to be added to this member")
 
     @unmute.error
     async def unmute_error(self,ctx, error):
