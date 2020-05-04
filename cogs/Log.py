@@ -23,7 +23,7 @@ class Log(commands.Cog):
             await channel.send(embed=embed)
         
         if channel:
-            await channel.send(f'Welcome to WenRene Discord, {member.mention}! Pick a role tag in <#681672202822877207>. Enjoy your stay!')
+            await welcome_channel.send(f'Welcome to WenRene Discord, {member.mention}! Pick a role tag in <#681672202822877207>. Enjoy your stay!')
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
