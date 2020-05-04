@@ -13,6 +13,7 @@ class Log(commands.Cog):
     @commands.Cog.listener()
     async def on_member_join(self, member):
         channel = discord.utils.get(member.guild.text_channels, name='log')
+        welcome_channel = discord.utils.get(member.guild.text_channels, name='lounge')
         if channel:
             embed = discord.Embed(description=f'{len(member.guild.members)}th member joined', colour=member.color)
             embed.set_thumbnail(url=member.avatar_url)
@@ -20,6 +21,14 @@ class Log(commands.Cog):
             embed.set_footer(text=member.guild, icon_url=member.guild.icon_url)
             embed.timestamp = datetime.datetime.utcnow()
             await channel.send(embed=embed)
+        
+        if channel:
+            wembed = discord.Embed(description=f'{len(member.guild.members)}th member joined', colour=member.color)
+            wembed.set_thumbnail(url=member.avatar_url)
+            wembed.add_field(name=f'Welcome to WenRene Discord! @{member.name}',value= "pick a role tag in #roles. Enjoy your stay!",inline=False)
+            wembed.set_footer(text=member.guild, icon_url=member.guild.icon_url)
+            wembed.timestamp = datetime.datetime.utcnow()
+            await channel.send(embed=wembed)
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
