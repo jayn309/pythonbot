@@ -208,15 +208,15 @@ class Administrator(commands.Cog):
 
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
-    async def removerole(self,ctx,user: discord.Member,*role: discord.Role):
-        await user.remove_roles(*role)
-        await ctx.send(f"Remove role from {user.mention}")
+    async def removerole(self,ctx,member : discord.Member,*role: discord.Role):
+        await member.remove_roles(*role)
+        await ctx.send(f"Remove role from {member.mention}")
 
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
-    async def addrole(self,ctx,user: discord.Member,*role: discord.Role):
-        await user.add_roles(*role)
-        await ctx.send(f"Add role to {user.mention}")
+    async def addrole(self,ctx,member : discord.Member,*role: discord.Role):
+        await member.add_roles(*role)
+        await ctx.send(f"Add role to {member.mention}")
 
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
