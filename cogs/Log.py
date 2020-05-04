@@ -25,7 +25,7 @@ class Log(commands.Cog):
         if channel:
             wembed = discord.Embed(title="A new member has arrived!", colour=member.color)
             wembed.set_thumbnail(url=member.avatar_url)
-            embed.add_field(name=f'Welcome to WenRene Discord! <@{member.name}>', value="pick a role tag in <#roles>. Enjoy your stay!",inline=False)
+            wembed.add_field(name=f'Welcome to WenRene Discord! <@{member.name}>', value="pick a role tag in <#roles>. Enjoy your stay!",inline=False)
             wembed.set_footer(text=member.guild, icon_url=member.guild.icon_url)
             wembed.timestamp = datetime.datetime.utcnow()
             await channel.send(embed=wembed)
