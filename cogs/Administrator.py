@@ -12,7 +12,7 @@ class Administrator(commands.Cog):
     @commands.command()
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
     async def ban(self, ctx, member : discord.Member, *, reason=None):
-        channel = discord.utils.get(member.guild.text_channels, name='log')
+        channel = discord.utils.get(member.guild.text_channels, name='mod-log')
         try:
             await member.ban(reason=reason)
             await ctx.send(f"{member.mention} got ban")
@@ -39,7 +39,7 @@ class Administrator(commands.Cog):
         member = await self.client.fetch_user(int(member))
         await ctx.guild.unban(member, reason=reason)
         await ctx.send(f'Unbanned the user.')
-        channel = self.client.get_channel(684130494023073865)
+        channel = self.client.get_channel(706728600874909712)
         if channel:
                 unban_embed = discord.Embed(title='Moderation Unban',colour=member.color)
                 unban_embed.add_field(name="Unbanned by", value=ctx.author,inline=False)
@@ -54,7 +54,7 @@ class Administrator(commands.Cog):
     @commands.command()
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
     async def kick(self,ctx, member : discord.Member, *, reason=None):
-        channel = discord.utils.get(member.guild.text_channels, name='log')
+        channel = discord.utils.get(member.guild.text_channels, name='mod-log')
         try:
             await member.kick(reason=reason)
             await ctx.send(f"{member.mention} got kicked")
@@ -81,7 +81,7 @@ class Administrator(commands.Cog):
         privaterole = discord.utils.get(ctx.guild.roles, name="betunamluv")
         privaterole1 = discord.utils.get(ctx.guild.roles, name="Test Subject")
         privaterole2 = discord.utils.get(ctx.guild.roles, name="Solitary Confinement")
-        channel = discord.utils.get(member.guild.text_channels, name='log')
+        channel = discord.utils.get(member.guild.text_channels, name='mod-log')
         if not role: # checks if there is muted role
             try: # creates muted role 
                 muted = await ctx.guild.create_role(name="Muted", reason="To use for muting")
@@ -129,7 +129,7 @@ class Administrator(commands.Cog):
         privaterole = discord.utils.get(ctx.guild.roles, name="betunamluv")
         privaterole1 = discord.utils.get(ctx.guild.roles, name="Test Subject")
         privaterole2 = discord.utils.get(ctx.guild.roles, name="Solitary Confinement")
-        channel = discord.utils.get(member.guild.text_channels, name='log')
+        channel = discord.utils.get(member.guild.text_channels, name='mod-log')
         privaterole_channel = discord.utils.get(member.guild.text_channels, name='bot-config')
         await member.remove_roles(role)
         await ctx.send(f"{member.mention} was unmuted")
