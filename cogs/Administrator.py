@@ -127,8 +127,8 @@ class Administrator(commands.Cog):
     async def unmute(self,ctx, member : discord.Member):
         role = discord.utils.get(ctx.guild.roles, name="Muted")
         privaterole = discord.utils.get(ctx.guild.roles, name="betunamluv")
-        privaterole1 = discord.utils.get(ctx.guild.roles, name="test subject")
-        privaterole2 = discord.utils.get(ctx.guild.roles, name="solitary confinement")
+        privaterole1 = discord.utils.get(ctx.guild.roles, name="Test Subject")
+        privaterole2 = discord.utils.get(ctx.guild.roles, name="Solitary Confinement")
         channel = discord.utils.get(member.guild.text_channels, name='mod-log')
         privaterole_channel = discord.utils.get(member.guild.text_channels, name='bot-config')
         await member.remove_roles(role)
