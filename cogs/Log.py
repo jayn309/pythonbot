@@ -71,7 +71,7 @@ class Log(commands.Cog):
         if message.author.id == 685307035142586380 or message.author.id == 325387620266016768 or message.author.id == 235088799074484224 or message.author.id == 234395307759108106:
             return
         else:
-            delete_embed = discord.Embed(title=f'@{message.author.name} deleted a message in #{message.channel}', description = f'{message.content}')
+            delete_embed = discord.Embed(title=f'@{message.author.nick} deleted a message in #{message.channel}', description = f'{message.content}')
             delete_embed.set_footer(text=f"Author ID:{message.author.id} • Created at: {message.created_at}")
             delete_embed.timestamp = datetime.datetime.utcnow()
             await log_channel.send(embed=delete_embed)
