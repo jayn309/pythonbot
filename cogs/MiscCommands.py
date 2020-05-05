@@ -1,6 +1,7 @@
 import discord
 import random
 import asyncio
+import re
 
 from discord.ext import commands
 from random import choice as randchoice
@@ -211,6 +212,73 @@ class MicsCommands(commands.Cog):
         else:
             await asyncio.sleep(1)
             await ctx.send(randchoice(huh))
+
+    @commands.command()
+    async def mock(self, ctx, *, args=""):
+        emoteregex=re.compile(r'<(a)*:[\w]+:([0-9]+)>( )*')
+        def mockthis(s):
+            #remove custom emotes (keeps unicode emojis)
+            s=re.sub(emoteregex,"",s)
+            m=""
+            #build new string swapcasing at random
+            for i in range(len(s)):
+                if random.getrandbits(1)==1:
+                    m+=s[i].swapcase()
+                else:
+                    m += s[i]
+            return m
+
+        #if args empty then mock a previous message
+        if len(args.strip())==0:
+            #get the last x num of messages in channel
+            lastmessagelist = await ctx.channel.history(limit=16).flatten()
+            i=0
+            while i < len(lastmessagelist):
+                #valid mock if msg is not from the bot, does not only contain emotes, is not a mock command
+                validmock=(not lastmessagelist[i].author.id==685307035142586380) and (len(re.sub(emoteregex,"",lastmessagelist[i].clean_content.strip()))>0) and (not lastmessagelist[i].clean_content[1:5]=="mock")
+                if validmock:
+                    break
+                i+=1
+            #if loop didn't finish then i refers to a valid mock message in list
+            if i<len(lastmessagelist):
+                await ctx.send(mockthis(lastmessagelist[i].clean_content))
+                await ctx.send("<:irenemock:686573132185600010>")
+            else:
+                await ctx.send("<:wendycry:706669625030606858> found nothing to mock")
+            return
+
+        try:
+            # if args is not empty it's a possible msg id
+            msgid=int(args.strip())
+            msg=await ctx.channel.fetch_message(msgid)
+            msgctx = await self.client.get_context(msg)
+            # if targetted msg was from the bot
+            if msg.author.id==685307035142586380:
+                await ctx.send(f"{msg.clean_content}")
+                await ctx.send("<:ireneevilsmile:682673054924537954>")
+            #if targetted msg was a mock command
+            elif msgctx.valid and msg.clean_content[1:5]=="mock":
+                await ctx.send("Mocking the mock command")
+                await ctx.send("<:wendywhat:681337728910098434>")
+            # if targetted msg only had an emote
+            elif len(re.sub(emoteregex,"",msg.clean_content.strip()))==0:
+                await ctx.send("Mocking emotes")
+                await ctx.send("<:wendywhat:681337728910098434>")
+            #else mock targetted msg
+            else:
+                await ctx.send(mockthis(msg.clean_content))
+                await ctx.send("<:irenemock:686573132185600010>")
+        except discord.NotFound:
+            await ctx.send("<a:wendyanxious:697964082619351142> message not found")
+        except discord.Forbidden:
+            await ctx.send("<:wendyconcerned:684198747923939341> forbidden message")
+        except discord.HTTPException:
+            await ctx.send("<a:wendyspeechless:684122984801107983> error finding message")
+        #args is not num/msgid. mock args
+        except ValueError:
+            await ctx.send(mockthis(ctx.message.clean_content[6:]))
+            await ctx.send("<:irenemock:686573132185600010>")
+
 
 def setup(client):
     client.add_cog(MicsCommands(client))
