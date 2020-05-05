@@ -127,8 +127,8 @@ class Administrator(commands.Cog):
     async def unmute(self,ctx, member : discord.Member):
         role = discord.utils.get(ctx.guild.roles, name="Muted")
         privaterole = discord.utils.get(ctx.guild.roles, name="betunamluv")
-        privaterole1 = discord.utils.get(ctx.guild.roles, name="Test Subject")
-        privaterole2 = discord.utils.get(ctx.guild.roles, name="Solitary Confinement")
+        privaterole1 = discord.utils.get(ctx.guild.roles, name="test subject")
+        privaterole2 = discord.utils.get(ctx.guild.roles, name="solitary confinement")
         channel = discord.utils.get(member.guild.text_channels, name='mod-log')
         privaterole_channel = discord.utils.get(member.guild.text_channels, name='bot-config')
         await member.remove_roles(role)
@@ -152,21 +152,21 @@ class Administrator(commands.Cog):
         msg = await self.client.wait_for('message',check=check)
         number_of_roles = int(msg.content)
         if number_of_roles != 0:
-            await privaterole_channel.send("Please type the private channel name below")
+            await privaterole_channel.send("Please type the roles name below.")
             while number_of_roles != 0:
                 msg_channel_name = await self.client.wait_for('message',check=check)
-                if msg_channel_name.content.lower () == 'sansisquad':
+                if msg_channel_name.content.lower () == 'betunamluv':
                     await member.add_roles(privaterole)
                     number_of_roles -= 1
-                    await privaterole_channel.send("Role for channel was added to this member. Type next channel below or leave me alone if you're done.")
-                if msg_channel_name.content.lower () == 'tea':
+                    await privaterole_channel.send("Role was added to this member. Type next role below or leave me alone if you're done.")
+                if msg_channel_name.content.lower () == 'test':
                     await member.add_roles(privaterole1)
                     number_of_roles -= 1
-                    await privaterole_channel.send("Role for channel was added to this member. Type next channel below or leave me alone if you're done.")
-                if msg_channel_name.content.lower () == 'solitary-confinement' or msg_channel_name.content.lower () == 'solitary' or msg_channel_name.content.lower () == 'sc':
+                    await privaterole_channel.send("Role was added to this member. Type next role below or leave me alone if you're done.")
+                if msg_channel_name.content.lower () == 'solitary' or msg_channel_name.content.lower () == 'sc':
                     await member.add_roles(privaterole2)
                     number_of_roles -= 1
-                    await privaterole_channel.send("Role for channel was added to this member. Type next channel below or leave me alone if you're done." )
+                    await privaterole_channel.send("Role was added to this member. Type next role below or leave me alone if you're done." )
                 if number_of_roles == 0:
                     await privaterole_channel.send("All roles are added.")
                     break
