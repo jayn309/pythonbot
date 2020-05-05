@@ -77,7 +77,7 @@ class Log(commands.Cog):
                 delete_embed.timestamp = datetime.datetime.utcnow()
                 await log_channel.send(embed=delete_embed)
             else:
-                delete_embed = discord.Embed(title=f'@{message.author.nick} deleted a message in #{message.channel}', description = f'{message.attachments.url}')
+                delete_embed = discord.Embed(title=f'@{message.author.nick} deleted a message in #{message.channel}', description = f'{message.attachments[0].url}')
                 delete_embed.set_footer(text=f"Author ID:{message.author.id} • Created at: {message.created_at}")
                 delete_embed.timestamp = datetime.datetime.utcnow()
                 await log_channel.send(embed=delete_embed)
