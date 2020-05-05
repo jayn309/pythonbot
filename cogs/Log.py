@@ -22,7 +22,7 @@ class Log(commands.Cog):
             embed.timestamp = datetime.datetime.utcnow()
             await channel.send(embed=embed)
         
-        if channel:
+        if welcome_channel:
             await welcome_channel.send(f'Welcome to WenRene Discord, {member.mention}! Pick a role tag in <#681672202822877207>. Enjoy your stay!')
 
     @commands.Cog.listener()
@@ -63,6 +63,7 @@ class Log(commands.Cog):
             edit_embed.set_footer(text=f"Author ID:{before.author.id} • Message ID: {before.id}")
             edit_embed.add_field(name='Before:', value=before.content, inline=False)
             edit_embed.add_field(name="After:", value=after.content, inline=False)
+            edit_embed.timestamp = datetime.datetime.utcnow()
             await channel.send(embed=edit_embed)
 
     @commands.Cog.listener()
