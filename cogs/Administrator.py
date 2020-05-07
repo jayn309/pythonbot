@@ -232,8 +232,8 @@ class Administrator(commands.Cog):
         for member in ctx.guild.members:
             num_members = len(member.guild.members)
             if verifiedrole in member.roles:
-                await member.add_roles(role)
                 await ctx.send("This will take awhile.")
+                await member.add_roles(role)
                 num_members -= 1
                 if num_members == 0:
                     await ctx.send(f"Added role to all members.")
@@ -244,6 +244,7 @@ class Administrator(commands.Cog):
         for member in ctx.guild.members:
             num_members = len(member.guild.members)
             if role in member.roles:
+                await ctx.send("This will take awhile.")
                 await member.remove_roles(role)
                 num_members -= 1
                 if num_members == 0:
