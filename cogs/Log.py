@@ -66,39 +66,6 @@ class Log(commands.Cog):
             edit_embed.timestamp = datetime.datetime.utcnow()
             await channel.send(embed=edit_embed)
 
-    @commands.Cog.listener()
-    async def on_message_delete(self, message):
-        log_channel = self.client.get_channel(684130494023073865)
-        if message.author.id == 685307035142586380 or message.author.id == 325387620266016768 or message.author.id == 235088799074484224 or message.author.id == 234395307759108106:
-            return
-        else:
-            if not message.attachments:
-                delete_embed = discord.Embed(title=f'@{message.author.nick} deleted a message in #{message.channel}', description = f'{message.content}')
-                delete_embed.set_footer(text=f"Author ID:{message.author.id} • Created at: {message.created_at}")
-                delete_embed.timestamp = datetime.datetime.utcnow()
-                await log_channel.send(embed=delete_embed)
-            else:
-                delete_embed = discord.Embed(title=f'@{message.author.name} deleted a message in #{message.channel}', description = f'{message.attachments[0].url}')
-                delete_embed.set_footer(text=f"Author ID:{message.author.id} • Created at: {message.created_at}")
-                delete_embed.timestamp = datetime.datetime.utcnow()
-                await log_channel.send(embed=delete_embed)
-
-    @commands.Cog.listener()
-    async def on_bulk_message_delete(self, messages):
-        log_channel = self.client.get_channel(684130494023073865)
-        if messages.author.id == 685307035142586380 or messages.author.id == 325387620266016768 or messages.author.id == 235088799074484224 or messages.author.id == 234395307759108106:
-            return
-        else:
-            if not messages.attachments:
-                delete_embed = discord.Embed(title=f'@{messages.author.nick} deleted a message in #{messages.channel}', description = f'{messages.content}')
-                delete_embed.set_footer(text=f"Author ID:{messages.author.id} • Created at: {messages.created_at}")
-                delete_embed.timestamp = datetime.datetime.utcnow()
-                await log_channel.send(embed=delete_embed)
-            else:
-                delete_embed = discord.Embed(title=f'@{messages.author.name} deleted a message in #{messages.channel}', description = f'{messages.attachments[0].url}')
-                delete_embed.set_footer(text=f"Author ID:{messages.author.id} • Created at: {messages.created_at}")
-                delete_embed.timestamp = datetime.datetime.utcnow()
-                await log_channel.send(embed=delete_embed)
 
 def setup(client):
     client.add_cog(Log(client))
