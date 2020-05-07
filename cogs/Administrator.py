@@ -225,6 +225,29 @@ class Administrator(commands.Cog):
         await member.add_roles(*role)
         await ctx.send(f"Add role to {member.mention}")
 
+    @commands.command(aliases=['aar'])
+    @commands.has_guild_permissions(administrator=True)
+    async def alladdrole(self,ctx,role: discord.Role):
+        verifiedrole = discord.utils.get(ctx.guild.roles, name='Velvified')
+        for member in ctx.guild.members:
+            num_members = len(member.guild.members)
+            if verifiedrole in member.roles:
+                await member.add_roles(role)
+                await ctx.send("This will take awhile.")
+                num_members -= 1
+                if num_members == 0:
+                    await ctx.send(f"Added role to all members.")
+
+    @commands.command(aliases=['arr'])
+    @commands.has_guild_permissions(administrator=True)
+    async def allremoverole(self,ctx,role: discord.Role):
+        for member in ctx.guild.members:
+            num_members = len(member.guild.members)
+            if role in member.roles:
+                await member.remove_roles(role)
+                num_members -= 1
+                if num_members == 0:
+                    await ctx.send(f"Remove role from all members.")
 
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
