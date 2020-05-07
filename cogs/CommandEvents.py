@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 from discord.utils import get
+from discord.ext.commands import CommandNotFound
 
 commands_tally = {}
 class CommandEvents(commands.Cog):
@@ -9,7 +10,10 @@ class CommandEvents(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
-        await ctx.send(error)
+        if isinstance(error, CommandNotFound):
+            return
+        else:
+            await ctx.send(error)
 
     @commands.Cog.listener()
     async def on_command(self, ctx):
