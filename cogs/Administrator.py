@@ -1,8 +1,10 @@
 import discord
 import time
 import datetime
+import asyncio
 
 from discord.ext import commands
+from discord.utils import get
 
 
 class Administrator(commands.Cog):
@@ -225,9 +227,22 @@ class Administrator(commands.Cog):
 
     @commands.command(aliases=['aar'])
     @commands.has_guild_permissions(administrator=True)
-    async def alladdrole(self,ctx):
+    async def alladdrole(self,ctx,role: discord.Role):
+        verifiedrole = discord.utils.get(ctx.guild.roles, name='Velvified')
         for member in ctx.guild.members:
-            print(member)
+            if verifiedrole in member.roles:
+                await member.add_roles(role)
+                await asyncio.sleep(20)
+                await ctx.send(f"Added role to all members.")
+
+    @commands.command(aliases=['arr'])
+    @commands.has_guild_permissions(administrator=True)
+    async def allremoverole(self,ctx,role: discord.Role):
+        for member in ctx.guild.members:
+            if role in member.roles:
+                await member.remove_roles(role)
+                await asyncio.sleep(20)
+                await ctx.send(f"Remove role from all members.")
 
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
