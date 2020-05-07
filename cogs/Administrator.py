@@ -129,6 +129,7 @@ class Administrator(commands.Cog):
         privaterole = discord.utils.get(ctx.guild.roles, name="betunamluv")
         privaterole1 = discord.utils.get(ctx.guild.roles, name="Test Subject")
         privaterole2 = discord.utils.get(ctx.guild.roles, name="Solitary Confinement")
+        privaterole3 = discord.utils.get(ctx.guild.roles, name="YadongYaseol")
         channel = discord.utils.get(member.guild.text_channels, name='mod-log')
         privaterole_channel = discord.utils.get(member.guild.text_channels, name='bot-config')
         await member.remove_roles(role)
@@ -161,6 +162,10 @@ class Administrator(commands.Cog):
                     await privaterole_channel.send("Role was added to this member. Type next role below or leave me alone if you're done.")
                 if msg_channel_name.content.lower () == 'test':
                     await member.add_roles(privaterole1)
+                    number_of_roles -= 1
+                    await privaterole_channel.send("Role was added to this member. Type next role below or leave me alone if you're done.")
+                if msg_channel_name.content.lower () == 'yadongyaseol' or msg_channel_name.content.lower () == 'yy':
+                    await member.add_roles(privaterole3)
                     number_of_roles -= 1
                     await privaterole_channel.send("Role was added to this member. Type next role below or leave me alone if you're done.")
                 if msg_channel_name.content.lower () == 'solitary' or msg_channel_name.content.lower () == 'sc':
