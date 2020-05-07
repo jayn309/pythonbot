@@ -69,7 +69,7 @@ class Log(commands.Cog):
     @commands.Cog.listener()
     async def on_message_delete(self, message):
         log_channel = self.client.get_channel(684130494023073865)
-        if message.author.id == 685307035142586380 or message.author.id == 325387620266016768 or message.author.id == 235088799074484224 or message.author.id == 234395307759108106:
+        if message.author.id == 325387620266016768 or message.author.id == 235088799074484224 or message.author.id == 234395307759108106:
             return
         else:
             if not message.attachments:
