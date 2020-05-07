@@ -223,6 +223,12 @@ class Administrator(commands.Cog):
         await member.add_roles(*role)
         await ctx.send(f"Add role to {member.mention}")
 
+    @commands.command(aliases=['aar'])
+    @commands.has_guild_permissions(administrator=True)
+    async def alladdrole(self,ctx):
+        for member in ctx.guild.members:
+            print(member)
+
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
     async def move(self,ctx,members: commands.Greedy[discord.Member] = None, channel: discord.VoiceChannel = None):
