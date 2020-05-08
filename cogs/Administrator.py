@@ -227,7 +227,7 @@ class Administrator(commands.Cog):
 
     @commands.command(aliases=['aar'])
     @commands.has_guild_permissions(administrator=True)
-    async def alladdrole(self,ctx,role: discord.Role):
+    async def alladdrole(self,ctx, *,role: discord.Role):
         num_members = len(ctx.guild.members)
         await ctx.send("This will take awhile.")
         while num_members != 0:
@@ -240,7 +240,7 @@ class Administrator(commands.Cog):
 
     @commands.command(aliases=['arr'])
     @commands.has_guild_permissions(administrator=True)
-    async def allremoverole(self,ctx,role: discord.Role):
+    async def allremoverole(self,ctx, *,role: discord.Role):
         num_members = len(role.members)
         await ctx.send("This will take awhile.")
         while num_members != 0:
