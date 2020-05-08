@@ -253,9 +253,11 @@ class Administrator(commands.Cog):
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
     async def countr(self,ctx,role: discord.Role):
+        counter = 0
         for member in ctx.guild.members:
             if role in member.roles:
-                await ctx.send(f'{len(role.members)} members have this role.')
+                counter =len(role.members)
+        await ctx.send(f'{counter} members have this role.')
 
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
