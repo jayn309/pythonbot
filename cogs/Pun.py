@@ -62,21 +62,14 @@ class Pun(commands.Cog):
         'What do you call an animal you keep in your car?',
         'What does a clam do on his birthday?',
         'What kind of birthday cake do you get for a coffee lover?',
-        'What do you call kiku when he gets no points?',
-        'What do you call a smart person named jay?',
-        'What do you call a jealous person named jay?',
         'How many tickles does it take to make a squid laugh?',
-        'What do you call Taeyeon when she is out of energy?',
-        'What do you call Tiffany who always make people laugh?',
-        'What is your relationship called during quarantine?',
-        'What does a leaf feel when it did not feel down?',
         'What is a bee from us called?']
                 
         Answers =['penguin','address','fryday','taxido','fsh','launch','penaltea','clauset','b','investigator','finland',
         'meowntain','chipmonk','milkshake','depresso','irrelephant','adell','sandwitch','minimum','satisfactory','unawarewolf',
         'carrotee','moovie','moscows','cowculator','moody','cowlapse','pengrin','moolan','barbercue','carpool','necktarines',
         'pastree','hamster','starfish','duckumentaries','ducktor','chemelon','tropickle','aperon','broomates','tenish','subahhru','ruff','sneaker',
-        'pool','carpet','shellabrates','chocolatte','kikuzero','jaynius','jaylous','tentickles','taeyeoff','tiffuny','isolationship', 'releave','usbee']
+        'pool','carpet','shellabrates','chocolatte','tentickles','usbee']
 
         if ctx.channel.id == 680233219303800893:
             i = random.choice(range(len(Questions)))
