@@ -229,9 +229,9 @@ class Administrator(commands.Cog):
     @commands.has_guild_permissions(administrator=True)
     async def alladdrole(self,ctx,role: discord.Role):
         verifiedrole = discord.utils.get(ctx.guild.roles, name='Velvified')
+        num_members = len(ctx.guild.members)
         await ctx.send("This will take awhile.")
         for member in ctx.guild.members:
-            num_members = len(member.guild.members)
             if verifiedrole in member.roles:
                 await member.add_roles(role)
                 num_members -= 1
@@ -241,14 +241,23 @@ class Administrator(commands.Cog):
     @commands.command(aliases=['arr'])
     @commands.has_guild_permissions(administrator=True)
     async def allremoverole(self,ctx,role: discord.Role):
+        num_members = len(ctx.guild.members)
         await ctx.send("This will take awhile.")
         for member in ctx.guild.members:
-            num_members = len(member.guild.members)
             if role in member.roles:
                 await member.remove_roles(role)
                 num_members -= 1
                 if num_members == 0:
                     await ctx.send(f"Remove role from all members.")
+
+    @commands.command()
+    @commands.has_guild_permissions(administrator=True)
+    async def countr(self,ctx,role: discord.Role):
+        num_members_has_role = 0
+        for member in ctx.guild.members:
+            for role in member.roles:
+                num_members_has_role += 1
+                await ctx.send(f"{num_members_has_role} have this role.")
 
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
