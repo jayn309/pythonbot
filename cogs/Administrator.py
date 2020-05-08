@@ -257,7 +257,7 @@ class Administrator(commands.Cog):
         for member in ctx.guild.members:
             for role in member.roles:
                 num_members_has_role += 1
-                await ctx.send(f"{num_members_has_role} have this role.")
+                await ctx.send(f"{num_members_has_role} members have this role.")
 
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
