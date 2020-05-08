@@ -257,7 +257,7 @@ class Administrator(commands.Cog):
         for member in ctx.guild.members:
             if role in member.roles:
                 counter =len(role.members)
-        await ctx.send(f'{counter} members have this role.')
+        await ctx.send(f'{counter} members have {role} role.')
 
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
