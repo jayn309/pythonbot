@@ -25,7 +25,7 @@ class HelpCommands(commands.Cog):
         embed.add_field(name="_say [channel] [message]", value="make the bot say something in a channel",inline=False)
         embed.add_field(name="_edit [channel] [message_id]", value="edit a bot's message in a channel",inline=False)
         embed.add_field(name="_showemotes [channel]", value="show all server emotes in a channel",inline=False)
-        embed.add_field(name="_addrole/_removerole [member] [role]", value="add or remove role",inline=False)
+        embed.add_field(name="_addrole/_removerole [role]  [member]", value="add or remove role",inline=False)
         embed.add_field(name="_move [member] [channel]", value="move member to another voice chat or disconnect from voicechat",inline=False)
         embed.add_field(name="_aar/_arr [role]", value="add or remove a role to/from all members",inline=False)
         embed.add_field(name="_countr [role]", value="number of members have that role",inline=False)
