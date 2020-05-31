@@ -166,7 +166,7 @@ class MicsCommands(commands.Cog):
                     guess == 0
                     await ctx.send("<:ireneyikes:679733703647559720> What a loser!")
         else:
-            await ctx.send("Please go to bot channel to use the command.")
+            await ctx.send("Please go to bot channel in wenrenecord to use the command.")
 
     @commands.command()
     async def rps(self,ctx, msg: str):
