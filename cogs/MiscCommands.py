@@ -140,7 +140,7 @@ class MicsCommands(commands.Cog):
         await ctx.send('Guess a number between 1 and 100. You have 5 chances.')
         def check(m):
             try:
-                return int(m.content) and m.author.id == ctx.author.id
+                return int(m.content) and m.author.id == ctx.author.id and m.channel.id == ctx.channel.id
             except ValueError:
                 return False
         guess = 5
