@@ -146,7 +146,7 @@ class MicsCommands(commands.Cog):
         guess = 5
         while guess != 0:
             try:
-                msg = await self.client.wait_for('message',check=check,timeout=300.0)
+                msg = await self.client.wait_for('message',check=check,timeout=60.0)
                 attempt = int(msg.content)
                 if attempt > number:
                     await asyncio.sleep(1)
@@ -162,7 +162,7 @@ class MicsCommands(commands.Cog):
                     await ctx.send('You guessed it! Good job! <a:awendythumbsup:700918916637130753> ')
                     break
             except asyncio.TimeoutError:
-                await ctx.send('Bye.')
+                await ctx.send('Nobody guessed it. Bye.')
                 return
         else:
             guess == 0
