@@ -145,21 +145,25 @@ class MicsCommands(commands.Cog):
                 return False
         guess = 5
         while guess != 0:
-            msg = await self.client.wait_for('message',check=check)
-            attempt = int(msg.content)
-            if attempt > number:
-                await asyncio.sleep(1)
-                await ctx.send('Try going lower')
-                guess -= 1
-                await ctx.send(f"You have {guess} chances left.")
-            elif attempt < number:
-                await asyncio.sleep(1)
-                await ctx.send('Try going higher')
-                guess -=1
-                await ctx.send(f"You have {guess} chances left.")
-            elif attempt == number:
-                await ctx.send('You guessed it! Good job! <a:awendythumbsup:700918916637130753> ')
-                break
+            try:
+                msg = await self.client.wait_for('message',check=check,timeout=5.0)
+                attempt = int(msg.content)
+                if attempt > number:
+                    await asyncio.sleep(1)
+                    await ctx.send('Try going lower')
+                    guess -= 1
+                    await ctx.send(f"You have {guess} chances left.")
+                elif attempt < number:
+                    await asyncio.sleep(1)
+                    await ctx.send('Try going higher')
+                    guess -=1
+                    await ctx.send(f"You have {guess} chances left.")
+                elif attempt == number:
+                    await ctx.send('You guessed it! Good job! <a:awendythumbsup:700918916637130753> ')
+                    break
+            except asyncio.TimeoutError:
+                await ctx.send('Oops! Nobody solved it.')
+                return
         else:
             guess == 0
             await ctx.send("<:ireneyikes:679733703647559720> What a loser!")
