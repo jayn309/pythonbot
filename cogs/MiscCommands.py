@@ -133,8 +133,8 @@ class MicsCommands(commands.Cog):
         else:
             await ctx.send(f"{slotmachine} No match, you lost 😢")
 
-    @commands.command()
-    @commands.cooldown(rate=1, per=20.0, type=commands.BucketType.user)
+    @commands.command(aliases=['ng'])
+    @commands.cooldown(rate=1, per=10.0, type=commands.BucketType.user)
     async def numgame(self,ctx):
         number = random.randint(1,100)
         await ctx.send('Guess a number between 1 and 100. You have 5 chances.')
@@ -275,40 +275,5 @@ class MicsCommands(commands.Cog):
             await ctx.send(mockthis(ctx.message.clean_content[6:]))
             await ctx.send("<:irenemock:686573132185600010>")
 
-
-    @commands.command()
-    @commands.cooldown(rate=1, per=10.0, type=commands.BucketType.user)
-    async def ng(self,ctx):
-        if ctx.channel.id == 717021948781133916:
-            number = random.randint(1,100)
-            await ctx.send('Guess a number between 1 and 100. You have 5 chances.')
-            def check(m):
-                try:
-                    return int(m.content) and m.channel.id == 717021948781133916
-                except ValueError:
-                    return False
-            if ctx.channel.id == 717021948781133916:
-                guess = 5
-                while guess != 0:
-                    msg = await self.client.wait_for('message',check=check)
-                    attempt = int(msg.content)
-                    if attempt > number:
-                        await asyncio.sleep(1)
-                        await ctx.send('Try going lower')
-                        guess -= 1
-                        await ctx.send(f"You have {guess} chances left.")
-                    elif attempt < number:
-                        await asyncio.sleep(1)
-                        await ctx.send('Try going higher')
-                        guess -=1
-                        await ctx.send(f"You have {guess} chances left.")
-                    elif attempt == number:
-                        await ctx.send('You guessed it! Good job! <:PES_CuteBlush:717380510246109284>')
-                        break
-                else:
-                    guess == 0
-                    await ctx.send("<:pandacoconut:710549192086388757> ngok nghek!")
-        else:
-            await ctx.send("Please go to numgame channel to use the command.")
 def setup(client):
     client.add_cog(MicsCommands(client))
