@@ -15,11 +15,11 @@ class Log(commands.Cog):
         channel = discord.utils.get(member.guild.text_channels, name='mod-log')
         welcome_channel = discord.utils.get(member.guild.text_channels, name='lounge')
         if channel:
-            embed = discord.Embed(description=f'{len(member.guild.members)}th member joined', colour=member.color)
+            embed = discord.Embed(description=f'{len(member.guild.members)}th member joined', 
+                                colour=member.color,timestamp=datetime.datetime.utcnow())
             embed.set_thumbnail(url=member.avatar_url)
             embed.set_author(name=member.name, icon_url=member.avatar_url)
             embed.set_footer(text=member.guild, icon_url=member.guild.icon_url)
-            embed.timestamp = datetime.datetime.utcnow()
             await channel.send(embed=embed)
         
         if welcome_channel:
@@ -29,25 +29,23 @@ class Log(commands.Cog):
     async def on_member_remove(self, member):
         channel = discord.utils.get(member.guild.text_channels, name='mod-log')
         if channel:
-            embed = discord.Embed(description='Goodbye', colour=member.color)
+            embed = discord.Embed(description='Goodbye', colour=member.color,timestamp=datetime.datetime.utcnow())
             embed.set_thumbnail(url=member.avatar_url)
             embed.set_author(name=member.name, icon_url=member.avatar_url)
             embed.set_footer(text=member.guild, icon_url=member.guild.icon_url)
-            embed.timestamp = datetime.datetime.utcnow()
             await channel.send(embed=embed)
 
     @commands.Cog.listener()
     async def on_user_update(self,before,after):
         log_channel = self.client.get_channel(700137514572185662)
         if log_channel:
-            user_embed = discord.Embed(title='User updates')
+            user_embed = discord.Embed(title='User updates',timestamp=datetime.datetime.utcnow())
             user_embed.add_field(name="Name before:", value=before.name,inline=False)
             user_embed.add_field(name="Name after:", value=after.name,inline=False)
             user_embed.add_field(name="Avatar before", value=before.avatar_url,inline=False)
             user_embed.add_field(name="Avatar after", value=after.avatar_url,inline=False)
             user_embed.add_field(name="Discriminator before", value=before.discriminator,inline=False)
             user_embed.add_field(name="Discriminator after", value=after.discriminator,inline=False)
-            user_embed.timestamp = datetime.datetime.utcnow()
             await log_channel.send(embed=user_embed)
 
     @commands.Cog.listener()
@@ -58,12 +56,13 @@ class Log(commands.Cog):
         if before.content == after.content:
             return
         else:
-            edit_embed = discord.Embed(description=f'@{before.author.name} edited a message in #{before.channel}', colour = message.author.colour,)
+            edit_embed = discord.Embed(description=f'@{before.author.name} edited a message in #{before.channel}', 
+                                        colour = before.author.colour,
+                                        timestamp=datetime.datetime.utcnow())
             edit_embed.set_author(name=f'{before.author.name}#{before.author.discriminator}', icon_url=before.author.avatar_url)
             edit_embed.set_footer(text=f"Author ID:{before.author.id} • Message ID: {before.id}")
             edit_embed.add_field(name='Before:', value=before.content, inline=False)
             edit_embed.add_field(name="After:", value=after.content, inline=False)
-            edit_embed.timestamp = datetime.datetime.utcnow()
             await channel.send(embed=edit_embed)
 
     @commands.Cog.listener()
