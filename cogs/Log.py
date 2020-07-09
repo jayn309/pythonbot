@@ -58,7 +58,7 @@ class Log(commands.Cog):
         if before.content == after.content:
             return
         else:
-            edit_embed = discord.Embed(description=f'@{before.author.name} edited a message in #{before.channel}')
+            edit_embed = discord.Embed(description=f'@{before.author.name} edited a message in #{before.channel}', colour = message.author.colour,)
             edit_embed.set_author(name=f'{before.author.name}#{before.author.discriminator}', icon_url=before.author.avatar_url)
             edit_embed.set_footer(text=f"Author ID:{before.author.id} • Message ID: {before.id}")
             edit_embed.add_field(name='Before:', value=before.content, inline=False)
@@ -73,6 +73,7 @@ class Log(commands.Cog):
             delete_embed = discord.Embed(title="Message deletion", description=f"Action by {message.author.name} in #{message.channel}.",
                             colour = message.author.colour, 
                             timestamp=datetime.datetime.utcnow())
+            delete_embed.set_footer(text=f"Author ID:{message.author.id} • Message ID: {message.id}")
             fields = [("Content",message.content, False)]
             for name, value, inline in fields:
                 delete_embed.add_field(name=name, value=value,inline=inline)
