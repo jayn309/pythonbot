@@ -63,7 +63,21 @@ class Log(commands.Cog):
             edit_embed.set_footer(text=f"Author ID:{before.author.id} • Message ID: {before.id}")
             edit_embed.add_field(name='Before:', value=before.content, inline=False)
             edit_embed.add_field(name="After:", value=after.content, inline=False)
+            edit_embed.timestamp = datetime.datetime.utcnow()
             await channel.send(embed=edit_embed)
+
+    @commands.Cog.listener()
+    async def on_message_delete(self, message):
+        log_channel = self.client.get_channel(684130494023073865)
+        if not message.author.id == 685307035142586380:
+            delete_embed = discord.Embed(title="Message deletion", decription=f"Action by {message.author.name}.",
+                            colour = message.author.colour, 
+                            timestamp=datetime.datetime.utcnow())
+            fields = [("Content",message.content, False)]
+            for name, value, inline in fields:
+                delete_embed.add_field(name=name, value=value,inline=inline)
+            await log_channel.send(embed=delete_embed)
+			
 
 
 def setup(client):
