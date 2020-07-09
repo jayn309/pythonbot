@@ -70,7 +70,7 @@ class Log(commands.Cog):
     async def on_message_delete(self, message):
         log_channel = self.client.get_channel(684130494023073865)
         if not message.author.id == 685307035142586380:
-            delete_embed = discord.Embed(title="Message deletion", decription=f"Action by {message.author.name}.",
+            delete_embed = discord.Embed(title="Message deletion", decription=f"Action by {message.author.name} in #{message.channel}.",
                             colour = message.author.colour, 
                             timestamp=datetime.datetime.utcnow())
             fields = [("Content",message.content, False)]
