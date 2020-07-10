@@ -11,7 +11,7 @@ class MicsCommands(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(aliases=[ '8ball'])
+    @commands.command(aliases=[ '8b'])
     async def _8ball(self, ctx, *, question):
         responses = [ 'It is certain.',
             'It is decidedly so.',
@@ -64,7 +64,7 @@ class MicsCommands(commands.Cog):
         reason = f"for **{text}** " if text else ""
         await ctx.send(f"**{ctx.author.name}** has paid their respect {reason}{random.choice(hearts)}")
 
-    @commands.command()
+    @commands.command(aliases=[ 'ch'])
     async def choose(self,ctx, *,choices: str):
         """Chooses between multiple choices."""
         realchoices = str.split(choices,',')
@@ -78,12 +78,12 @@ class MicsCommands(commands.Cog):
         msg = ["(っ˘̩╭╮˘̩)っ","(っ´▽｀)っ","╰(*´︶`*)╯","(つ≧▽≦)つ","(づ￣ ³￣)づ" " ⊂(´・ω・｀⊂)"]
         await ctx.send(random.choice(msg))
 
-    @commands.command()
+    @commands.command(aliases=[ 'tbf'])
     async def tableflip(self, ctx):
         """Tableflip!"""
         await ctx.send('(╯°□°）╯︵ ┻━┻')
 
-    @commands.command()
+    @commands.command(aliases=[ 'unf'])
     async def unflip(self, ctx):
         """Unfips!"""
         await ctx.send('┬─┬﻿ ノ( ゜-゜ノ)')

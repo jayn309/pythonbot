@@ -37,6 +37,8 @@ class Log(commands.Cog):
 
     @commands.Cog.listener()
     async def on_user_update(self,before,after):
+        if before.message.guild.id  != 626016069873696791:
+            return
         log_channel = self.client.get_channel(700137514572185662)
         if log_channel:
             user_embed = discord.Embed(title='User updates',timestamp=datetime.datetime.utcnow())
@@ -56,7 +58,7 @@ class Log(commands.Cog):
         if before.content == after.content:
             return
         else:
-            edit_embed = discord.Embed(title="Message edited",description=f'{before.author.name}> edited a message in #{before.channel}', 
+            edit_embed = discord.Embed(title="Message edited",description=f'{before.author.name} edited a message in #{before.channel}', 
                                         colour = before.author.colour,
                                         timestamp=datetime.datetime.utcnow())
             edit_embed.set_author(name=f'{before.author.name}#{before.author.discriminator}', icon_url=before.author.avatar_url)
@@ -68,6 +70,8 @@ class Log(commands.Cog):
     @commands.Cog.listener()
     async def on_message_delete(self, message):
         log_channel = self.client.get_channel(684130494023073865)
+        if message.guild.id  != 626016069873696791:
+            return
         if not message.author.id == 685307035142586380:
             delete_embed = discord.Embed(title="Message deleted", description=f"Action by {message.author.name} in #{message.channel}.",
                             colour = message.author.colour, 
