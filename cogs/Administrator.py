@@ -188,11 +188,15 @@ class Administrator(commands.Cog):
 
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
-    async def purge(self,ctx, number:int=None ):
+    async def purge(self,ctx, targets: Greedy[discord.Member], number:int=None ):
+        def _check(message):
+            return not len(targets) or message.author in targets
         if number is None:
             await ctx.send('You must input a number')
         else:
-            await ctx.message.channel.purge(limit=number)
+            await ctx.message.delete()
+            deleted = await ctx.message.channel.purge(limit=number,check=_check)
+            await ctx.send(f"Deleted {len(deleted):,} messages.", delete_after=5)
 
     @commands.command()
     @commands.has_permissions(manage_messages=True)
