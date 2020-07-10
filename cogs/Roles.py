@@ -72,7 +72,7 @@ class Roles(commands.Cog):
                 log_channel = discord.utils.get(member.guild.text_channels, name='role-log')
                 if member is not None:
                     await member.add_roles(role)
-                    await channel.send('Have fun. Pick a role tag in <#681672202822877207>.')
+                    await channel.send(f'Have fun. Pick a role tag in <#681672202822877207>.')
                     await asyncio.sleep(2)
                     await channel.purge(limit=1)
                     await member.remove_roles(role1)
