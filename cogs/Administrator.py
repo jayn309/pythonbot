@@ -3,7 +3,8 @@ import time
 import datetime
 import asyncio
 
-from discord.ext import commands
+from discord.ext import commands 
+from discord.ext.commands import Greedy
 from discord.utils import get
 
 
@@ -78,7 +79,7 @@ class Administrator(commands.Cog):
 
     @commands.command()
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
-    async def mute(self,ctx, member : discord.Member,*, reason=None):
+    async def mute(self,ctx, member : Greedy[discord.Member],*, reason=None):
         role = discord.utils.get(ctx.guild.roles, name="Muted")
         privaterole = discord.utils.get(ctx.guild.roles, name="betunamluv")
         privaterole1 = discord.utils.get(ctx.guild.roles, name="Test Subject")

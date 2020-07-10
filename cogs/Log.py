@@ -77,6 +77,7 @@ class Log(commands.Cog):
                             colour = message.author.colour, 
                             timestamp=datetime.datetime.utcnow())
             delete_embed.set_footer(text=f"Author ID:{message.author.id} • Message ID: {message.id}")
+            delete_embed.set_author(name=f'{message.author.name}#{message.author.discriminator}')
             fields = [("Content",message.content, False)]
             for name, value, inline in fields:
                 delete_embed.add_field(name=name, value=value,inline=inline)
