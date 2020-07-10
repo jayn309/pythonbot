@@ -190,7 +190,7 @@ class Administrator(commands.Cog):
 
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
-    async def purge(self,ctx, member = Member, number:int=None):
+    async def purge(self,ctx, member = discord.Member, number:int=None):
         def _check(message):
             return not len(member) or message.author in member
         if number is None:
