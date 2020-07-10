@@ -198,7 +198,7 @@ class Administrator(commands.Cog):
         else:
             if 0 < number <= 100:
                 with ctx.channel.typing():
-                    await ctx.message.delete(limit=number)
+                    await ctx.message.delete()
                     deleted = await ctx.channel.purge(limit=number, afer=datetime.utcnow()-timedelta(days=14),check=_check)
                     await ctx.send(f'Deleted {len(deleted):,} messages.', delete_after=5)
 
