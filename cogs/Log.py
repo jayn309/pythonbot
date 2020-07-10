@@ -37,7 +37,7 @@ class Log(commands.Cog):
 
     @commands.Cog.listener()
     async def on_user_update(self,before,after):
-        if before.message.guild.id  != 626016069873696791:
+        if before.guild.id  != 626016069873696791:
             return
         log_channel = self.client.get_channel(700137514572185662)
         if log_channel:
