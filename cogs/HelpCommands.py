@@ -21,7 +21,7 @@ class HelpCommands(commands.Cog):
         embed.add_field(name="_kick [user]", value="kick a member",inline=False)
         embed.add_field(name="_ban _unban [user]" , value="ban/unban a member",inline=False)
         embed.add_field(name="_mute _unmute [user]", value="mute/unmute a member",inline=False)
-        embed.add_field(name="_purge [number]", value="clear an amount of messages",inline=False)
+        embed.add_field(name="_purge [member] [number]", value="clear an amount of messages (of a member if mentioned)",inline=False)
         embed.add_field(name="_say [channel] [message]", value="make the bot say something in a channel",inline=False)
         embed.add_field(name="_edit [channel] [message_id]", value="edit a bot's message in a channel",inline=False)
         embed.add_field(name="_showemotes [channel]", value="show all server emotes in a channel",inline=False)
