@@ -79,48 +79,47 @@ class Administrator(commands.Cog):
 
     @commands.command()
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
-    async def mute(self,ctx, members : Greedy[discord.Member],*, reason=None):
-        for member in members:
-            role = discord.utils.get(ctx.guild.roles, name="Muted")
-            privaterole = discord.utils.get(ctx.guild.roles, name="betunamluv")
-            privaterole1 = discord.utils.get(ctx.guild.roles, name="Test Subject")
-            privaterole2 = discord.utils.get(ctx.guild.roles, name="Solitary Confinement")
-            channel = discord.utils.get(member.guild.text_channels, name='mod-log')
-            if not role: # checks if there is muted role
-                try: # creates muted role 
-                    muted = await ctx.guild.create_role(name="Muted", reason="To use for muting")
-                    for channel in ctx.guild.channels: # removes permission to view and send in the channels 
-                        await channel.set_permissions(muted, send_messages=False,
-                                                read_message_history=True,
-                                                read_messages=True)
-                except discord.Forbidden:
-                    return await ctx.send("I have no permissions to make a muted role") # self-explainatory
-                await member.add_roles(muted) # adds newly created muted role
-                if privaterole:
-                    await member.remove_roles(privaterole)
-                if privaterole1:
-                    await member.remove_roles(privaterole1)
-                if privaterole2:
-                    await member.remove_roles(privaterole2)
-            else:
-                await member.add_roles(role)
-                if privaterole:
-                    await member.remove_roles(privaterole)
-                if privaterole1:
-                    await member.remove_roles(privaterole1)
-                if privaterole2:
-                    await member.remove_roles(privaterole2)
-                    
-            await ctx.send(f"{member.mention} was muted")
-            if channel:
-                    mute_embed = discord.Embed(title='Moderation Mute',colour=member.color)
-                    mute_embed.add_field(name="Punished by", value=ctx.author,inline=False)
-                    mute_embed.add_field(name="Punished User", value=member.name,inline=False)
-                    mute_embed.set_thumbnail(url=member.avatar_url)
-                    mute_embed.set_author(name=member.name, icon_url=member.avatar_url)
-                    mute_embed.set_footer(text=f"Member ID:{member.id}")
-                    mute_embed.timestamp = datetime.datetime.utcnow()
-                    await channel.send(embed=mute_embed)
+    async def mute(self,ctx, member : discord.Member,*, reason=None):
+        role = discord.utils.get(ctx.guild.roles, name="Muted")
+        privaterole = discord.utils.get(ctx.guild.roles, name="betunamluv")
+        privaterole1 = discord.utils.get(ctx.guild.roles, name="Test Subject")
+        privaterole2 = discord.utils.get(ctx.guild.roles, name="Solitary Confinement")
+        channel = discord.utils.get(member.guild.text_channels, name='mod-log')
+        if not role: # checks if there is muted role
+            try: # creates muted role 
+                muted = await ctx.guild.create_role(name="Muted", reason="To use for muting")
+                for channel in ctx.guild.channels: # removes permission to view and send in the channels 
+                    await channel.set_permissions(muted, send_messages=False,
+                                              read_message_history=True,
+                                              read_messages=True)
+            except discord.Forbidden:
+                return await ctx.send("I have no permissions to make a muted role") # self-explainatory
+            await member.add_roles(muted) # adds newly created muted role
+            if privaterole:
+                await member.remove_roles(privaterole)
+            if privaterole1:
+                await member.remove_roles(privaterole1)
+            if privaterole2:
+                await member.remove_roles(privaterole2)
+        else:
+            await member.add_roles(role)
+            if privaterole:
+                await member.remove_roles(privaterole)
+            if privaterole1:
+                await member.remove_roles(privaterole1)
+            if privaterole2:
+                await member.remove_roles(privaterole2)
+                
+        await ctx.send(f"{member.mention} was muted")
+        if channel:
+                mute_embed = discord.Embed(title='Moderation Mute',colour=member.color)
+                mute_embed.add_field(name="Punished by", value=ctx.author,inline=False)
+                mute_embed.add_field(name="Punished User", value=member.name,inline=False)
+                mute_embed.set_thumbnail(url=member.avatar_url)
+                mute_embed.set_author(name=member.name, icon_url=member.avatar_url)
+                mute_embed.set_footer(text=f"Member ID:{member.id}")
+                mute_embed.timestamp = datetime.datetime.utcnow()
+                await channel.send(embed=mute_embed)
     @mute.error
     async def mute_error(self,ctx, error):
         if isinstance(error, commands.CheckFailure):
