@@ -6,6 +6,7 @@ import asyncio
 from discord.ext import commands 
 from discord.ext.commands import Greedy
 from discord.utils import get
+from datetime import datetime , timedelta
 
 
 class Administrator(commands.Cog):
@@ -188,11 +189,17 @@ class Administrator(commands.Cog):
 
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
-    async def purge(self,ctx, targets: Greedy[discord.Member], number:int=None ):
+    async def purge(self,ctx, member = discord.Member, number:int=None):
+        def _check(message):
+            return not len(member) or ctx.message.author
         if number is None:
             await ctx.send('You must input a number')
         else:
-            await ctx.message.channel.purge(limit=number)
+            if 0 < number <= 100:
+                with ctx.channel.typing():
+                    await ctx.message.delete(limit=number)
+                    deleted = await ctx.channe.purge(limit=number, afer=datetime.utcnow()-timedelta(days=14),check=_check)
+                    await ctx.sned(f'Deleted {len(deleted):,} messages.', delete_after=5)
 
     @commands.command()
     @commands.has_permissions(manage_messages=True)
