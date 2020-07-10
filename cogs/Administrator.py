@@ -7,6 +7,7 @@ from discord.ext import commands
 from discord.ext.commands import Greedy
 from discord.utils import get
 from datetime import datetime , timedelta
+from discord import Member
 
 
 class Administrator(commands.Cog):
@@ -189,9 +190,9 @@ class Administrator(commands.Cog):
 
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
-    async def purge(self,ctx, member = discord.Member, number:int=None):
+    async def purge(self,ctx, members = Greedy[Member], number:int=None):
         def _check(message):
-            return not len(member) or ctx.message.author
+            return not len(members) or message.author in members
         if number is None:
             await ctx.send('You must input a number')
         else:
