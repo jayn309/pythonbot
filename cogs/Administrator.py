@@ -292,7 +292,7 @@ class Administrator(commands.Cog):
     @commands.command()
     async def on_message(self, message):
         modlog_channel = self.client.get_channel(731357775652847686)
-        if not message.author.bot:
+        if not message.author.client:
             if isinstance(message.channel, DMChannel):
                 if len(message.content) < 50:
                     await message.channel.send("Your message should be at least 50 characters in length.")
