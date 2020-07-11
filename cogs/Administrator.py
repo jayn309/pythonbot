@@ -302,7 +302,8 @@ class Administrator(commands.Cog):
                 muted_member = guild.get_role(690770300002107442)
                 if muted_member in member.roles:
                     await message.channel.send("Muted members cannot use modmail.")
-                elif member_role in member.roles and not muted_member in member.roles:
+                    return
+                if member_role in member.roles and not muted_member in member.roles:
                     if len(message.content) < 50:
                         await message.channel.send("Your message should be at least 50 characters in length.")
 
