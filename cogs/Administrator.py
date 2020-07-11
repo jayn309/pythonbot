@@ -296,25 +296,31 @@ class Administrator(commands.Cog):
             print("Mail channel not found! Reconfigure bot!")
         if not message.author.id == 685307035142586380:
             if isinstance(message.channel, DMChannel):
-                if len(message.content) < 50:
-                    await message.channel.send("Your message should be at least 50 characters in length.")
+                guild = self.client.get_guild(626016069873696791)
+                member = guild.get_member(message.author.id)
+                member_role = guild.get_role(687823988831027203)
+                verified = [member for member in guild.members 
+                                if member_role in member.roles]
+                if verified:
+                    if len(message.content) < 50:
+                        await message.channel.send("Your message should be at least 50 characters in length.")
 
+                    else:
+                        embed = Embed(title="Modmail",
+                                            colour=member.colour,
+                                            timestamp=datetime.datetime.utcnow())
+                        embed.set_thumbnail(url=member.avatar_url)
+                        if message.attachments:
+                            embed.add_field(name="Attachments", value=", ".join([i.url for i in message.attachments]))
+                        fields = [("Member", member.display_name, False),
+                                        ("Message", message.content, False)]
+                        for name, value, inline in fields:
+                            embed.add_field(name=name, value=value, inline=inline)
+                            
+                        await modlog_channel.send(embed=embed)
+                        await message.channel.send("Message relayed to moderators.")
                 else:
-                    guild = self.client.get_guild(626016069873696791)
-                    member = guild.get_member(message.author.id)
-                    embed = Embed(title="Modmail",
-                                        colour=member.colour,
-                                        timestamp=datetime.datetime.utcnow())
-                    embed.set_thumbnail(url=member.avatar_url)
-                    if message.attachments:
-                        embed.add_field(name="Attachments", value=", ".join([i.url for i in message.attachments]))
-                    fields = [("Member", member.display_name, False),
-                                    ("Message", message.content, False)]
-                    for name, value, inline in fields:
-                        embed.add_field(name=name, value=value, inline=inline)
-                        
-                    await modlog_channel.send(embed=embed)
-                    await message.channel.send("Message relayed to moderators.")
+                        await message.channel.send("Only members can use modmail.")
             else:
                 pass
 
