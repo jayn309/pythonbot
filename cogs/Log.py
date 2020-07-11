@@ -70,7 +70,7 @@ class Log(commands.Cog):
         log_channel = self.client.get_channel(684130494023073865)
         if message.guild.id  != 626016069873696791:
             return
-        if not message.author.id == 685307035142586380:
+        if not message.channel.id == 680233219303800893:
             delete_embed = discord.Embed(title="Message deleted", description=f"Action by {message.author.name} in #{message.channel}.",
                             colour = message.author.colour, 
                             timestamp=datetime.datetime.utcnow())
