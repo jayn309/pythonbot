@@ -37,17 +37,16 @@ class Log(commands.Cog):
 
     @commands.Cog.listener()
     async def on_user_update(self,before,after):
-        if before.guild.id == 626016069873696791:
-            log_channel = self.client.get_channel(700137514572185662)
-            if log_channel:
-                user_embed = discord.Embed(title='User updates',timestamp=datetime.datetime.utcnow())
-                user_embed.add_field(name="Name before:", value=before.name,inline=False)
-                user_embed.add_field(name="Name after:", value=after.name,inline=False)
-                user_embed.add_field(name="Avatar before", value=before.avatar_url,inline=False)
-                user_embed.add_field(name="Avatar after", value=after.avatar_url,inline=False)
-                user_embed.add_field(name="Discriminator before", value=before.discriminator,inline=False)
-                user_embed.add_field(name="Discriminator after", value=after.discriminator,inline=False)
-                await log_channel.send(embed=user_embed)
+        log_channel = self.client.get_channel(700137514572185662)
+        if log_channel:
+            user_embed = discord.Embed(title='User updates',timestamp=datetime.datetime.utcnow())
+            user_embed.add_field(name="Name before:", value=before.name,inline=False)
+            user_embed.add_field(name="Name after:", value=after.name,inline=False)
+            user_embed.add_field(name="Avatar before", value=before.avatar_url,inline=False)
+            user_embed.add_field(name="Avatar after", value=after.avatar_url,inline=False)
+            user_embed.add_field(name="Discriminator before", value=before.discriminator,inline=False)
+            user_embed.add_field(name="Discriminator after", value=after.discriminator,inline=False)
+            await log_channel.send(embed=user_embed)
 
     @commands.Cog.listener()
     async def on_message_edit(self, before,after):
