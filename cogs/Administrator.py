@@ -301,29 +301,22 @@ class Administrator(commands.Cog):
 
                 else:
                     guild = self.client.get_guild(626016069873696791)
-                    user_id = message.author.id
-                    member = guild.get_member(user_id)
-                    member_role = guild.get_role(687823988831027203)
-                    verified = [member for member in guild.members 
-                                if member_role in member.roles]
-                    if verified:
-                        embed = Embed(title="Modmail",
+                    member = guild.get_member(message.author.id)
+                    embed = Embed(title="Modmail",
                                         colour=member.colour,
                                         timestamp=datetime.datetime.utcnow())
-                        embed.set_thumbnail(url=member.avatar_url)
-                        if message.attachments:
-                            embed.add_field(name="Attachments", value=", ".join([i.url for i in message.attachments]))
-                        fields = [("Member", member.display_name, False),
+                    embed.set_thumbnail(url=member.avatar_url)
+                    if message.attachments:
+                        embed.add_field(name="Attachments", value=", ".join([i.url for i in message.attachments]))
+                    fields = [("Member", member.display_name, False),
                                     ("Message", message.content, False)]
-                        for name, value, inline in fields:
-                            embed.add_field(name=name, value=value, inline=inline)
+                    for name, value, inline in fields:
+                        embed.add_field(name=name, value=value, inline=inline)
                         
-                        await modlog_channel.send(embed=embed)
-                        await message.channel.send("Message relayed to moderators.")
-                    else:
-                        await message.channel.send("Only members can use modmail.")
+                    await modlog_channel.send(embed=embed)
+                    await message.channel.send("Message relayed to moderators.")
             else:
-                return
+                pass
 
 def setup(client):
     client.add_cog(Administrator(client))
