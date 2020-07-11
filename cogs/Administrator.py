@@ -298,21 +298,27 @@ class Administrator(commands.Cog):
                     await message.channel.send("Your message should be at least 50 characters in length.")
 
                 else:
-                    member = self.client.guild.get_member(message.author.id)
-                    embed = Embed(title="Modmail",
-                                    colour=member.colour,
-                                    timestamp=datetime.datetime.utcnow())
-                    embed.set_thumbnail(url=member.avatar_url)
+                    guild = self.client.get_guild(626016069873696791)
+                    member_role = get(guild.roles, name='Velvified')
+                    user_id = message.author.id
+                    member = guild.get_member(user_id)
+                    verified = [member for member in guild.members 
+                                if member_role in message.author.roles]
+                    if verified:
+                        embed = Embed(title="Modmail",
+                                        colour=member.colour,
+                                        timestamp=datetime.datetime.utcnow())
+                        embed.set_thumbnail(url=member.avatar_url)
 
-                    fields = [("Member", member.display_name, False),
-                                ("Message", message.content, False)]
-                    for name, value, inline in fields:
-                        embed.add_field(name=name, value=value, inline=inline)
-					
-
-                    await modlog_channel.send(embed=embed)
-                    await message.channel.send("Message relayed to moderators.")
-
+                        fields = [("Member", member.display_name, False),
+                                    ("Message", message.content, False)]
+                        for name, value, inline in fields:
+                            embed.add_field(name=name, value=value, inline=inline)
+                        
+                        await modlog_channel.send(embed=embed)
+                        await message.channel.send("Message relayed to moderators.")
+                    else:
+                        await message.channel.send("Only members can use modmail.")
             else:
                 await self.client.process_commands(message)
 
