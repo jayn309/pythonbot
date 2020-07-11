@@ -297,7 +297,7 @@ class Administrator(commands.Cog):
         if not message.author.id == 685307035142586380:
             if isinstance(message.channel, DMChannel):
                 if len(message.content) < 0:
-                    await message.channel.send("Please provide your message.")
+                    await message.channel.send("Your message should be at least 50 characters in length.")
 
                 else:
                     guild = self.client.get_guild(626016069873696791)
