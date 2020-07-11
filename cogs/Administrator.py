@@ -305,7 +305,7 @@ class Administrator(commands.Cog):
                     member = guild.get_member(user_id)
                     member_role = get(guild.roles, name='Velvified')
                     verified = [member for member in guild.members 
-                                if member_role in message.author.roles]
+                                if member_role in member.roles]
                     if verified:
                         embed = Embed(title="Modmail",
                                         colour=member.colour,
