@@ -189,7 +189,7 @@ class Administrator(commands.Cog):
 
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
-    async def purge(self,ctx, members: Greedy[Member], number:int=None):
+    async def purge(self,ctx, members: Greedy[Member], number:int=1):
         def _check(message):
             return not len(members) or message.author in members
         if number is None:
@@ -296,7 +296,7 @@ class Administrator(commands.Cog):
             print("Mail channel not found! Reconfigure bot!")
         if not message.author.id == 685307035142586380:
             if isinstance(message.channel, DMChannel):
-                if len(message.content) < 0:
+                if len(message.content) < 50:
                     await message.channel.send("Your message should be at least 50 characters in length.")
 
                 else:
