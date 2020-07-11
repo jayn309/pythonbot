@@ -320,7 +320,7 @@ class Administrator(commands.Cog):
                         
                         await modlog_channel.send(embed=embed)
                         await message.channel.send("Message relayed to moderators.")
-                    else:
+                    if not verified:
                         await message.channel.send("Only members can use modmail.")
             else:
                 await self.client.process_commands(message)
