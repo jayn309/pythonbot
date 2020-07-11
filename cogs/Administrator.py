@@ -303,7 +303,7 @@ class Administrator(commands.Cog):
                     guild = self.client.get_guild(626016069873696791)
                     user_id = message.author.id
                     member = guild.get_member(user_id)
-                    member_role = get(guild.roles, name='Velvified')
+                    member_role = guild.get_role(687823988831027203)
                     verified = [member for member in guild.members 
                                 if member_role in member.roles]
                     if verified:
@@ -320,7 +320,7 @@ class Administrator(commands.Cog):
                         
                         await modlog_channel.send(embed=embed)
                         await message.channel.send("Message relayed to moderators.")
-                    if not verified:
+                    else:
                         await message.channel.send("Only members can use modmail.")
             else:
                 await self.client.process_commands(message)
