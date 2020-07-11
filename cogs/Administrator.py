@@ -292,6 +292,8 @@ class Administrator(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
         modlog_channel = self.client.get_channel(731357775652847686)
+        if not modlog_channel:
+            print("Mail channel not found! Reconfigure bot!")
         if not message.author.id == 685307035142586380:
             if isinstance(message.channel, DMChannel):
                 if len(message.content) < 50:
@@ -300,8 +302,7 @@ class Administrator(commands.Cog):
                 else:
                     guild = self.client.get_guild(626016069873696791)
                     member_role = get(guild.roles, name='Velvified')
-                    user_id = message.author.id
-                    member = guild.get_member(user_id)
+                    member = guild.get_member(message.author.id)
                     verified = [member for member in guild.members 
                                 if member_role in message.author.roles]
                     if verified:
