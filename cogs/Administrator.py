@@ -289,7 +289,7 @@ class Administrator(commands.Cog):
                 await ctx.message.add_reaction('\U00002705')  # React with checkmark
         await ctx.send(f'Moved {success}/{total} users', delete_after=10)
 
-    @commands.command()
+    @commands.Cog.listener()
     async def on_message(self, message):
         modlog_channel = self.client.get_channel(731357775652847686)
         if not message.author.client:
