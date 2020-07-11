@@ -299,9 +299,7 @@ class Administrator(commands.Cog):
                 guild = self.client.get_guild(626016069873696791)
                 member = guild.get_member(message.author.id)
                 member_role = guild.get_role(687823988831027203)
-                verified = [member for member in guild.members 
-                                if member_role in member.roles]
-                if verified:
+                if member_role in member.roles:
                     if len(message.content) < 50:
                         await message.channel.send("Your message should be at least 50 characters in length.")
 
