@@ -25,6 +25,7 @@ class Administrator(commands.Cog):
                 ban_embed = discord.Embed(title='Moderation Ban',colour=member.color,timestamp=datetime.datetime.utcnow())
                 ban_embed.add_field(name="Punished by", value=ctx.author,inline=False)
                 ban_embed.add_field(name="Punished User", value=member.name,inline=False)
+                ban_embed.add_field(name="Reason", value=reason,inline=False)
                 ban_embed.set_thumbnail(url=member.avatar_url)
                 ban_embed.set_author(name=member.name, icon_url=member.avatar_url)
                 ban_embed.set_footer(text=f"Member ID:{member.id}")
@@ -48,6 +49,7 @@ class Administrator(commands.Cog):
                 unban_embed = discord.Embed(title='Moderation Unban',colour=member.color,timestamp=datetime.datetime.utcnow())
                 unban_embed.add_field(name="Unbanned by", value=ctx.author,inline=False)
                 unban_embed.add_field(name="User", value=member.name,inline=False)
+                unban_embed.add_field(name="Reason", value=reason,inline=False)
                 unban_embed.set_thumbnail(url=member.avatar_url)
                 unban_embed.set_author(name=member.name, icon_url=member.avatar_url)
                 unban_embed.set_footer(text=f"Member ID:{member.id}")
@@ -65,6 +67,7 @@ class Administrator(commands.Cog):
                 kick_embed = discord.Embed(title='Moderation Kick',colour=member.color,timestamp=datetime.datetime.utcnow())
                 kick_embed.add_field(name="Punished by", value=ctx.author,inline=False)
                 kick_embed.add_field(name="Punished User", value=member.name,inline=False)
+                kick_embed.add_field(name="Reason", value=reason,inline=False)
                 kick_embed.set_thumbnail(url=member.avatar_url)
                 kick_embed.set_author(name=member.name, icon_url=member.avatar_url)
                 kick_embed.set_footer(text=f"Member ID:{member.id}")
@@ -114,6 +117,7 @@ class Administrator(commands.Cog):
                 mute_embed = discord.Embed(title='Moderation Mute',colour=member.color,timestamp=datetime.datetime.utcnow())
                 mute_embed.add_field(name="Punished by", value=ctx.author,inline=False)
                 mute_embed.add_field(name="Punished User", value=member.name,inline=False)
+                mute_embed.add_field(name="Reason", value=reason,inline=False)
                 mute_embed.set_thumbnail(url=member.avatar_url)
                 mute_embed.set_author(name=member.name, icon_url=member.avatar_url)
                 mute_embed.set_footer(text=f"Member ID:{member.id}")
@@ -194,7 +198,7 @@ class Administrator(commands.Cog):
             if 0 < number <= 100:
                 with ctx.channel.typing():
                     await ctx.message.delete()
-                    deleted = await ctx.channel.purge(limit=number, after=datetime.utcnow()-timedelta(days=14),check=_check)
+                    deleted = await ctx.channel.purge(limit=number, after=datetime.datetime.utcnow()-timedelta(days=14),check=_check)
                     await ctx.send(f'Deleted {len(deleted):,} messages.', delete_after=5)
 
     @commands.command()
