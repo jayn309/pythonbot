@@ -315,8 +315,8 @@ class Administrator(commands.Cog):
                                 embed.add_field(name="Attachments", value=", ".join([i.url for i in message.attachments]))
                                 fields = [("Member", member.display_name, False),
                                                 ("Message", message.content, False)]
-                            for name, value, inline in fields:
-                                embed.add_field(name=name, value=value, inline=inline)
+                                for name, value, inline in fields:
+                                    embed.add_field(name=name, value=value, inline=inline)
                                     
                             await modlog_channel.send(embed=embed)
                             await message.channel.send("Message relayed to moderators.")
