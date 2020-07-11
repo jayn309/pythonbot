@@ -289,7 +289,41 @@ class Administrator(commands.Cog):
                 await ctx.message.add_reaction('\U00002705')  # React with checkmark
         await ctx.send(f'Moved {success}/{total} users', delete_after=10)
 
-    
+    @commands.Cog.listener()
+    async def on_message(self, message):
+        modlog_channel = self.client.get_channel(731357775652847686)
+        if not modlog_channel:
+            print("Mail channel not found! Reconfigure bot!")
+        if not message.author.id == 685307035142586380:
+            if isinstance(message.channel, DMChannel):
+                if len(message.content) < 0:
+                    await message.channel.send("Your message should be at least 50 characters in length.")
+
+                else:
+                    guild = self.client.get_guild(626016069873696791)
+                    user_id = message.author.id
+                    member = guild.get_member(user_id)
+                    member_role = guild.get_role(687823988831027203)
+                    verified = [member for member in guild.members 
+                                if member_role in member.roles]
+                    if verified:
+                        embed = Embed(title="Modmail",
+                                        colour=member.colour,
+                                        timestamp=datetime.datetime.utcnow())
+                        embed.set_thumbnail(url=member.avatar_url)
+                        if message.attachments:
+                            embed.add_field(name="Attachments", value=", ".join([i.url for i in message.attachments]))
+                        fields = [("Member", member.display_name, False),
+                                    ("Message", message.content, False)]
+                        for name, value, inline in fields:
+                            embed.add_field(name=name, value=value, inline=inline)
+                        
+                        await modlog_channel.send(embed=embed)
+                        await message.channel.send("Message relayed to moderators.")
+                    else:
+                        await message.channel.send("Only members can use modmail.")
+            else:
+                return
 
 def setup(client):
     client.add_cog(Administrator(client))
