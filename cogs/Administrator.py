@@ -311,12 +311,10 @@ class Administrator(commands.Cog):
                                             colour=member.colour,
                                             timestamp=datetime.datetime.utcnow())
                             embed.set_thumbnail(url=member.avatar_url)
+                            embed.add_field(name="Member",value= member.display_name,inline= False)
+                            embed.add_field(name="Message",value= message.content, inline=False)    
                             if message.attachments:
-                                embed.add_field(name="Attachments", value=", ".join([i.url for i in message.attachments]))
-                                fields = [("Member", member.display_name, False),("Message", message.content, False)]
-                                for name, value, inline in fields:
-                                    embed.add_field(name=name, value=value, inline=inline)
-                                    
+                                embed.add_field(name="Attachments", value=", ".join([i.url for i in message.attachments])) 
                             await modlog_channel.send(embed=embed)
                             await message.channel.send("Message relayed to moderators.")
                     else:
