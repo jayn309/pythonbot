@@ -301,8 +301,8 @@ class Administrator(commands.Cog):
 
                 else:
                     guild = self.client.get_guild(626016069873696791)
-                    member_role = get(guild.roles, name='Velvified')
                     member = guild.get_member(message.author.id)
+                    member_role = get(guild.roles, name='Velvified')
                     verified = [member for member in guild.members 
                                 if member_role in message.author.roles]
                     if verified:
