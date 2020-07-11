@@ -306,7 +306,6 @@ class Administrator(commands.Cog):
                     if member_role in member.roles and not muted_member in member.roles:
                         if len(message.content) < 50:
                             await message.channel.send("Your message should be at least 50 characters in length.")
-
                         else:
                             embed = Embed(title="Modmail",
                                             colour=member.colour,
@@ -316,11 +315,11 @@ class Administrator(commands.Cog):
                                 embed.add_field(name="Attachments", value=", ".join([i.url for i in message.attachments]))
                                 fields = [("Member", member.display_name, False),
                                                 ("Message", message.content, False)]
-                                for name, value, inline in fields:
-                                    embed.add_field(name=name, value=value, inline=inline)
+                            for name, value, inline in fields:
+                                embed.add_field(name=name, value=value, inline=inline)
                                     
-                                await modlog_channel.send(embed=embed)
-                                await message.channel.send("Message relayed to moderators.")
+                            await modlog_channel.send(embed=embed)
+                            await message.channel.send("Message relayed to moderators.")
                     else:
                             await message.channel.send("Only members can use modmail.")
             else:
