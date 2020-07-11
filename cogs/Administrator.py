@@ -7,7 +7,7 @@ from discord.ext import commands
 from discord.ext.commands import Greedy
 from discord.utils import get
 from datetime import timedelta
-from discord import Member
+from discord import Member, Embed, DMChannel
 
 
 class Administrator(commands.Cog):
@@ -289,6 +289,32 @@ class Administrator(commands.Cog):
                 await ctx.message.add_reaction('\U00002705')  # React with checkmark
         await ctx.send(f'Moved {success}/{total} users', delete_after=10)
 
+    @commands.command()
+    async def on_message(self, message):
+        modlog_channel = self.client.get_channel(731357775652847686)
+        if not message.author.bot:
+            if isinstance(message.channel, DMChannel):
+                if len(message.content) < 50:
+                    await message.channel.send("Your message should be at least 50 characters in length.")
+
+                else:
+                    member = self.client.guild.get_member(message.author.id)
+                    embed = Embed(title="Modmail",
+                                    colour=member.colour,
+                                    timestamp=datetime.datetime.utcnow())
+                    embed.set_thumbnail(url=member.avatar_url)
+
+                    fields = [("Member", member.display_name, False),
+                                ("Message", message.content, False)]
+                    for name, value, inline in fields:
+                        embed.add_field(name=name, value=value, inline=inline)
+					
+
+                    await modlog_channel.send(embed=embed)
+                    await message.channel.send("Message relayed to moderators.")
+
+            else:
+                await self.client.process_commands(message)
 
 def setup(client):
     client.add_cog(Administrator(client))
