@@ -279,5 +279,15 @@ class MicsCommands(commands.Cog):
             await ctx.send(mockthis(ctx.message.clean_content[6:]))
             await ctx.send("<:irenemock:686573132185600010>")
 
+    @commands.command()
+    async def google(self,ctx, *, argument):
+        author = ctx.message.author
+        embed = discord.Embed(title="Google Result", color=0xfffffd)
+        
+        embed.add_field(name="Here is your result:", value=f"**Request**: {argument}\n**Result**: Click [here](https://www.google.com/search?q={argument})")
+        embed.set_footer(text=f"Requested by {author}")
+        
+        await ctx.send(embed=embed)       
+
 def setup(client):
     client.add_cog(MicsCommands(client))
