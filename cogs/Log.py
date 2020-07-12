@@ -78,8 +78,9 @@ class Log(commands.Cog):
         fields = [("Content",message.content, False)]
         for name, value, inline in fields:
             delete_embed.add_field(name=name, value=value,inline=inline)
+        print("Deleted messages logged.")
         await log_channel.send(embed=delete_embed)
-			
+		
 
 
 def setup(client):
