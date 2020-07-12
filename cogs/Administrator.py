@@ -196,7 +196,8 @@ class Administrator(commands.Cog):
             await ctx.send('You must input a number')
         else:
             deleted = await ctx.channel.purge(limit=number,check=_check)
-            await ctx.channel.send(f'Deleted {len(deleted):,} messages.', delete_after=5)
+            await ctx.send(f'Deleted {len(deleted):,} messages.', delete_after=5)
+            await ctx.send(deleted)
 
     @commands.command()
     @commands.has_permissions(manage_messages=True)
