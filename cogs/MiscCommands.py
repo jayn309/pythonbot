@@ -2,6 +2,7 @@ import discord
 import random
 import asyncio
 import re
+import aiohttp
 
 from discord.ext import commands
 from random import choice as randchoice
@@ -286,8 +287,16 @@ class MicsCommands(commands.Cog):
         argument1 = ''.join(argument.split())
         embed.add_field(name="Here is your result:", value=f"**Request**: {argument}\n**Result**: Click [here](https://www.google.com/search?q={argument1})")
         embed.set_footer(text=f"Requested by {author}")
-        
-        await ctx.send(embed=embed)       
+        await ctx.send(embed=embed)   
+
+    @commands.command(aliases=['ytb'])
+    async def yt(self, ctx, *, query:str):
+        async with aiohttp.ClientSession() as session: 
+            async with session.get('https://www.youtube.com/results?search_query='+query) as resp:
+                    res2 = await resp.read()
+                    search_results = re.findall('href=\"\\/watch\\?v=(.{11})',res2.decode())
+                    result = "https://www.youtube.com/watch?v=" + search_results[0]
+        await ctx.send(f"{ctx.author.mention} {result}")    
 
 def setup(client):
     client.add_cog(MicsCommands(client))
