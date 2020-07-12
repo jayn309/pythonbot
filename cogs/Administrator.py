@@ -189,17 +189,14 @@ class Administrator(commands.Cog):
 
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
-    async def purge(self,ctx, members: Greedy[Member], number:int=1):
+    async def purge(self,ctx, members: Greedy[Member], number:int=0):
         def _check(message):
             return not len(members) or message.author in members
         if number is None:
             await ctx.send('You must input a number')
         else:
-            if 0 < number <= 100:
-                with ctx.channel.typing():
-                    await ctx.message.channel.purge(limit=number)
-                    deleted = await ctx.channel.purge(limit=number, after=datetime.datetime.utcnow()-timedelta(days=14),check=_check)
-                    await ctx.send(f'Deleted {len(deleted):,} messages.', delete_after=5)
+            deleted = await ctx.channel.purge(limit=number, after=datetime.datetime.utcnow()-timedelta(days=14),check=_check)
+            await ctx.send(f'Deleted {len(deleted):,} messages.', delete_after=5)
 
     @commands.command()
     @commands.has_permissions(manage_messages=True)
