@@ -67,6 +67,7 @@ class Log(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_delete(self, message):
+        print("Deleted messages logged.")
         log_channel = self.client.get_channel(684130494023073865)
         if message.guild.id  != 626016069873696791:
             return
@@ -78,7 +79,7 @@ class Log(commands.Cog):
         fields = [("Content",message.content, False)]
         for name, value, inline in fields:
             delete_embed.add_field(name=name, value=value,inline=inline)
-        print("Deleted messages logged.")
+        
         await log_channel.send(embed=delete_embed)
 		
 
