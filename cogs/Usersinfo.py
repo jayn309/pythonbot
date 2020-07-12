@@ -6,7 +6,7 @@ class usersinfo(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(aliases=[ 'uinfo'])
+    @commands.command(aliases=[ 'ui'])
     async def usersinfo(self, ctx, member: discord.Member = None):
         member = ctx.author if not member else member
     
