@@ -67,7 +67,6 @@ class Log(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_delete(self, message):
-        print("Deleted messages logged.")
         log_channel = self.client.get_channel(684130494023073865)
         if message.guild.id  != 626016069873696791:
             return
