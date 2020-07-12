@@ -290,13 +290,12 @@ class MicsCommands(commands.Cog):
         await ctx.send(embed=embed)   
 
     @commands.command(aliases=['ytb'])
-    async def yt(self, ctx, *, query:str):
-        async with aiohttp.ClientSession() as session: 
-            async with session.get('https://www.youtube.com/results?search_query='+query) as resp:
-                    res2 = await resp.read()
-                    search_results = re.findall('href=\"\\/watch\\?v=(.{11})',res2.decode())
-                    result = "https://www.youtube.com/watch?v=" + search_results[0]
-        await ctx.send(f"{ctx.author.mention} {result}")    
+    async def youtube(self,ctx, *, query:str):
+        async with aiohttp.request("GET", f'https://www.youtube.com/results?search_query={query}') as resp:
+            res2= await resp.text()
+            search_results = re.findall('\"\/watch\?v=(.{11})',res2)
+            result = "https://www.youtube.com/watch?v=" + search_results[0]
+            await ctx.send(f"{ctx.author.mention} {result}")  
 
 def setup(client):
     client.add_cog(MicsCommands(client))
