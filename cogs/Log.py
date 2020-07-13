@@ -92,8 +92,8 @@ class Log(commands.Cog):
 						  colour=after.colour,
 						  timestamp=datetime.datetime.utcnow())
 
-            embed.set_author(name=f'{before.author.name}#{before.author.discriminator}', icon_url=before.author.avatar_url)
-            embed.set_footer(text=f"Author ID:{before.author.id} • Message ID: {before.id}")
+            embed.set_author(name=f'{before.member.name}#{before.member.discriminator}', icon_url=before.member.avatar_url)
+            embed.set_footer(text=f"Author ID:{before.member.id}")
             fields = [("Before", before.display_name, False),
 					  ("After", after.display_name, False)]
 
@@ -107,8 +107,8 @@ class Log(commands.Cog):
 						  colour=after.colour,
 						  timestamp=datetime.datetime.utcnow())
 
-            embed.set_author(name=f'{before.author.name}#{before.author.discriminator}', icon_url=before.author.avatar_url)
-            embed.set_footer(text=f"Author ID:{before.author.id} • Message ID: {before.id}")       
+            embed.set_author(name=f'{before.member.name}#{before.member.discriminator}', icon_url=before.member.avatar_url)
+            embed.set_footer(text=f"Author ID:{before.member.id}")      
 
             fields = [("Before", ", ".join([r.mention for r in before.roles]), False),
 					  ("After", ", ".join([r.mention for r in after.roles]), False)]
