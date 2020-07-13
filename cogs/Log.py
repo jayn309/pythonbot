@@ -56,7 +56,7 @@ class Log(commands.Cog):
         if before.content == after.content:
             return
         else:
-            edit_embed = discord.Embed(title="Message edited",description=f'{before.author.name} edited a message in #{before.channel.mention}', 
+            edit_embed = discord.Embed(title="Message edited",description=f'{before.author.name} edited a message in {before.channel.mention}', 
                                         colour = before.author.colour,
                                         timestamp=datetime.datetime.utcnow())
             edit_embed.set_author(name=f'{before.author.name}#{before.author.discriminator}', icon_url=before.author.avatar_url)
@@ -71,7 +71,7 @@ class Log(commands.Cog):
         if message.guild.id  != 626016069873696791:
             return
         if not message.author.id == 685307035142586380:
-            delete_embed = discord.Embed(title="Message deleted", description=f"Action by {message.author.name} in #{message.channel.mention}.",
+            delete_embed = discord.Embed(title="Message deleted", description=f"Action by {message.author.name} in {message.channel.mention}.",
                             colour = message.author.colour, 
                             timestamp=datetime.datetime.utcnow())
             delete_embed.set_footer(text=f"Author ID:{message.author.id} • Message ID: {message.id}")
@@ -88,7 +88,7 @@ class Log(commands.Cog):
             if message.guild.id  != 626016069873696791:
                 return
             if not message.author.id == 685307035142586380:
-                delete_embed = discord.Embed(title="Message deleted", description=f"Action by {message.author.name} in #{message.channel.mention}.",
+                delete_embed = discord.Embed(title="Message deleted", description=f"Action by {message.author.name} in {message.channel.mention}.",
                                 colour = message.author.colour, 
                                 timestamp=datetime.datetime.utcnow())
                 delete_embed.set_footer(text=f"Author ID:{message.author.id} • Message ID: {message.id}")
