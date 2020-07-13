@@ -1,5 +1,5 @@
-import discord
 import datetime
+import discord
 
 from random import choice
 from discord.ext import commands
@@ -107,8 +107,8 @@ class Log(commands.Cog):
 						  colour=after.colour,
 						  timestamp=datetime.datetime.utcnow())
 
-            embed.set_author(name=f'{before..name}#{before.discriminator}', icon_url=before.avatar_url)
-            embed.set_footer(text=f"Author ID:{before.id}")
+            embed.set_author(name=f'{before.name}#{before.discriminator}', icon_url=before.avatar_url)
+            embed.set_footer(text=f"Author ID:{before.id}")      
 
             fields = [("Before", ", ".join([r.mention for r in before.roles]), False),
 					  ("After", ", ".join([r.mention for r in after.roles]), False)]
@@ -167,7 +167,6 @@ class Log(commands.Cog):
                     delete_embed.add_field(name=name, value=value,inline=inline)
                 await log_channel.send(embed=delete_embed)
 		
-
 
 def setup(client):
     client.add_cog(Log(client))
