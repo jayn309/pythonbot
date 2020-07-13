@@ -80,6 +80,23 @@ class Log(commands.Cog):
             for name, value, inline in fields:
                 delete_embed.add_field(name=name, value=value,inline=inline)
             await log_channel.send(embed=delete_embed)
+
+    @commands.Cog.listener()
+    async def on_bulk_message_delete(self, messages):
+        for message in messages:
+            log_channel = self.client.get_channel(684130494023073865)
+            if message.guild.id  != 626016069873696791:
+                return
+            if not message.author.id == 685307035142586380:
+                delete_embed = discord.Embed(title="Message deleted", description=f"Action by {message.author.name} in #{message.channel.mention}.",
+                                colour = message.author.colour, 
+                                timestamp=datetime.datetime.utcnow())
+                delete_embed.set_footer(text=f"Author ID:{message.author.id} • Message ID: {message.id}")
+                delete_embed.set_author(name=f'{message.author.name}#{message.author.discriminator}')
+                fields = [("Content",message.content, False)]
+                for name, value, inline in fields:
+                    delete_embed.add_field(name=name, value=value,inline=inline)
+                await log_channel.send(embed=delete_embed)
 		
 
 
