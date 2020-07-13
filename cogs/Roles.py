@@ -70,11 +70,18 @@ class Roles(commands.Cog):
                 member = discord.utils.find(lambda m: m.id == payload.user_id, guild.members)
                 channel = discord.utils.find(lambda c : c.id == channel_id, guild.channels)
                 if member is not None:
-                    await member.add_roles(role)
-                    await channel.send(f'Have fun. Pick a role tag in <#681672202822877207>.')
-                    await asyncio.sleep(2)
-                    await channel.purge(limit=1)
-                    await member.remove_roles(role1)
+                    if role in member.roles:
+                        await member.remove_roles(role)
+                        await member.add_roles(role1)
+                        await channel.send(f'Whatcha doing?')
+                        await asyncio.sleep(2)
+                        await channel.purge(limit=1)
+                    else:
+                        await member.add_roles(role)
+                        await channel.send(f'Have fun. Pick a role tag in <#681672202822877207>.')
+                        await asyncio.sleep(2)
+                        await channel.purge(limit=1)
+                        await member.remove_roles(role1)
                     msg = await channel.fetch_message(payload.message_id)
                     await msg.remove_reaction(payload.emoji,payload.member)
                     
@@ -82,7 +89,6 @@ class Roles(commands.Cog):
                     print("Member not found.")
             else:
                 print("Role not found.")
-
 
 def setup(client):
     client.add_cog(Roles(client))
