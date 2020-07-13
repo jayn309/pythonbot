@@ -54,6 +54,8 @@ class HelpCommands(commands.Cog):
         embed.add_field(name="_rps [rock, paper, scissors]", value="play rps",inline=False)
         embed.add_field(name="_riddle", value="guess a word from riddles",inline=False)
         embed.add_field(name="_pun", value="guess a word from puns",inline=False)
+        embed.add_field(name="_google", value="google search",inline=False)
+        embed.add_field(name="_youtube", value="youtube search",inline=False)
 
 
         await ctx.send(author.mention, embed=embed)
