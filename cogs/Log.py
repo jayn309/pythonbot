@@ -38,15 +38,71 @@ class Log(commands.Cog):
     @commands.Cog.listener()
     async def on_user_update(self,before,after):
         log_channel = self.client.get_channel(700137514572185662)
-        if log_channel:
-            user_embed = discord.Embed(title='User updates',timestamp=datetime.datetime.utcnow())
-            user_embed.add_field(name="Name before:", value=before.name,inline=False)
-            user_embed.add_field(name="Name after:", value=after.name,inline=False)
-            user_embed.add_field(name="Avatar before", value=before.avatar_url,inline=False)
-            user_embed.add_field(name="Avatar after", value=after.avatar_url,inline=False)
-            user_embed.add_field(name="Discriminator before", value=before.discriminator,inline=False)
-            user_embed.add_field(name="Discriminator after", value=after.discriminator,inline=False)
-            await log_channel.send(embed=user_embed)
+        if before.name != after.name:
+            embed = discord.Embed(title="Username change",
+						  colour=after.colour,
+						  timestamp=datetime.datetime.utcnow())
+
+            fields = [("Before", before.name, False),
+					  ("After", after.name, False)]
+
+            for name, value, inline in fields:
+                embed.add_field(name=name, value=value, inline=inline)
+            
+            await log_channel.send(embed=embed)
+
+        if before.discriminator != after.discriminator:
+            embed = discord.Embed(title="Discriminator change",
+						  colour=after.colour,
+						  timestamp=datetime.datetime.utcnow())
+
+            fields = [("Before", before.discriminator, False),
+					  ("After", after.discriminator, False)]
+
+            for name, value, inline in fields:
+                embed.add_field(name=name, value=value, inline=inline)
+
+            await log_channel.send(embed=embed)
+
+        if before.avatar_url != after.avatar_url:
+            embed = discord.Embed(title="Avatar change",
+						  description="New image is below, old to the right.",
+						  colour=after.colour,
+						  timestamp=datetime.datetime.utcnow())
+
+            embed.set_thumbnail(url=before.avatar_url)
+            embed.set_image(url=after.avatar_url)
+
+            await log_channel.send(embed=embed)
+
+    @commands.Cog.listener()
+    async def on_member_update(self, before, after):
+        log_channel = self.client.get_channel(700137514572185662)
+        rolelog_channel = self.client.get_channel(700120282140246026)
+        if before.display_name != after.display_name:
+            embed = discord.Embed(title="Nickname change",
+						  colour=after.colour,
+						  timestamp=datetime.datetime.utcnow())
+
+            fields = [("Before", before.display_name, False),
+					  ("After", after.display_name, False)]
+
+            for name, value, inline in fields:
+                embed.add_field(name=name, value=value, inline=inline)
+
+            await log_channel.send(embed=embed)
+
+        elif before.roles != after.roles:
+            embed = discord.Embed(title="Role updates",
+						  colour=after.colour,
+						  timestamp=datetime.datetime.utcnow())
+
+            fields = [("Before", ", ".join([r.mention for r in before.roles]), False),
+					  ("After", ", ".join([r.mention for r in after.roles]), False)]
+
+            for name, value, inline in fields:
+                embed.add_field(name=name, value=value, inline=inline)
+            await rolelog_channel.send(embed=embed)
 
     @commands.Cog.listener()
     async def on_message_edit(self, before,after):
