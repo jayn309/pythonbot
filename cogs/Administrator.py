@@ -197,6 +197,8 @@ class Administrator(commands.Cog):
         else:
             await ctx.message.delete()
             deleted = await ctx.channel.purge(limit=number,check=_check)
+            msg = deleted.content
+            print(msg)
             await ctx.send(f'Deleted {len(deleted):,} messages.', delete_after=5)
 
     @commands.command()
