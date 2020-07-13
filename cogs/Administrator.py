@@ -195,6 +195,7 @@ class Administrator(commands.Cog):
         if number is None:
             await ctx.send('You must input a number')
         else:
+            await ctx.message.delete()
             deleted = await ctx.channel.purge(limit=number,check=_check)
             await ctx.send(f'Deleted {len(deleted):,} messages.', delete_after=5)
 
