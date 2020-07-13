@@ -54,7 +54,7 @@ class Roles(commands.Cog):
                         await channel.send(f'Role was added.')
                         await asyncio.sleep(2)
                         await channel.purge(limit=1)
-                    await msg.remove_reaction(payload.emoji.name,member)
+                    await msg.remove_reaction(discord.Emoji,member)
                 else:
                     print("Member not found.")
             else:
