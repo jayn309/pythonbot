@@ -78,8 +78,8 @@ class Log(commands.Cog):
 
             embed.set_thumbnail(url=before.avatar_url)
             embed.set_image(url=after.avatar_url)
-            embed.set_author(name=f'{before.user.name}#{before.user.discriminator}', icon_url=before.user.avatar_url)
-            embed.set_footer(text=f"Author ID:{before.user.id}")
+            embed.set_author(name=f'{before.name}#{before.discriminator}', icon_url=before.avatar_url)
+            embed.set_footer(text=f"Author ID:{before.id}")
 
             await log_channel.send(embed=embed)
 
@@ -92,7 +92,7 @@ class Log(commands.Cog):
 						  colour=after.colour,
 						  timestamp=datetime.datetime.utcnow())
 
-            embed.set_author(name=f'{before..name}#{before.discriminator}', icon_url=before.avatar_url)
+            embed.set_author(name=f'{before.name}#{before.discriminator}', icon_url=before.avatar_url)
             embed.set_footer(text=f"Author ID:{before.id}")
             fields = [("Before", before.display_name, False),
 					  ("After", after.display_name, False)]
