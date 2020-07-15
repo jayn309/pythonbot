@@ -3,7 +3,7 @@ import discord
 import time
 import asyncio
 
-from discord.ext import commands, tasks
+from discord.ext import commands, tasks, menus
 from itertools import cycle
 from discord.utils import get
 
