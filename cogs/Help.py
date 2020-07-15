@@ -83,5 +83,5 @@ class Help(Cog):
 			self.client.cogs_ready.ready_up("help")
 
 
-def setup(bot):
-	bot.add_cog(Help(bot))
+def setup(client):
+	client.add_cog(Help(client))
