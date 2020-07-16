@@ -1,6 +1,5 @@
 import discord
 
-from discord.ext import menus
 from discord.ext.menus import MenuPages, ListPageSource
 from typing import Optional
 from discord import Embed
@@ -83,7 +82,7 @@ class Help(Cog):
 	async def on_ready(self):
 		if not self.client.ready:
 			self.client.cogs_ready.ready_up("help")
-
+            
 
 def setup(client):
 	client.add_cog(Help(client))
