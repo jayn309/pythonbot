@@ -1,4 +1,3 @@
 discord.py
 asyncio
-git
-discord-ext-menus
+discord.ext.menus
