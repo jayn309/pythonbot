@@ -1,3 +1,4 @@
+import discord
 from typing import Optional
 
 from discord import Embed
