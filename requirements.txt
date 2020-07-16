@@ -1,3 +1,3 @@
 discord.py
 asyncio
-discord-ext-menus@d9965ecbe2dba46c2b41cc9fd14aaa556841c183
+pip install git+https://github.com/Rapptz/discord-ext-menus@d9965ecbe2dba46c2b41cc9fd14aaa556841c183
