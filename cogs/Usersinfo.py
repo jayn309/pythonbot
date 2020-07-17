@@ -6,7 +6,7 @@ class usersinfo(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(aliases=[ 'ui'])
+    @commands.command(aliases=[ 'ui'],brief='get info of a user')
     async def usersinfo(self, ctx, member: discord.Member = None):
         member = ctx.author if not member else member
     
@@ -31,12 +31,12 @@ class usersinfo(commands.Cog):
     
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.command(aliases=[ 'pfp'],brief='get avatar of a user or yours')
     @commands.guild_only()
     async def avatar(self, ctx, *, member: discord.Member = None):
         """ Get the avatar of you or someone else """
         member = member or ctx.author
-        await ctx.send(f"Avatar of **{member.display_name}**\n{member.avatar_url}")
+        await ctx.send(f"Avatar of {member.display_name}")
 
 def setup(client):
     client.add_cog(usersinfo(client))
