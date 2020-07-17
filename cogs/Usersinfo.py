@@ -6,7 +6,7 @@ class usersinfo(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(aliases=[ 'ui'],brief='get info of a user')
+    @commands.command(aliases=[ 'ui'],brief='get info of a user',description='```# Aliases``` \n ```ui```\n ```Get your info or mention a member to get their info```\n' )
     async def usersinfo(self, ctx, member: discord.Member = None):
         member = ctx.author if not member else member
     
