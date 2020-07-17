@@ -36,7 +36,7 @@ class usersinfo(commands.Cog):
     async def avatar(self, ctx, *, member: discord.Member = None):
         """ Get the avatar of you or someone else """
         member = member or ctx.author
-        await ctx.send(f"Avatar of {member.display_name}")
+        await ctx.send(f"Avatar of **{member.display_name}**\n{member.avatar}")
 
 def setup(client):
     client.add_cog(usersinfo(client))
