@@ -14,7 +14,7 @@ class Administrator(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(brief='ban a member')
+    @commands.command(brief='ban a member (Admin only)')
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
     async def ban(self, ctx, member : discord.Member, *, reason=None):
         channel = discord.utils.get(member.guild.text_channels, name='mod-log')
@@ -38,7 +38,7 @@ class Administrator(commands.Cog):
         if isinstance(error, commands.CheckFailure):
             await ctx.send(f"{ctx.author.mention} got ban")
 
-    @commands.command(brief='unban a member')
+    @commands.command(brief='unban a member (Admin only)')
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
     async def unban(self,ctx, member, *, reason=None):
         member = await self.client.fetch_user(int(member))
@@ -56,7 +56,7 @@ class Administrator(commands.Cog):
                 await channel.send(embed=unban_embed)
 
 
-    @commands.command(brief='kick a member')
+    @commands.command(brief='kick a member (Admin only)')
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
     async def kick(self,ctx, member : discord.Member, *, reason=None):
         channel = discord.utils.get(member.guild.text_channels, name='mod-log')
@@ -79,7 +79,7 @@ class Administrator(commands.Cog):
         if isinstance(error, commands.CheckFailure):
             await ctx.send(f"{ctx.author.mention} got kicked")
 
-    @commands.command(brief='mute a member')
+    @commands.command(brief='mute a member (Admin only)')
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
     async def mute(self,ctx, member : discord.Member,*, reason=None):
         role = discord.utils.get(ctx.guild.roles, name="Muted")
@@ -127,7 +127,7 @@ class Administrator(commands.Cog):
         if isinstance(error, commands.CheckFailure):
             await ctx.send(f"{ctx.author.mention} was muted")
 
-    @commands.command(brief='unmute a member')
+    @commands.command(brief='unmute a member (Admin only)')
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
     async def unmute(self,ctx, member : discord.Member):
         role = discord.utils.get(ctx.guild.roles, name="Muted")
@@ -187,7 +187,7 @@ class Administrator(commands.Cog):
         if isinstance(error, commands.CheckFailure):
             await ctx.send(f"{ctx.author.mention} was unmuted")
 
-    @commands.command(brief = 'clear an amount of messages (of members if mentioned)')
+    @commands.command(brief = 'clear an amount of messages (of members if mentioned) (Admin only)')
     @commands.has_guild_permissions(administrator=True)
     async def purge(self,ctx, members: Greedy[Member], number:int=None):
         def _check(message):
@@ -199,7 +199,7 @@ class Administrator(commands.Cog):
             deleted = await ctx.channel.purge(limit=number,check=_check)
             await ctx.send(f'Deleted {len(deleted):,} messages.', delete_after=5)
 
-    @commands.command(brief='make the bot say something in a channel')
+    @commands.command(brief='make the bot say something in a channel (Admin only)')
     @commands.has_guild_permissions(administrator=True)
     async def say(self, ctx, channel, *, msg):
         channel_mentions = ctx.message.channel_mentions
@@ -207,7 +207,7 @@ class Administrator(commands.Cog):
         await ctx.message.delete()
         await channel.send(format(msg))
 
-    @commands.command(brief='edit a bot message in a channel')
+    @commands.command(brief='edit a bot message in a channel (Admin only)')
     @commands.has_guild_permissions(administrator=True)
     async def edit(self,ctx,channel,message_id, *,content):
         try:
@@ -219,19 +219,19 @@ class Administrator(commands.Cog):
             await ctx.send("Could not find that message")
             raise e
 
-    @commands.command(brief='remove a role from a member')
+    @commands.command(brief='remove a role from a member (Admin only)')
     @commands.has_guild_permissions(administrator=True)
     async def removerole(self,ctx,role: discord.Role, *, member : discord.Member):
         await member.remove_roles(role)
         await ctx.send(f"Remove role from {member.mention}")
 
-    @commands.command(brief='add a role to a member')
+    @commands.command(brief='add a role to a member (Admin only)')
     @commands.has_guild_permissions(administrator=True)
     async def addrole(self,ctx,role: discord.Role, *, member : discord.Member):
         await member.add_roles(role)
         await ctx.send(f"Add role to {member.mention}")
 
-    @commands.command(aliases=['aar'],brief='add a role to all members')
+    @commands.command(aliases=['aar'],brief='add a role to all members (Admin only)')
     @commands.has_guild_permissions(administrator=True)
     async def alladdrole(self,ctx, *,role: discord.Role):
         num_members = len(ctx.guild.members)
@@ -244,7 +244,7 @@ class Administrator(commands.Cog):
             num_members == 0
             await ctx.send(f"Added role to all members.")
 
-    @commands.command(aliases=['arr'],brief='remove a role from all members')
+    @commands.command(aliases=['arr'],brief='remove a role from all members (Admin only)')
     @commands.has_guild_permissions(administrator=True)
     async def allremoverole(self,ctx, *,role: discord.Role):
         num_members = len(role.members)
@@ -258,7 +258,7 @@ class Administrator(commands.Cog):
             num_members == 0
             await ctx.send(f"Remove role from all members.")
 
-    @commands.command(brief='number of members have that role')
+    @commands.command(brief='number of members have that role (Admin only)')
     @commands.has_guild_permissions(administrator=True)
     async def countr(self,ctx, *,role: discord.Role):
         counter = 0
@@ -267,7 +267,7 @@ class Administrator(commands.Cog):
                 counter =len(role.members)
         await ctx.send(f'{counter} members have {role} role.')
 
-    @commands.command(brief='move member to another voice chat or disconnect from voicechat')
+    @commands.command(brief='move member to another voice chat or disconnect from voicechat (Admin only)')
     @commands.has_guild_permissions(administrator=True)
     async def move(self,ctx,members: commands.Greedy[discord.Member] = None, channel: discord.VoiceChannel = None):
         if ctx.author.voice:

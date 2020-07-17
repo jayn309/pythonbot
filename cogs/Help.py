@@ -78,11 +78,5 @@ class Help(Cog):
 			else:
 				await ctx.send("That command does not exist.")
 
-	@Cog.listener()
-	async def on_ready(self):
-		if not self.client.ready:
-			self.client.cogs_ready.ready_up("help")
-            
-
 def setup(client):
 	client.add_cog(Help(client))

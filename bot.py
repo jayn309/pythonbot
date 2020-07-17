@@ -27,7 +27,7 @@ async def on_ready():
     print(f'{client.user} has connected to Discord!')
     await client.change_presence(activity=discord.Activity(type=2,name="Spotify"))
 
-@client.command()
+@client.command(brief='load a cog (Admin only)')
 @commands.has_guild_permissions(administrator=True)
 async def load(ctx, extension):
     client.load_extension(f'cogs.{extension}') #loads the extension in the "cogs" folder
@@ -35,7 +35,7 @@ async def load(ctx, extension):
     print(f'loaded "{extension}"')
     return
 
-@client.command()
+@client.command(brief='unload a cog (Admin only)')
 @commands.has_guild_permissions(administrator=True)
 async def unload(ctx, extension):
     client.unload_extension(f'cogs.{extension}') #unloads the extension in the "cogs" folder
@@ -43,7 +43,7 @@ async def unload(ctx, extension):
     print(f'unloaded "{extension}"')
     return
 
-@client.command()
+@client.command(brief='bot ping (Admin only)')
 async def ping(ctx):
     await ctx.send(f'Pong! {round(client.latency * 1000)} ms')
     
