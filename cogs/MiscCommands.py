@@ -12,7 +12,7 @@ class MicsCommands(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(aliases=[ '8b'])
+    @commands.command(aliases=[ '8b'],brief='get random answer for a question')
     async def _8ball(self, ctx, *, question):
         responses = [ 'It is certain.',
             'It is decidedly so.',
@@ -36,36 +36,36 @@ class MicsCommands(commands.Cog):
             'Very doubtful.']
         await ctx.send(f'Question: {question}\nAnswer: {random.choice(responses)}')
 
-    @commands.command()
+    @commands.command(brief='add 2 numbers')
     async def add(self,ctx, a: int, b: int):
         await ctx.send(a+b)
 
-    @commands.command()
+    @commands.command(brief='multiply 2 numbers')
     async def multiply(self,ctx, a: int, b: int):
         await ctx.send(a*b)
 
-    @commands.command()
+    @commands.command(brief='subtract 2 numbers')
     async def subtract(self,ctx, a: int, b: int):
         await ctx.send(a-b)
 
-    @commands.command()
+    @commands.command(brief='divide 2 numbers')
     async def divide(self,ctx, a: int, b: int):
         await ctx.send(a/b)
 
-    @commands.command(aliases=['flip', 'coin'])
+    @commands.command(aliases=['flip', 'coin'],brief='flip a coin')
     async def coinflip(self, ctx):
         """ Coinflip! """
         coinsides = ['Heads', 'Tails']
         await ctx.send(f"**{ctx.author.name}** flipped a coin and got **{random.choice(coinsides)}**!")
 
-    @commands.command()
+    @commands.command(brief='pay your respect')
     async def f(self, ctx, *, text: commands.clean_content = None):
         """ Press F to pay respect """
         hearts = ['❤', '💛', '💚', '💙', '💜']
         reason = f"for **{text}** " if text else ""
         await ctx.send(f"**{ctx.author.name}** has paid their respect {reason}{random.choice(hearts)}")
 
-    @commands.command(aliases=[ 'ch'])
+    @commands.command(aliases=[ 'ch'],brief='choose between choices .Use , between your choices.')
     async def choose(self,ctx, *,choices: str):
         """Chooses between multiple choices."""
         realchoices = str.split(choices,',')
@@ -74,22 +74,22 @@ class MicsCommands(commands.Cog):
         else:
             await ctx.send(randchoice(realchoices))
 
-    @commands.command(no_pm=True, hidden=True)
+    @commands.command(no_pm=True, hidden=True,brief='give a hug to a member')
     async def hug(self,ctx, user : discord.Member):
         msg = ["(っ˘̩╭╮˘̩)っ","(っ´▽｀)っ","╰(*´︶`*)╯","(つ≧▽≦)つ","(づ￣ ³￣)づ" " ⊂(´・ω・｀⊂)"]
         await ctx.send(random.choice(msg))
 
-    @commands.command(aliases=[ 'tbf'])
+    @commands.command(aliases=[ 'tbf'],brief ='flip the table')
     async def tableflip(self, ctx):
         """Tableflip!"""
         await ctx.send('(╯°□°）╯︵ ┻━┻')
 
-    @commands.command(aliases=[ 'unf'])
+    @commands.command(aliases=[ 'unf'],brief='unflip the table')
     async def unflip(self, ctx):
         """Unfips!"""
         await ctx.send('┬─┬﻿ ノ( ゜-゜ノ)')
 
-    @commands.command()
+    @commands.command(brief='rate something')
     async def rate(self, ctx, *, thing: commands.clean_content):
         """ Rates what you desire """
         num = random.randint(0, 100)
@@ -100,7 +100,7 @@ class MicsCommands(commands.Cog):
 
         await ctx.send(f"I'd rate {thing} a **{num}.{deci} / 100**")
 
-    @commands.command(aliases=['howhot', 'hot'])
+    @commands.command(aliases=['hot'],brief='how hot someone/something is')
     async def hotcalc(self, ctx, *, someone: commands.clean_content):
         """ Returns a random percent for how hot is a discord user """
         r = random.randint(1, 100)
@@ -116,7 +116,7 @@ class MicsCommands(commands.Cog):
 
         await ctx.send(f"{someone} is **{hot:.2f}%** hot {emoji}")
 
-    @commands.command(aliases=['slots', 'bet'])
+    @commands.command(aliases=['slots', 'bet'],brief='play slot machine')
     @commands.cooldown(rate=1, per=3.0, type=commands.BucketType.user)
     async def slot(self, ctx):
         """ Roll the slot machine """
@@ -134,7 +134,7 @@ class MicsCommands(commands.Cog):
         else:
             await ctx.send(f"{slotmachine} No match, you lost 😢")
 
-    @commands.command(aliases=['ng'])
+    @commands.command(aliases=['ng'],brief='guess a number')
     @commands.cooldown(rate=1, per=10.0, type=commands.BucketType.user)
     async def numgame(self,ctx):
         number = random.randint(1,100)
@@ -169,7 +169,7 @@ class MicsCommands(commands.Cog):
             guess == 0
             await ctx.send("<:ireneyikes:679733703647559720> What a loser!")
 
-    @commands.command()
+    @commands.command(brief='play rps')
     async def rps(self,ctx, msg: str):
         t = ["rock","paper","scissors"]
         computer = t[randint(0, 2)]
@@ -214,7 +214,7 @@ class MicsCommands(commands.Cog):
             await asyncio.sleep(1)
             await ctx.send(randchoice(huh))
 
-    @commands.command()
+    @commands.command(brief='mocking the previous message or a specific message by id')
     async def mock(self, ctx, *, args=""):
         emoteregex=re.compile(r'<(a)*:[\w]+:([0-9]+)>( )*')
         def mockthis(s):
@@ -280,7 +280,7 @@ class MicsCommands(commands.Cog):
             await ctx.send(mockthis(ctx.message.clean_content[6:]))
             await ctx.send("<:irenemock:686573132185600010>")
 
-    @commands.command(aliases=['gg'])
+    @commands.command(aliases=['gg'],brief='google search')
     async def google(self,ctx, *,argument):
         author = ctx.message.author
         embed = discord.Embed(title="Google Result", color= ctx.message.author.colour)
@@ -289,7 +289,7 @@ class MicsCommands(commands.Cog):
         embed.set_footer(text=f"Requested by {author}")
         await ctx.send(embed=embed)   
 
-    @commands.command(aliases=['ytb'])
+    @commands.command(aliases=['ytb'],brief='youtube search')
     async def youtube(self,ctx, *, query:str):
         async with aiohttp.request("GET", f'https://www.youtube.com/results?search_query={query}') as resp:
             res2= await resp.text()
