@@ -127,12 +127,11 @@ class Administrator(commands.Cog):
         if isinstance(error, commands.CheckFailure):
             await ctx.send(f"{ctx.author.mention} was muted")
 
-    @commands.command(brief='unmute a member (Admin only)')
+    @commands.command(brief='unmute a member (Admin only)',description='Unmute a member. Then go to #bot-config to add roles for privates channels.')
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
     async def unmute(self,ctx, member : discord.Member):
         role = discord.utils.get(ctx.guild.roles, name="Muted")
         privaterole = discord.utils.get(ctx.guild.roles, name="betunamluv")
-        privaterole1 = discord.utils.get(ctx.guild.roles, name="Test Subject")
         privaterole2 = discord.utils.get(ctx.guild.roles, name="Solitary Confinement")
         privaterole3 = discord.utils.get(ctx.guild.roles, name="YadongYaseol")
         channel = discord.utils.get(member.guild.text_channels, name='mod-log')
@@ -164,10 +163,6 @@ class Administrator(commands.Cog):
                     await member.add_roles(privaterole)
                     number_of_roles -= 1
                     await privaterole_channel.send("Role was added to this member. Type next role below or leave me alone if you're done.")
-                if msg_channel_name.content.lower () == 'test':
-                    await member.add_roles(privaterole1)
-                    number_of_roles -= 1
-                    await privaterole_channel.send("Role was added to this member. Type next role below or leave me alone if you're done.")
                 if msg_channel_name.content.lower () == 'yadongyaseol' or msg_channel_name.content.lower () == 'yy':
                     await member.add_roles(privaterole3)
                     number_of_roles -= 1
@@ -187,7 +182,7 @@ class Administrator(commands.Cog):
         if isinstance(error, commands.CheckFailure):
             await ctx.send(f"{ctx.author.mention} was unmuted")
 
-    @commands.command(brief = 'clear an amount of messages (of members if mentioned) (Admin only)')
+    @commands.command(brief = 'clear an amount of messages (of members if mentioned) (Admin only)',description='mention members to delete their messages\n_purge @member number of messages to delete (count messages from others also, but the bot will only delete messages from mentioned member \n count up to the message yyou wan to delete')
     @commands.has_guild_permissions(administrator=True)
     async def purge(self,ctx, members: Greedy[Member], number:int=None):
         def _check(message):
