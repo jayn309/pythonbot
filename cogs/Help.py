@@ -56,11 +56,18 @@ class Help(Cog):
 		self.client.remove_command("help")
 
 	async def cmd_help(self, ctx, command):
-		embed = Embed(title=f"Help with `{command}`",
-					  description=syntax(command),
-					  colour=ctx.author.colour)
-		embed.add_field(name="Command description", value=command.help)
-		await ctx.send(embed=embed)
+		if command.discription is not None:
+			embed = Embed(title=f"Help with `{command}`",
+						description=syntax(command),
+						colour=ctx.author.colour)
+			embed.add_field(name="Command description", value=command.discription)
+			await ctx.send(embed=embed)
+		else:
+			embed = Embed(title=f"Help with `{command}`",
+						description=syntax(command),
+						colour=ctx.author.colour)
+			embed.add_field(name="Command description", value=command.help)
+			await ctx.send(embed=embed)
 
 	@command(name="help")
 	async def show_help(self, ctx, cmd: Optional[str]):
