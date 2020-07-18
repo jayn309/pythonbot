@@ -6,7 +6,7 @@ class usersinfo(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(aliases=[ 'ui'],brief='get info of a user',description='Get your info or mention a member to get theirs' )
+    @commands.command(aliases=[ 'ui'],brief='get info',description='Get your info or mention a member to get theirs' )
     async def usersinfo(self, ctx, member: discord.Member = None):
         member = ctx.author if not member else member
     
@@ -31,7 +31,7 @@ class usersinfo(commands.Cog):
     
         await ctx.send(embed=embed)
 
-    @commands.command(aliases=[ 'pfp'],brief='get avatar of a user or yours',description='Get your pfp or mention a member to get theirs')
+    @commands.command(aliases=[ 'pfp'],brief='get avatar',description='Get your pfp or mention a member to get theirs')
     @commands.guild_only()
     async def avatar(self, ctx, *, member: discord.Member = None):
         """ Get the avatar of you or someone else """

@@ -13,22 +13,13 @@ class HelpCommands(commands.Cog):
     async def admin_subcommand(self,ctx):
         author = ctx.message.author
 
-        embed = discord.Embed(
+        embed = discord.Embed(description='Here is the list of commands! \n For more info on a specific command, use _help {command}',
                 colour = discord.Colour.blurple()
             )
 
-        embed.set_author(name="_help [Admin] or [Fun]")
-        embed.add_field(name="_kick [user]", value="kick a member",inline=False)
-        embed.add_field(name="_ban _unban [user]" , value="ban/unban a member",inline=False)
-        embed.add_field(name="_mute _unmute [user]", value="mute/unmute a member",inline=False)
-        embed.add_field(name="_purge [member] [number]", value="clear an amount of messages (of a member if mentioned)",inline=False)
-        embed.add_field(name="_say [channel] [message]", value="make the bot say something in a channel",inline=False)
-        embed.add_field(name="_edit [channel] [message_id]", value="edit a bot's message in a channel",inline=False)
-        embed.add_field(name="_showemotes [channel]", value="show all server emotes in a channel",inline=False)
-        embed.add_field(name="_addrole/_removerole [role]  [member]", value="add or remove role",inline=False)
-        embed.add_field(name="_move [member] [channel]", value="move member to another voice chat or disconnect from voicechat",inline=False)
-        embed.add_field(name="_aar/_arr [role]", value="add or remove a role to/from all members",inline=False)
-        embed.add_field(name="_countr [role]", value="number of members have that role",inline=False)
+        embed.set_author(name="Administrator commands list", icon_url=self.client.avatar_url)
+        embed.add_field(name=r'\U+1F451 Admin', value="kick ban unban mute unmute purge say edit showemotes addrole removerole move alladdrole allremoverole countr"
+        ,inline=False)
         await ctx.send(author.mention, embed=embed)
 
     @helpcommand.command(name='Fun',aliases=['fun'])

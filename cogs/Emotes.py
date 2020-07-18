@@ -48,7 +48,7 @@ class Emotes(commands.Cog):
                     pass
                     #print(f"message has things other than emotes. {len(message.content)}!={matchlength}")
 
-    @commands.command(aliases=[ 'shem'],brief='show all emotes of server in a channel (Admin only)',description='Mention a channel to show all emote there\n _shem #channel')
+    @commands.command(aliases=[ 'shem'],brief='show all emotes of server in a channel',description='Mention a channel to show all emote there\n _shem #channel')
     @commands.has_guild_permissions(administrator=True)
     async def showemotes(self,ctx,channel,emoji: discord.Emoji =None):
         channel_mentions = ctx.message.channel_mentions
