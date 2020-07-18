@@ -10,7 +10,7 @@ class Riddle(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(aliases=[ 'rd'],brief='guess a word from riddles')
+    @commands.command(aliases=[ 'rd'],brief='guess a word from riddles',description='_rd to start')
     @commands.cooldown(rate=1, per=10.0, type=commands.BucketType.user)
     async def riddle(self,ctx):
         Questions =['What has to be broken before you can use it?', 

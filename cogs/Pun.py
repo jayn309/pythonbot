@@ -10,7 +10,7 @@ class Pun(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(brief='guess a word from puns')
+    @commands.command(brief='guess a word from puns',description='_pun to start')
     @commands.cooldown(rate=1, per=10.0, type=commands.BucketType.user)
     async def pun(self,ctx):
         Questions =['What bird can write?',

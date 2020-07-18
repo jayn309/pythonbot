@@ -101,7 +101,7 @@ class MicsCommands(commands.Cog):
         await ctx.send(f"I'd rate {thing} a **{num}.{deci} / 100**")
 
     @commands.command(aliases=['hot'],brief='how hot someone/something is')
-    async def hotcalc(self, ctx, *, someone: commands.clean_content):
+    async def hotcalc(self, ctx, *, object: commands.clean_content):
         """ Returns a random percent for how hot is a discord user """
         r = random.randint(1, 100)
         hot = r / 1.17
@@ -114,9 +114,9 @@ class MicsCommands(commands.Cog):
         if hot > 75:
             emoji = "💞"
 
-        await ctx.send(f"{someone} is **{hot:.2f}%** hot {emoji}")
+        await ctx.send(f"{object} is **{hot:.2f}%** hot {emoji}")
 
-    @commands.command(aliases=['slots', 'bet'],brief='play slot machine')
+    @commands.command(aliases=['slots', 'bet'],brief='play slot machine',description='_slot to start')
     @commands.cooldown(rate=1, per=3.0, type=commands.BucketType.user)
     async def slot(self, ctx):
         """ Roll the slot machine """
@@ -134,7 +134,7 @@ class MicsCommands(commands.Cog):
         else:
             await ctx.send(f"{slotmachine} No match, you lost 😢")
 
-    @commands.command(aliases=['ng'],brief='guess a number')
+    @commands.command(aliases=['ng'],brief='guess a number',description='ng to start')
     @commands.cooldown(rate=1, per=10.0, type=commands.BucketType.user)
     async def numgame(self,ctx):
         number = random.randint(1,100)
@@ -169,7 +169,7 @@ class MicsCommands(commands.Cog):
             guess == 0
             await ctx.send("<:ireneyikes:679733703647559720> What a loser!")
 
-    @commands.command(brief='play rps')
+    @commands.command(brief='play rps',description='_rps to start')
     async def rps(self,ctx, msg: str):
         t = ["rock","paper","scissors"]
         computer = t[randint(0, 2)]
