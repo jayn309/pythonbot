@@ -214,7 +214,7 @@ class MicsCommands(commands.Cog):
             await asyncio.sleep(1)
             await ctx.send(randchoice(huh))
 
-    @commands.command(brief='mocking the previous message or a specific message by id')
+    @commands.command(brief='mocking the previous message or a specific message by id',description= '_mock to mock the lasted message sent in the channel or _mock id to mock a specific message in the same channel.')
     async def mock(self, ctx, *, args=""):
         emoteregex=re.compile(r'<(a)*:[\w]+:([0-9]+)>( )*')
         def mockthis(s):
