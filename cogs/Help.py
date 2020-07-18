@@ -62,7 +62,7 @@ class Help(Cog):
 		if command.description is not None:
 			embed.add_field(name="Command description", value=command.description)
 		else:
-			embed.add_field(name="Command description", value=command.short_doc)
+			embed.add_field(name="Command description", value=command.brief or "No description.")
 		await ctx.send(embed=embed)
 
 	@command(name="help")
