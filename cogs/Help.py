@@ -66,7 +66,7 @@ class Help(Cog):
 			embed = Embed(title=f"Help with `{command}`",
 					  description=syntax(command),
 					  colour=ctx.author.colour)
-			embed.add_field(name="Command description", value=command.brief)
+			embed.add_field(name="Command description", value=command.help.brief)
 			await ctx.send(embed=embed)
 
 	@command(name="help")
