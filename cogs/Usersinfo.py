@@ -36,7 +36,10 @@ class usersinfo(commands.Cog):
     async def avatar(self, ctx, *, member: discord.Member = None):
         """ Get the avatar of you or someone else """
         member = member or ctx.author
-        await ctx.send(f"Avatar of **{member.display_name}**\n{member.avatar_url}")
-
+        embed = discord.Embed(title=f"Avatar of **{member.display_name}**",
+						  colour=member.colour,
+						  timestamp=datetime.datetime.utcnow())
+        embed.set_image(url=member.avatar_url)
+        await ctx.send(embed=embed)
 def setup(client):
     client.add_cog(usersinfo(client))
