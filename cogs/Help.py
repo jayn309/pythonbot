@@ -61,10 +61,8 @@ class Help(Cog):
 						colour=ctx.author.colour)
 		if command.description is not None:
 			embed.add_field(name="Command description", value=command.description)
-		elif command.brief is not None:
-			embed.add_field(name="Command description", value=command.brief)
 		else:
-			embed.add_field(name="Command description", value=command.help)
+			embed.add_field(name="Command description", value=command.brief)
 		await ctx.send(embed=embed)
 
 	@command(name="help")
