@@ -20,10 +20,6 @@ def syntax(command):
 	return f"`{cmd_and_aliases} {params}`"
 
 class Help(Cog):
-	def __init__(self, client):
-		self.client = client
-		self.client.remove_command("help")
-
 	async def cmd_help(self, ctx, command):
 		embed = Embed(title=f"Help with `{command}`",
 						description=syntax(command),

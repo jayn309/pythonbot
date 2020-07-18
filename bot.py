@@ -13,7 +13,6 @@ client.remove_command('help')
 
 client.load_extension(f'cogs.Administrator')
 client.load_extension(f'cogs.CommandEvents')
-client.load_extension(f'cogs.Help')
 client.load_extension(f'cogs.HelpCommands')
 client.load_extension(f'cogs.Usersinfo')
 client.load_extension(f'cogs.MiscCommands')
