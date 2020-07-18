@@ -134,7 +134,7 @@ class MicsCommands(commands.Cog):
         else:
             await ctx.send(f"{slotmachine} No match, you lost 😢")
 
-    @commands.command(aliases=['ng'],brief='guess a number',description='ng to start')
+    @commands.command(aliases=['ng'],brief='guess a number',description='_ng to start')
     @commands.cooldown(rate=1, per=10.0, type=commands.BucketType.user)
     async def numgame(self,ctx):
         number = random.randint(1,100)
