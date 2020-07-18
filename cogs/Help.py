@@ -60,7 +60,7 @@ class Help(Cog):
 						description=syntax(command),
 						colour=ctx.author.colour)
 		if command.description is  None:
-			embed.add_field(name="Command description", value="No description.")
+			embed.add_field(name="Command description", value='u200')
 		else:
 			embed.add_field(name="Command description", value=command.description)
 		await ctx.send(embed=embed)
