@@ -9,8 +9,6 @@ from discord.utils import get
 
 client = commands.Bot(command_prefix = '_')
 
-client.remove_command('help')
-
 client.load_extension(f'cogs.Administrator')
 client.load_extension(f'cogs.CommandEvents')
 client.load_extension(f'cogs.HelpCommands')
