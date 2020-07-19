@@ -51,9 +51,9 @@ class HelpCommands(commands.Cog):
                         colour = discord.Colour.blurple())
 
             embed.set_author(name="Commands list")
-            embed.add_field(name='\U+1F451 Admin', value="kick ban unban mute unmute purge say edit showemotes addrole removerole move alladdrole allremoverole countr"
+            embed.add_field(name='👑 Admin', value="kick ban unban mute unmute purge say edit showemotes addrole removerole move alladdrole allremoverole countr"
                 ,inline=False)
-            embed.add_field(name='\U+1F389 Fun', value="8ball coinflip f choose hug rate hot slot tableflip unflip add subtract multiply divide avatar usersinfo numgame rps riddle pun google youtube"
+            embed.add_field(name='🎉 Fun', value="8ball coinflip f choose hug rate hot slot tableflip unflip add subtract multiply divide avatar usersinfo numgame rps riddle pun google youtube"
                 ,inline=False)
             await ctx.send(embed=embed)
         
