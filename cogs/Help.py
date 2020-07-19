@@ -64,12 +64,14 @@ class Help(Cog):
 							 delete_message_after=True,
 							 timeout=60.0)
 			await menu.start(ctx)
-			
-		if (command := get(self.client.commands, name=cmd)):
-			await self.cmd_help(ctx, command)
-
+	
 		else:
-			await ctx.send("That command does not exist.")
+			
+			if (command := get(self.client.commands, name=cmd)):
+				await self.cmd_help(ctx, command)
+
+			else:
+				await ctx.send("That command does not exist.")
 
 def setup(client):
 	client.add_cog(Help(client))

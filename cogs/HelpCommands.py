@@ -26,7 +26,7 @@ class HelpCommands(commands.Cog):
     async def help (self,ctx):
         author = ctx.message.author
 
-        embed = discord.Embed(description='Here is the list of commands! \n For more info on a specific command, use _help {command}',
+        embed = discord.Embed(description='Here is the list of commands! \n For more info on a specific command use _help {command}',
                     colour = discord.Colour.blurple())
 
         embed.set_author(name="Commands list")
@@ -47,21 +47,23 @@ class HelpCommands(commands.Cog):
     async def show_help(self, ctx, cmd: Optional[str]):
          #Shows this message
         if cmd is None:
-            embed = discord.Embed(description='Here is the list of commands! \n For more info on a specific command, use _help {command}',
+            embed = discord.Embed(description='Here is the list of commands! \n For more info on a specific command use _help {command}',
                         colour = discord.Colour.blurple())
 
             embed.set_author(name="Commands list")
-            embed.add_field(name=r'\U+1F451 Admin', value="kick ban unban mute unmute purge say edit showemotes addrole removerole move alladdrole allremoverole countr"
+            embed.add_field(name='\U+1F451 Admin', value="kick ban unban mute unmute purge say edit showemotes addrole removerole move alladdrole allremoverole countr"
                 ,inline=False)
-            embed.add_field(name=r'\U+1F389 Fun', value="8ball coinflip f choose hug rate hot slot tableflip unflip add subtract multiply divide avatar usersinfo numgame rps riddle pun google youtube"
+            embed.add_field(name='\U+1F389 Fun', value="8ball coinflip f choose hug rate hot slot tableflip unflip add subtract multiply divide avatar usersinfo numgame rps riddle pun google youtube"
                 ,inline=False)
             await ctx.send(embed=embed)
-
-        if (command := get(self.client.commands, name=cmd)):
-            await self.cmd_help(ctx, command)
-
+        
         else:
-            await ctx.send("That command does not exist.")
+
+            if (command := get(self.client.commands, name=cmd)):
+                await self.cmd_help(ctx, command)
+
+            else:
+                await ctx.send("That command does not exist.")
 
 def setup(client):
     client.add_cog(HelpCommands(client))
