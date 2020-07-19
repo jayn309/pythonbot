@@ -38,9 +38,9 @@ class HelpCommands(commands.Cog):
             embed = discord.Embed(description='Here is the list of commands! \n For more info on a specific command use _help {command}',
                         colour = discord.Colour.blurple())
             embed.set_author(name="Commands list")
-            embed.add_field(name='👑 Admin', value="```kick``` ```ban``` ```unban``` ```mute``` ```unmute``` ```purge``` ```say``` ```edit``` ```showemotes``` ```addrole``` ```removerole``` ```move``` ```alladdrole``` ```allremoverole``` ```countr``` ```showemote```"
-                ,inline=False)
-            embed.add_field(name='🎉 Fun', value="```eightb``` ```coinflip``` ```f``` ```choose``` ```hug``` ```rate``` ```hot``` ```slot``` ```tableflip``` ```unflip``` ```add``` ```subtract``` ```multiply``` ```divide``` ```avatar``` ```usersinfo``` ```numgame``` ```rps``` ```riddle``` ```pun``` ```google``` ```youtube```"
+            embed.add_field(name='👑 Admin', value="kick ban unban mute unmute purge say edit showemotes addrole removerole move alladdrole allremoverole countr showemote"
+                ,inline=True)
+            embed.add_field(name='🎉 Fun', value="eightb coinflip f choose hug rate hot slot tableflip unflip add subtract multiply divide avatar usersinfo numgame rps riddle pun google youtube"
                 ,inline=False)
             await ctx.send(author.mention, embed=embed)
         
