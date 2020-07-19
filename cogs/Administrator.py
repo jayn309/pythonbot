@@ -285,9 +285,16 @@ class Administrator(commands.Cog):
     @commands.command(aliases=[ 'slm'],brief='set slowmode for channel', description='Slowmode by number of seconds for a channel. \n Put 0  to disable slowmode') 
     async def slowmode(self,ctx,channel:discord.TextChannel,seconds:int):
         if seconds is None:
-            await ctx.send("Plese in put a number or 0 to disable")
+            await ctx.send("Plese put a number or 0 to disable")
         else:
             await channel.edit(slowmode_delay=seconds)
+
+    @commands.command(aliases=['lm'],brief='set limit for number of users in a voice chat channel')
+    async def limit(self,ctx,channel:discord.VoiceChannel,numbers:int):
+        if numbers is None:
+            await ctx.send("Plese put a number of users")
+        else:
+            await channel.edit(user_limit=numbers)
         
     @commands.Cog.listener()
     async def on_message(self, message):
