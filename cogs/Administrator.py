@@ -287,7 +287,7 @@ class Administrator(commands.Cog):
         if seconds is None:
             await ctx.send("Plese in put a number or 0 to disable")
         else:
-            await channel.slowmode_delay(seconds)
+            await channel.edit(slowmode_delay=seconds)
         
     @commands.Cog.listener()
     async def on_message(self, message):
