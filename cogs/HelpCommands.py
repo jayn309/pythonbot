@@ -23,19 +23,6 @@ class HelpCommands(commands.Cog):
         self.client = client
         self.client.remove_command("help")
 
-    async def help (self,ctx):
-        author = ctx.message.author
-
-        embed = discord.Embed(description='Here is the list of commands! \n For more info on a specific command use _help {command}',
-                    colour = discord.Colour.blurple())
-
-        embed.set_author(name="Commands list")
-        embed.add_field(name=r'\U+1F451 Admin', value="kick ban unban mute unmute purge say edit showemotes addrole removerole move alladdrole allremoverole countr"
-            ,inline=False)
-        embed.add_field(name=r'U+1F389 Fun', value="8ball coinflip f choose hug rate hot slot tableflip unflip add subtract multiply divide avatar usersinfo numgame rps riddle pun google youtube"
-            ,inline=False)
-        await ctx.send(author.mention, embed=embed)
-
     async def cmd_help(self, ctx, command):
         embed = Embed(title=f"Help with `{command}`",
                             description=syntax(command),
@@ -45,17 +32,18 @@ class HelpCommands(commands.Cog):
 
     @commands.command(name="help")
     async def show_help(self, ctx, cmd: Optional[str]):
-         #Shows this message
+        author = ctx.message.author
+        #Shows this message
         if cmd is None:
             embed = discord.Embed(description='Here is the list of commands! \n For more info on a specific command use _help {command}',
                         colour = discord.Colour.blurple())
-            embed.set_thumbnail(url=self.client.avatar_url)
+            embed.set_thumbnail(url=self.client.avatar)
             embed.set_author(name="Commands list")
             embed.add_field(name='👑 Admin', value="```kick``` ```ban``` ```unban``` ```mute``` ```unmute``` ```purge``` ```say``` ```edit``` ```showemotes``` ```addrole``` ```removerole``` ```move``` ```alladdrole``` ```allremoverole``` ```countr``` ```showemote```"
                 ,inline=False)
             embed.add_field(name='🎉 Fun', value="```eightb``` ```coinflip``` ```f``` ```choose``` ```hug``` ```rate``` ```hot``` ```slot``` ```tableflip``` ```unflip``` ```add``` ```subtract``` ```multiply``` ```divide``` ```avatar``` ```usersinfo``` ```numgame``` ```rps``` ```riddle``` ```pun``` ```google``` ```youtube```"
                 ,inline=False)
-            await ctx.send(embed=embed)
+            await ctx.send(author.mention, embed=embed)
         
         else:
 
