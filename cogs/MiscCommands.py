@@ -13,7 +13,7 @@ class MicsCommands(commands.Cog):
         self.client = client
 
     @commands.command(aliases=[ '8b'],brief='get random answer for a question')
-    async def _8ball(self, ctx, *, question):
+    async def eightb(self, ctx, *, question):
         responses = [ 'It is certain.',
             'It is decidedly so.',
             'Without a doubt.',
