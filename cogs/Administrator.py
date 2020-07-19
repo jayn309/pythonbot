@@ -282,7 +282,7 @@ class Administrator(commands.Cog):
                 await ctx.message.add_reaction('\U00002705')  # React with checkmark
         await ctx.send(f'Moved {success}/{total} users', delete_after=10)
     
-    @commands.command(aliases=[ 'slm'],brief='set slowmode for channel', description='Slowmode by number of seconds for a channel. \n Put 0  to disbale slowmode') 
+    @commands.command(aliases=[ 'slm'],brief='set slowmode for channel', description='Slowmode by number of seconds for a channel. \n Put 0  to disable slowmode') 
     async def slowmode(self,ctx,channel:discord.TextChannel,seconds:int):
         if seconds is None:
             await ctx.send("Plese in put a number or 0 to disable")
