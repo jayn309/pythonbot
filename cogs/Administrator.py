@@ -281,7 +281,14 @@ class Administrator(commands.Cog):
                 success += 1
                 await ctx.message.add_reaction('\U00002705')  # React with checkmark
         await ctx.send(f'Moved {success}/{total} users', delete_after=10)
-
+    
+    @commands.command(aliases=[ 'slm'],brief='set slowmode for channel', description='Slowmode by number of seconds for a channel. \n Put 0  to disbale slowmode') 
+    async def slowmode(self,ctx,channel:discord.TextChannel,seconds:int):
+        if seconds is None:
+            await ctx.send("Plese in put a number or 0 to disable")
+        else:
+            await channel.slowmode_delay(seconds)
+        
     @commands.Cog.listener()
     async def on_message(self, message):
         modlog_channel = self.client.get_channel(731357775652847686)
