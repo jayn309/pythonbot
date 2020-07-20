@@ -39,7 +39,7 @@ class HelpCommands(commands.Cog):
             embed.set_author(name="Command list")
             embed.add_field(name='👑 Admin', value="`kick`  `ban`  `unban` `mute`  `unmute`  `purge`  `say`  `edit`  `showemotes`  `addrole`  `removerole`  `move`  `alladdrole`  `allremoverole`  `countr`  `showemotes`  `slowmode`  `limit`"
                 ,inline=False)
-            embed.add_field(name='🎉 Fun', value="`eightb`  `coinflip`  `f`  `choose`  `hug`  `rate`  `hot`  `slot`  `tableflip`  `unflip`  `add`  `subtract`  `multiply`  `divide`  `avatar`  `usersinfo`  `numgame`  `rps`  `riddle`  `pun`  `google`  `youtube`"
+            embed.add_field(name='🎉 Fun', value="`eightb`  `coinflip`  `f`  `choose`  `hug`  `rate`  `hot`  `slot`  `tableflip`  `unflip`  `add`  `subtract`  `multiply`  `divide`  `avatar`  `usersinfo`  `numgame`  `rps`  `riddle`  `pun`  `google`  `youtube`  `spotify`"
                 ,inline=False)
             await ctx.send(embed=embed)
         
