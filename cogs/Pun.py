@@ -71,33 +71,31 @@ class Pun(commands.Cog):
         'pastree','hamster','starfish','duckumentaries','ducktor','chemelon','tropickle','aperon','broomates','tenish','subahhru','ruff','sneaker',
         'pool','carpet','shellabrates','chocolatte','tentickles','usbee']
 
-        if ctx.channel.id == 680233219303800893:
-            i = random.choice(range(len(Questions)))
-            await asyncio.sleep(1)
-            await ctx.send(Questions[i])
-            await asyncio.sleep(1)
-            await ctx.send('Type your answer(1 word) below. You have 30 seconds and only 1 chance.')
-            def check(m):
+        def check(m):
                 try:
-                    return str(m.content) and m.channel.id == 680233219303800893
+                    return str(m.content) and m.author.id == ctx.author.id and m.channel.id == ctx.channel.id
                 except ValueError:
                     return False
-            if ctx.channel.id == 680233219303800893:   
-                try:     
-                    msg = await self.client.wait_for('message',check=check,timeout=30.0)
-                    await ctx.channel.purge(limit=3)
-                    if msg.content.lower() != Answers[i]:
-                        await asyncio.sleep(1)
-                        await ctx.send(f'Incorrect. Game over. Dumb Dumb! <:wendyyikes:682673361725554785>')
-                    elif msg.content.lower() == Answers[i]:
-                        await asyncio.sleep(1)
-                        await ctx.send('You got it <:wensun:699102648229691402> ')
-                except asyncio.TimeoutError:
-                    await ctx.send('Oops! Nobody solved it.')
-                    return  await ctx.channel.purge(limit=3)
-                      
-        else:
-            await ctx.send("Please go to bot channel to use the command.")
+                    
+        i = random.choice(range(len(Questions)))
+        await asyncio.sleep(1)
+        await ctx.send(Questions[i])
+        await asyncio.sleep(1)
+        await ctx.send('Type your answer(1 word) below. You have 30 seconds and only 1 chance.')
+                
+        try:     
+            msg = await self.client.wait_for('message',check=check,timeout=30.0)
+            await ctx.channel.purge(limit=3)
+            if msg.content.lower() != Answers[i]:
+                await asyncio.sleep(1)
+                await ctx.send(f'Incorrect. Game over. Dumb Dumb! <:wendyyikes:682673361725554785>')
+            elif msg.content.lower() == Answers[i]:
+                await asyncio.sleep(1)
+                await ctx.send('You got it <:wensun:699102648229691402> ')
+        except asyncio.TimeoutError:
+            await ctx.send('Oops! Nobody solved it.')
+            return  await ctx.channel.purge(limit=3)
+
 
 
 
