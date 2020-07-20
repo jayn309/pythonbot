@@ -312,7 +312,7 @@ class MicsCommands(commands.Cog):
                 break
         else:
             embed = discord.Embed(color=ctx.author.colour)
-            embed.title = f'{user.name} is not listening Spotify right now!'
+            embed.title = f'{user.name} is not listening to Spotify right now!'
             await ctx.send(embed=embed)
 
 
