@@ -3,7 +3,9 @@ import random
 import asyncio
 import re
 import aiohttp
+import pendulum
 
+from discord import Spotify
 from discord.ext import commands
 from random import choice as randchoice
 from random import randint, sample
@@ -296,6 +298,23 @@ class MicsCommands(commands.Cog):
             search_results = re.findall('\"\/watch\?v=(.{11})',res2)
             result = "https://www.youtube.com/watch?v=" + search_results[0]
             await ctx.send(f"{ctx.author.mention} {result}")  
+
+    @commands.command(aliases=['stf'],brief='show what you are listening to on Spotify')
+    async def spotify(self, ctx, user: discord.Member=None):
+        user = user or ctx.author
+        for activity in user.activities:
+            if isinstance(activity, Spotify):
+                em = discord.Embed(color=activity.color)
+                em.title = f'{user.name} is listening to {activity.title}'
+                em.set_thumbnail(url=activity.album_cover_url)
+                em.description = f"**Song Name**: {activity.title}\n**Song Artist**: {activity.artist}\n**Song Album**: {activity.album}\n**Song Lenght**: {pendulum.duration(seconds=activity.duration.total_seconds()).in_words(locale='en')}"
+                await ctx.send(embed=em)
+                break
+        else:
+            embed = discord.Embed(color=ctx.author.colour)
+            embed.title = f'{user.name} is not listening Spotify right now!'
+            await ctx.send(embed=embed)
+
 
 def setup(client):
     client.add_cog(MicsCommands(client))
