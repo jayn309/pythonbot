@@ -119,20 +119,23 @@ class Log(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_edit(self, before,after):
-        log_channel = discord.utils.get(before.guild.channels, name='log')
-        if before.author.id == 685307035142586380 or before.author.id == 325387620266016768 or before.author.id == 234395307759108106 or before.author.id == 235088799074484224 or before.author.id == 172002275412279296 or before.author.id == 359401025330741248:
+        try:
+            log_channel = discord.utils.get(before.guild.channels, name='log')
+            if before.author.id == 685307035142586380 or before.author.id == 325387620266016768 or before.author.id == 234395307759108106 or before.author.id == 235088799074484224 or before.author.id == 172002275412279296 or before.author.id == 359401025330741248:
+                return
+            if before.content == after.content:
+                return
+            else:
+                edit_embed = discord.Embed(title="Message edited",description=f'{before.author.name} edited a message in {before.channel.mention}', 
+                                            colour = before.author.colour,
+                                            timestamp=datetime.datetime.utcnow())
+                edit_embed.set_author(name=f'{before.author.name}#{before.author.discriminator}', icon_url=before.author.avatar_url)
+                edit_embed.set_footer(text=f"Author ID:{before.author.id} • Message ID: {before.id}")
+                edit_embed.add_field(name='Before:', value=before.content, inline=False)
+                edit_embed.add_field(name="After:", value=after.content, inline=False)
+                await log_channel.send(embed=edit_embed)
+        except AttributeError:
             return
-        if before.content == after.content:
-            return
-        else:
-            edit_embed = discord.Embed(title="Message edited",description=f'{before.author.name} edited a message in {before.channel.mention}', 
-                                        colour = before.author.colour,
-                                        timestamp=datetime.datetime.utcnow())
-            edit_embed.set_author(name=f'{before.author.name}#{before.author.discriminator}', icon_url=before.author.avatar_url)
-            edit_embed.set_footer(text=f"Author ID:{before.author.id} • Message ID: {before.id}")
-            edit_embed.add_field(name='Before:', value=before.content, inline=False)
-            edit_embed.add_field(name="After:", value=after.content, inline=False)
-            await log_channel.send(embed=edit_embed)
 
     @commands.Cog.listener()
     async def on_message_delete(self, message):
