@@ -127,7 +127,7 @@ class Administrator(commands.Cog):
         if isinstance(error, commands.CheckFailure):
             await ctx.send(f"{ctx.author.mention} was muted")
 
-    @commands.command(brief='unmute a member',description='Unmute a member. Then go to #bot-config to add roles for privates channels.')
+    @commands.command(brief='unmute a member',description='Unmute a member. Then add roles for privates channels (WRcord only).')
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
     async def unmute(self,ctx, member : discord.Member):
         role = discord.utils.get(ctx.guild.roles, name="Muted")
@@ -150,7 +150,7 @@ class Administrator(commands.Cog):
         await privaterole_channel.send("Does this member need roles for private channels? If yes how many? If none type 0")
         def check(m):
                 try:
-                    return m.channel.id == 680233386648141860
+                    return int(m.content) and m.author.id == ctx.author.id and m.channel.id == ctx.channel.id
                 except ValueError:
                     return False
         msg = await self.client.wait_for('message',check=check)
@@ -278,8 +278,8 @@ class Administrator(commands.Cog):
             else:
                 counter == 0
                 await ctx.send('Done.')
-        else:
-            pass
+        elif msg.content.lower () == 'no' or 'n':
+            await ctx.send("Less work for me then.")
 
     @commands.command(brief='move member to another voice chat or disconnect from voicechat',description='Mention voice chat channel by <#channelID>. \n _move @members without channel will disconnect members from vchat.\n _move #channel without members will move everyone to another voice chat channel.')
     @commands.has_guild_permissions(administrator=True)
