@@ -91,61 +91,60 @@ class Log(commands.Cog):
         guild = self.client.get_guild(626016069873696791)
         log_channel = self.client.get_channel(700137514572185662)
         rolelog_channel = self.client.get_channel(700120282140246026)
-        if guild:
-            if before.display_name != after.display_name:
-                embed = discord.Embed(title="Nickname change",
+        
+        if not guild:
+            return
+        
+        if before.display_name != after.display_name:
+            embed = discord.Embed(title="Nickname change",
                             colour=after.colour,
                             timestamp=datetime.datetime.utcnow())
 
-                embed.set_author(name=f'{before.name}#{before.discriminator}', icon_url=before.avatar_url)
-                embed.set_footer(text=f"Author ID:{before.id}")
-                fields = [("Before", before.display_name, False),
+            embed.set_author(name=f'{before.name}#{before.discriminator}', icon_url=before.avatar_url)
+            embed.set_footer(text=f"Author ID:{before.id}")
+            fields = [("Before", before.display_name, False),
                         ("After", after.display_name, False)]
 
-                for name, value, inline in fields:
+            for name, value, inline in fields:
                     embed.add_field(name=name, value=value, inline=inline)
 
-                await log_channel.send(embed=embed)
+            await log_channel.send(embed=embed)
 
-            elif before.roles != after.roles:
-                embed = discord.Embed(title="Role updates",
+        elif before.roles != after.roles:
+            embed = discord.Embed(title="Role updates",
                             colour=after.colour,
                             timestamp=datetime.datetime.utcnow())
 
-                embed.set_author(name=f'{before.name}#{before.discriminator}', icon_url=before.avatar_url)
-                embed.set_footer(text=f"Author ID:{before.id}")      
+            embed.set_author(name=f'{before.name}#{before.discriminator}', icon_url=before.avatar_url)
+            embed.set_footer(text=f"Author ID:{before.id}")      
 
-                fields = [("Before", ", ".join([r.mention for r in before.roles]), False),
+            fields = [("Before", ", ".join([r.mention for r in before.roles]), False),
                         ("After", ", ".join([r.mention for r in after.roles]), False)]
 
-                for name, value, inline in fields:
+            for name, value, inline in fields:
                     embed.add_field(name=name, value=value, inline=inline)
-                await rolelog_channel.send(embed=embed)
+            await rolelog_channel.send(embed=embed)
         else:
             return
 
     @commands.Cog.listener()
     async def on_message_edit(self, before,after):
-        guild = self.client.get_guild(626016069873696791)
-        if guild:
-            try:
-                log_channel = discord.utils.get(before.guild.channels, name='log')
-                if before.author.id == 685307035142586380 or before.author.id == 325387620266016768 or before.author.id == 234395307759108106 or before.author.id == 235088799074484224 or before.author.id == 172002275412279296 or before.author.id == 359401025330741248:
-                    return
-                if before.content == after.content:
-                    return
-                else:
-                    edit_embed = discord.Embed(title="Message edited",description=f'{before.author.name} edited a message in {before.channel.mention}', 
+        try:
+            log_channel = discord.utils.get(before.guild.channels, name='log')
+            if before.author.id == 685307035142586380 or before.author.id == 325387620266016768 or before.author.id == 234395307759108106 or before.author.id == 235088799074484224 or before.author.id == 172002275412279296 or before.author.id == 359401025330741248:
+                return
+            if before.content == after.content:
+                return
+            else:
+                edit_embed = discord.Embed(title="Message edited",description=f'{before.author.name} edited a message in {before.channel.mention}', 
                                                 colour = before.author.colour,
                                                 timestamp=datetime.datetime.utcnow())
-                    edit_embed.set_author(name=f'{before.author.name}#{before.author.discriminator}', icon_url=before.author.avatar_url)
-                    edit_embed.set_footer(text=f"Author ID:{before.author.id} • Message ID: {before.id}")
-                    edit_embed.add_field(name='Before:', value=before.content, inline=False)
-                    edit_embed.add_field(name="After:", value=after.content, inline=False)
-                    await log_channel.send(embed=edit_embed)
-            except AttributeError:
-                return
-        else:
+                edit_embed.set_author(name=f'{before.author.name}#{before.author.discriminator}', icon_url=before.author.avatar_url)
+                edit_embed.set_footer(text=f"Author ID:{before.author.id} • Message ID: {before.id}")
+                edit_embed.add_field(name='Before:', value=before.content, inline=False)
+                edit_embed.add_field(name="After:", value=after.content, inline=False)
+                await log_channel.send(embed=edit_embed)
+        except AttributeError:
             return
 
     @commands.Cog.listener()
