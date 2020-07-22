@@ -88,9 +88,10 @@ class Log(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_update(self, before, after):
+        guild = self.client.get_guild(626016069873696791)
         log_channel = self.client.get_channel(700137514572185662)
         rolelog_channel = self.client.get_channel(700120282140246026)
-        if self.client.guild.id == 626016069873696791:
+        if guild:
             if before.display_name != after.display_name:
                 embed = discord.Embed(title="Nickname change",
                             colour=after.colour,
