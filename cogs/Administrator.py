@@ -265,13 +265,12 @@ class Administrator(commands.Cog):
         await ctx.send(f'{counter} members have {role} role.')
         if counter != 0:
             await ctx.send('Do you want a list of those members? ')
-
-            def check(m):
+            def ccheck(m):
                 try:
                     return str(m.content) and m.author.id == ctx.author.id and m.channel.id == ctx.channel.id
                 except ValueError:
                     return False
-            msg = await self.client.wait_for('message',check=check)
+            msg = await self.client.wait_for('message',check=ccheck)
             
             if msg.content.lower() == 'yes' or 'y':
                 await ctx.send("This will take awhile.")
