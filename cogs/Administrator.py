@@ -271,7 +271,7 @@ class Administrator(commands.Cog):
         if counter != 0:
             await ctx.send('Do you want a list of those members? If yes type 1, no type 0')
             msg_countr = await self.client.wait_for('message',check=ccheck)
-            if msg_countr.content == 1:
+            if msg_countr.content == '1':
                 await ctx.send("This will take awhile.")
                 while counter != 0:
                     for member in ctx.guild.members:
@@ -281,7 +281,7 @@ class Administrator(commands.Cog):
                 else:
                     counter == 0
                     await ctx.send('Done.')
-            elif  msg_countr.content == 0:
+            elif  msg_countr.content == '0':
                 await ctx.send("Less work for me then.")
 
     @commands.command(brief='move member to another voice chat or disconnect from voicechat',description='Mention voice chat channel by <#channelID>. \n _move @members without channel will disconnect members from vchat.\n _move #channel without members will move everyone to another voice chat channel.')
