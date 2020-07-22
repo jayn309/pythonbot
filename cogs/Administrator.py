@@ -281,7 +281,7 @@ class Administrator(commands.Cog):
                 else:
                     counter == 0
                     await ctx.send('Done.')
-            elif  msg_countr.content == '0':
+            elif msg_countr.content == '0':
                 await ctx.send("Less work for me then.")
 
     @commands.command(brief='move member to another voice chat or disconnect from voicechat',description='Mention voice chat channel by <#channelID>. \n _move @members without channel will disconnect members from vchat.\n _move #channel without members will move everyone to another voice chat channel.')
