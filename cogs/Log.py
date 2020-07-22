@@ -90,7 +90,7 @@ class Log(commands.Cog):
     async def on_member_update(self, before, after):
         log_channel = self.client.get_channel(700137514572185662)
         rolelog_channel = self.client.get_channel(700120282140246026)
-        if before.member.guid.id != 626016069873696791:
+        if before.guild.id != 626016069873696791:
             return
         else:    
             if before.display_name != after.display_name:
