@@ -268,9 +268,11 @@ class Administrator(commands.Cog):
             if role in member.roles:
                 counter =len(role.members)
         await ctx.send(f'{counter} members have {role} role.')
-        await ctx.send('Do you want a list of those members?')
+        if counter != 0:
+            await ctx.send('Do you want a list of those members?')
         msg = await self.client.wait_for('message',check=check)
-        if msg.content.lower () == 'Yes' or 'Y':
+
+        if msg.content.lower() == 'yes' or 'y':
             await ctx.send("This will take awhile.")
             while counter != 0:
                 for member in ctx.guild.members:
@@ -280,7 +282,7 @@ class Administrator(commands.Cog):
             else:
                 counter == 0
                 await ctx.send('Done.')
-        elif msg.content.lower () == 'no' or 'n':
+        else:
             await ctx.send("Less work for me then.")
 
     @commands.command(brief='move member to another voice chat or disconnect from voicechat',description='Mention voice chat channel by <#channelID>. \n _move @members without channel will disconnect members from vchat.\n _move #channel without members will move everyone to another voice chat channel.')
