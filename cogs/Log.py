@@ -126,7 +126,8 @@ class Log(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_edit(self, before,after):
-        if self.client.guild.id == 626016069873696791:
+        guild = self.client.get_guild(626016069873696791)
+        if guild:
             try:
                 log_channel = discord.utils.get(before.guild.channels, name='log')
                 if before.author.id == 685307035142586380 or before.author.id == 325387620266016768 or before.author.id == 234395307759108106 or before.author.id == 235088799074484224 or before.author.id == 172002275412279296 or before.author.id == 359401025330741248:
