@@ -270,9 +270,9 @@ class Administrator(commands.Cog):
                     return str(m.content) and m.author.id == ctx.author.id and m.channel.id == ctx.channel.id
                 except ValueError:
                     return False
-            msg = await self.client.wait_for('message',check=ccheck)
+            msg_countr = await self.client.wait_for('message',check=ccheck)
             
-            if msg.content.lower() == 'yes' or 'y':
+            if msg_countr.content.lower() == 'yes' or 'y':
                 await ctx.send("This will take awhile.")
                 while counter != 0:
                     for member in ctx.guild.members:
