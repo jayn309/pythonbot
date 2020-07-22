@@ -88,13 +88,12 @@ class Riddle(commands.Cog):
 
         i = random.choice(range(len(Questions)))
         await asyncio.sleep(1)
-        await ctx.send(Questions[i])
+        await ctx.send(Questions[i],delete_after=30)
         await asyncio.sleep(1)
-        await ctx.send('Type your answer(1 word) below. You have 30 seconds and only 1 chance.')
+        await ctx.send('Type your answer(1 word) below. You have 30 seconds and only 1 chance.',delete_after=30)
         
         try:     
             msg = await self.client.wait_for('message',check=check,timeout=30.0)
-            await ctx.channel.purge(limit=3)
             if msg.content.lower() != Answers[i]:
                 await asyncio.sleep(1)
                 await ctx.send(f'Incorrect. Game over. Dumb Dumb! <:wendyyikes:682673361725554785>')
@@ -103,7 +102,7 @@ class Riddle(commands.Cog):
                 await ctx.send('You got it <:wensun:699102648229691402> ')
         except asyncio.TimeoutError:
                 await ctx.send('Oops! Nobody solved it.')
-                return await ctx.channel.purge(limit=3)
+                return await ctx.channel.purge(limit=1)
 
 def setup(client):
     client.add_cog(Riddle(client))        
