@@ -88,44 +88,42 @@ class Log(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_update(self, before, after):
-        guild = self.client.get_guild(626016069873696791)
         log_channel = self.client.get_channel(700137514572185662)
         rolelog_channel = self.client.get_channel(700120282140246026)
-        
-        for channel in guild.text_channels:
-            if channel is log_channel or channel is rolelog_channel:
-        
-                if before.display_name != after.display_name:
-                    embed = discord.Embed(title="Nickname change",
-                                    colour=after.colour,
-                                    timestamp=datetime.datetime.utcnow())
+        if before.member.guid.id != 626016069873696791:
+            return
+        else:    
+            if before.display_name != after.display_name:
+                embed = discord.Embed(title="Nickname change",
+                                colour=after.colour,
+                                timestamp=datetime.datetime.utcnow())
 
-                    embed.set_author(name=f'{before.name}#{before.discriminator}', icon_url=before.avatar_url)
-                    embed.set_footer(text=f"Author ID:{before.id}")
-                    fields = [("Before", before.display_name, False),
-                                ("After", after.display_name, False)]
+                embed.set_author(name=f'{before.name}#{before.discriminator}', icon_url=before.avatar_url)
+                embed.set_footer(text=f"Author ID:{before.id}")
+                fields = [("Before", before.display_name, False),
+                            ("After", after.display_name, False)]
 
-                    for name, value, inline in fields:
-                            embed.add_field(name=name, value=value, inline=inline)
+                for name, value, inline in fields:
+                        embed.add_field(name=name, value=value, inline=inline)
 
-                    await log_channel.send(embed=embed)
+                await log_channel.send(embed=embed)
 
-                elif before.roles != after.roles:
-                    embed = discord.Embed(title="Role updates",
-                                    colour=after.colour,
-                                    timestamp=datetime.datetime.utcnow())
+            elif before.roles != after.roles:
+                embed = discord.Embed(title="Role updates",
+                                colour=after.colour,
+                                timestamp=datetime.datetime.utcnow())
 
-                    embed.set_author(name=f'{before.name}#{before.discriminator}', icon_url=before.avatar_url)
-                    embed.set_footer(text=f"Author ID:{before.id}")      
+                embed.set_author(name=f'{before.name}#{before.discriminator}', icon_url=before.avatar_url)
+                embed.set_footer(text=f"Author ID:{before.id}")      
 
-                    fields = [("Before", ", ".join([r.mention for r in before.roles]), False),
-                                ("After", ", ".join([r.mention for r in after.roles]), False)]
+                fields = [("Before", ", ".join([r.mention for r in before.roles]), False),
+                            ("After", ", ".join([r.mention for r in after.roles]), False)]
 
-                    for name, value, inline in fields:
-                            embed.add_field(name=name, value=value, inline=inline)
-                    await rolelog_channel.send(embed=embed)
-                else:
-                    return
+                for name, value, inline in fields:
+                        embed.add_field(name=name, value=value, inline=inline)
+                await rolelog_channel.send(embed=embed)
+            else:
+                return
 
     @commands.Cog.listener()
     async def on_message_edit(self, before,after):

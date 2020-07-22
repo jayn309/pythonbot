@@ -271,20 +271,20 @@ class Administrator(commands.Cog):
                     return str(m.content) and m.author.id == ctx.author.id and m.channel.id == ctx.channel.id
                 except ValueError:
                     return False
-        msg = await self.client.wait_for('message',check=check)
-        
-        if msg.content.lower() == 'yes' or 'y':
-            await ctx.send("This will take awhile.")
-            while counter != 0:
-                for member in ctx.guild.members:
-                    if role in member.roles:
-                        await ctx.send(f'{member.name}#{member.discriminator} - ID: {member.id}')
-                        counter -= 1
+            msg = await self.client.wait_for('message',check=check)
+            
+            if msg.content.lower() == 'yes' or 'y':
+                await ctx.send("This will take awhile.")
+                while counter != 0:
+                    for member in ctx.guild.members:
+                        if role in member.roles:
+                            await ctx.send(f'{member.name}#{member.discriminator} - ID: {member.id}')
+                            counter -= 1
+                else:
+                    counter == 0
+                    await ctx.send('Done.')
             else:
-                counter == 0
-                await ctx.send('Done.')
-        else:
-            await ctx.send("Less work for me then.")
+                await ctx.send("Less work for me then.")
 
     @commands.command(brief='move member to another voice chat or disconnect from voicechat',description='Mention voice chat channel by <#channelID>. \n _move @members without channel will disconnect members from vchat.\n _move #channel without members will move everyone to another voice chat channel.')
     @commands.has_guild_permissions(administrator=True)
