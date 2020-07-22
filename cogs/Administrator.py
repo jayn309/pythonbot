@@ -135,7 +135,6 @@ class Administrator(commands.Cog):
         privaterole2 = discord.utils.get(ctx.guild.roles, name="Solitary Confinement")
         privaterole3 = discord.utils.get(ctx.guild.roles, name="YadongYaseol")
         channel = discord.utils.get(member.guild.text_channels, name='mod-log')
-        privaterole_channel = discord.utils.get(member.guild.text_channels, name='bot-config')
         await member.remove_roles(role)
         await ctx.send(f"{member.mention} was unmuted")
         if channel:
@@ -147,35 +146,38 @@ class Administrator(commands.Cog):
                 unmute_embed.set_footer(text=f"Member ID:{member.id}")
                 await channel.send(embed=unmute_embed)
 
-        await privaterole_channel.send("Does this member need roles for private channels? If yes how many? If none type 0")
-        def check(m):
-                try:
-                    return int(m.content) and m.author.id == ctx.author.id and m.channel.id == ctx.channel.id
-                except ValueError:
-                    return False
-        msg = await self.client.wait_for('message',check=check)
-        number_of_roles = int(msg.content)
-        if number_of_roles != 0:
-            await privaterole_channel.send("Please type the roles name below.")
-            while number_of_roles != 0:
-                msg_channel_name = await self.client.wait_for('message',check=check)
-                if msg_channel_name.content.lower () == 'betunamluv':
-                    await member.add_roles(privaterole)
-                    number_of_roles -= 1
-                    await privaterole_channel.send("Role was added to this member. Type next role below or leave me alone if you're done.")
-                if msg_channel_name.content.lower () == 'yadongyaseol' or msg_channel_name.content.lower () == 'yy':
-                    await member.add_roles(privaterole3)
-                    number_of_roles -= 1
-                    await privaterole_channel.send("Role was added to this member. Type next role below or leave me alone if you're done.")
-                if msg_channel_name.content.lower () == 'solitary' or msg_channel_name.content.lower () == 'sc':
-                    await member.add_roles(privaterole2)
-                    number_of_roles -= 1
-                    await privaterole_channel.send("Role was added to this member. Type next role below or leave me alone if you're done." )
-                if number_of_roles == 0:
-                    await privaterole_channel.send("All roles are added.")
-                    break
+        if ctx.guild.id == 626016069873696791:
+            await ctx.send("Does this member need roles for private channels? If yes how many? If none type 0")
+            def check(m):
+                    try:
+                        return int(m.content) and m.author.id == ctx.author.id and m.channel.id == ctx.channel.id
+                    except ValueError:
+                        return False
+            msg = await self.client.wait_for('message',check=check)
+            number_of_roles = int(msg.content)
+            if number_of_roles != 0:
+                await ctx.send("Please type the roles name below.")
+                while number_of_roles != 0:
+                    msg_channel_name = await self.client.wait_for('message',check=check)
+                    if msg_channel_name.content.lower () == 'betunamluv':
+                        await member.add_roles(privaterole)
+                        number_of_roles -= 1
+                        await ctx.send("Role was added to this member. Type next role below or leave me alone if you're done.")
+                    if msg_channel_name.content.lower () == 'yadongyaseol' or msg_channel_name.content.lower () == 'yy':
+                        await member.add_roles(privaterole3)
+                        number_of_roles -= 1
+                        await ctx.send("Role was added to this member. Type next role below or leave me alone if you're done.")
+                    if msg_channel_name.content.lower () == 'solitary' or msg_channel_name.content.lower () == 'sc':
+                        await member.add_roles(privaterole2)
+                        number_of_roles -= 1
+                        await ctx.send("Role was added to this member. Type next role below or leave me alone if you're done." )
+                    if number_of_roles == 0:
+                        await ctx.send("All roles are added.")
+                        break
+            else:
+                await ctx.send("No private role need to be added to this member")
         else:
-            await privaterole_channel.send("No private role need to be added to this member")
+            return
 
     @unmute.error
     async def unmute_error(self,ctx, error):

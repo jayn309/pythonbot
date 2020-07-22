@@ -34,7 +34,7 @@ class HelpCommands(commands.Cog):
     async def show_help(self, ctx, cmd: Optional[str]):
         #Shows this message
         if cmd is None:
-            embed = discord.Embed(description='Here is the list of commands! \n For more info on a specific command use _help {command}',
+            embed = discord.Embed(description='Here is the list of commands! \nFor more info on a specific command use _help {command}',
                         colour = discord.Colour.blurple())
             embed.set_author(name="Command list")
             embed.add_field(name='👑 Admin', value="`kick`  `ban`  `unban` `mute`  `unmute`  `purge`  `say`  `edit`  `showemotes`  `addrole`  `removerole`  `move`  `alladdrole`  `allremoverole`  `countr`  `showemotes`  `slowmode`  `limit`"
