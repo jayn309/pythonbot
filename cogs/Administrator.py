@@ -269,9 +269,15 @@ class Administrator(commands.Cog):
         await ctx.send('Do you want a list of those members?')
         msg = await self.client.wait_for('message',check=check)
         if msg.content.lower () == 'Yes' or 'Y':
-            for member in ctx.guild.members:
-                if role in member.roles:
-                    await ctx.send(f'{member.name}#{member.discriminator}')
+            await ctx.send("This will take awhile.")
+            while counter != 0:
+                for member in ctx.guild.members:
+                    if role in member.roles:
+                        await ctx.send(f'{member.name}#{member.discriminator} - ID: {member.id}')
+                        counter -= 1
+            else:
+                counter == 0
+                await ctx.send('Done.')
         else:
             return 
 
