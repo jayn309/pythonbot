@@ -322,14 +322,13 @@ class MicsCommands(commands.Cog):
         if lang is None:
             await ctx.send('Please provide a language.')
         else:
-            for lang in LANGCODES or LANGUAGES:
-                try:
-                    t = Translator()
-                    a = t.translate(args, dest=lang)
-                    await ctx.send(a.text)
-                except ValueError:
-                    await ctx.send('Invalid language.')
-                    return
+            try:
+                t = Translator()
+                a = t.translate(args, dest=lang)
+                await ctx.send(a.text)
+            except ValueError:
+                await ctx.send('Invalid language.')
+                return
                     
 
 def setup(client):
