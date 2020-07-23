@@ -319,9 +319,13 @@ class MicsCommands(commands.Cog):
 
     @commands.command(aliases=['tl'],brief='google translate')
     async def translate(self,ctx, language, *, args):
-        t = Translator()
-        a = t.translate(args, dest=language)
-        await ctx.send(a.text)
+        try:
+            t = Translator()
+            a = t.translate(args, dest=language)
+            await ctx.send(a.text)
+        except ValueError:
+            await ctx.send('Invalid language.')
+            return
 
 
 
