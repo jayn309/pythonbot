@@ -3,4 +3,3 @@ asyncio
 git+https://github.com/Rapptz/discord-ext-menus
 pendulum
 googletrans
-wikipedia
