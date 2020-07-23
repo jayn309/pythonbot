@@ -4,11 +4,13 @@ import asyncio
 import re
 import aiohttp
 import pendulum
+import googletrans
 
 from discord import Spotify
 from discord.ext import commands
 from random import choice as randchoice
 from random import randint, sample
+from googletrans import Translator
 
 class MicsCommands(commands.Cog):
     def __init__(self, client):
@@ -314,6 +316,13 @@ class MicsCommands(commands.Cog):
             embed = discord.Embed(color=ctx.author.colour)
             embed.title = f'{user.name} is not listening to Spotify right now!'
             await ctx.send(embed=embed)
+
+    @commands.command(aliases=['tl'],brief='google translate')
+    async def translate(self,ctx, language, *, args):
+        t = Translator()
+        a = t.translate(args, dest=language)
+        await ctx.send(a.text)
+
 
 
 def setup(client):
