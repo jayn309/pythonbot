@@ -10,7 +10,7 @@ from discord import Spotify
 from discord.ext import commands
 from random import choice as randchoice
 from random import randint, sample
-from googletrans import Translator
+from googletrans import Translator, LANGUAGES,LANGCODES
 
 class MicsCommands(commands.Cog):
     def __init__(self, client):
@@ -318,16 +318,19 @@ class MicsCommands(commands.Cog):
             await ctx.send(embed=embed)
 
     @commands.command(aliases=['tl'],brief='google translate')
-    async def translate(self,ctx, language, *, args):
-        try:
-            t = Translator()
-            a = t.translate(args, dest=language)
-            await ctx.send(a.text)
-        except ValueError:
-            await ctx.send('Invalid language.')
-            return
-
-
+    async def translate(self,ctx, lang, *, args):
+        if lang is None:
+            await ctx.send('Please provide a language.')
+        else:
+            for lang in LANGCODES or LANGUAGES:
+                try:
+                    t = Translator()
+                    a = t.translate(args, dest=lang)
+                    await ctx.send(a.text)
+                except ValueError:
+                    await ctx.send('Invalid language.')
+                    return
+                    
 
 def setup(client):
     client.add_cog(MicsCommands(client))
