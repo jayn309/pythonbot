@@ -80,8 +80,9 @@ class Emotes(commands.Cog):
 
     @commands.command(aliases=[ 'emst'],brief='show stat of server emotes')
     @commands.has_guild_permissions(administrator=True)
-    async def emojistat(self, ctx, channel : discord.TextChannel=None):
-        channel = discord.TextChannel if not channel else channel
+    async def emojistat(self, ctx, channel):
+        channel_mentions = ctx.message.channel_mentions
+        channel = discord.utils.get(channel_mentions, mention=channel)
         allemojis = [str(e) for e in ctx.guild.emojis]
         dict = {}
         async with ctx.typing():
