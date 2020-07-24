@@ -321,6 +321,8 @@ class MicsCommands(commands.Cog):
     async def translate(self,ctx, lang, *, args):
         if lang is None:
             await ctx.send('Please provide a language.')
+        elif args is None:
+            await ctx.send('Yah! Give me something to translate')
         else:
             try:
                 t = Translator()
