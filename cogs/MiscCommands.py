@@ -332,7 +332,7 @@ class MicsCommands(commands.Cog):
                 return
 
 
-    @commands.command(aliases=['svinfo,si'],brief='get info of the server')
+    @commands.command(aliases=['svinfo','si'],brief='get info of the server')
     async def serverinfo(self, ctx):
         embed = discord.Embed(title="Server information",
 					  colour=ctx.guild.owner.colour,
