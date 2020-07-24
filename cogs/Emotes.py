@@ -83,8 +83,6 @@ class Emotes(commands.Cog):
     async def emojistat(self, ctx, channel):
         channel_mentions = ctx.message.channel_mentions
         channel = discord.utils.get(channel_mentions, mention=channel)
-        if channel is None:
-            await ctx.send('Please provide a channel.')
         allemojis = [str(e) for e in ctx.guild.emojis]
         dict = {}
         async with ctx.typing():
