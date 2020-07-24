@@ -78,11 +78,10 @@ class Emotes(commands.Cog):
                 await channel.send(emojis_str)
         await channel.send(f"```For non nitro user, you can do ,emotename, or :emotename: to use available animated emotes in this server.```")
 
-    @commands.command(aliases=[ 'emst'],brief='show stat of server emotes in a channel')
+    @commands.command(aliases=[ 'emst'],brief='show stat of server emotes')
     @commands.has_guild_permissions(administrator=True)
     async def emojistat(self, ctx, channel : discord.TextChannel=None):
-        if not channel:
-            return await ctx.send("Please provide a valid channel")
+        channel = discord.TextChannel if not channel else channel
         allemojis = [str(e) for e in ctx.guild.emojis]
         dict = {}
         async with ctx.typing():
