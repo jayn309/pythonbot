@@ -37,54 +37,51 @@ class Log(commands.Cog):
 
     @commands.Cog.listener()
     async def on_user_update(self,before,after):
-        if self.client.guild.id == 626016069873696791:
-            log_channel = self.client.get_channel(700137514572185662)
-            if before.name != after.name:
-                embed = discord.Embed(title="Username change",
+        log_channel = self.client.get_channel(700137514572185662)
+        if before.name != after.name:
+            embed = discord.Embed(title="Username change",
                             colour=after.colour,
                             timestamp=datetime.datetime.utcnow())
 
-                embed.set_author(name=f'{before.name}#{before.discriminator}', icon_url=before.avatar_url)
-                embed.set_footer(text=f"Author ID:{before.id}")
+            embed.set_author(name=f'{before.name}#{before.discriminator}', icon_url=before.avatar_url)
+            embed.set_footer(text=f"Author ID:{before.id}")
 
-                fields = [("Before", before.name, False),
+            fields = [("Before", before.name, False),
                         ("After", after.name, False)]
 
-                for name, value, inline in fields:
+            for name, value, inline in fields:
                     embed.add_field(name=name, value=value, inline=inline)
                 
-                await log_channel.send(embed=embed)
+            await log_channel.send(embed=embed)
 
-            if before.discriminator != after.discriminator:
-                embed = discord.Embed(title="Discriminator change",
+        if before.discriminator != after.discriminator:
+            embed = discord.Embed(title="Discriminator change",
                             colour=after.colour,
                             timestamp=datetime.datetime.utcnow())
 
-                embed.set_author(name=f'{before.name}#{before.discriminator}', icon_url=before.avatar_url)
-                embed.set_footer(text=f"Author ID:{before.id}")
+            embed.set_author(name=f'{before.name}#{before.discriminator}', icon_url=before.avatar_url)
+            embed.set_footer(text=f"Author ID:{before.id}")
 
-                fields = [("Before", before.discriminator, False),
+            fields = [("Before", before.discriminator, False),
                         ("After", after.discriminator, False)]
 
-                for name, value, inline in fields:
-                    embed.add_field(name=name, value=value, inline=inline)
+            for name, value, inline in fields:
+                embed.add_field(name=name, value=value, inline=inline)
 
-                await log_channel.send(embed=embed)
+        await log_channel.send(embed=embed)
 
-            if before.avatar_url != after.avatar_url:
-                embed = discord.Embed(title="Avatar change",
+        if before.avatar_url != after.avatar_url:
+            embed = discord.Embed(title="Avatar change",
                             description="New image is below, old to the right.",
                             colour=after.colour,
                             timestamp=datetime.datetime.utcnow())
 
-                embed.set_thumbnail(url=before.avatar_url)
-                embed.set_image(url=after.avatar_url)
-                embed.set_author(name=f'{before.name}#{before.discriminator}', icon_url=before.avatar_url)
-                embed.set_footer(text=f"Author ID:{before.id}")
+            embed.set_thumbnail(url=before.avatar_url)
+            embed.set_image(url=after.avatar_url)
+            embed.set_author(name=f'{before.name}#{before.discriminator}', icon_url=before.avatar_url)
+            embed.set_footer(text=f"Author ID:{before.id}")
 
-                await log_channel.send(embed=embed)
-        else:
-            return      
+            await log_channel.send(embed=embed)
 
     @commands.Cog.listener()
     async def on_member_update(self, before, after):

@@ -86,7 +86,7 @@ class Emotes(commands.Cog):
         allemojis = [str(e) for e in ctx.guild.emojis]
         dict = {}
         async with ctx.typing():
-            async for message1 in ctx.channel.history(limit = 5000, oldest_first = False):
+            async for message1 in channel.history(limit = 5000, oldest_first = False):
                 if message1.content in allemojis:
                     if message1.content in dict.keys():
                         dict[f"{message1.content}"] += 1
