@@ -26,8 +26,9 @@ class usersinfo(commands.Cog):
     
         embed.add_field(name=f"Roles ({len(roles)})", value=" ".join([role.mention for role in roles]))
         embed.add_field(name="Top role:", value=member.top_role.mention)
+        embed.add_field(name="Boosted", value=member.top_role.mention)
     
-        embed.add_field(name="Bot?", value=member.bot)
+        embed.add_field(name="Bot?", value=bool(member.premium_since))
     
         await ctx.send(embed=embed)
 
