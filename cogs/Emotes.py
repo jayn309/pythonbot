@@ -1,8 +1,8 @@
 import discord
 import re
-from discord.ext import commands
+import operator
+from discord.ext import commands, menus
 from typing import List
-
 
 class Emotes(commands.Cog):
     def __init__(self, client):
@@ -69,6 +69,32 @@ class Emotes(commands.Cog):
                 emojis_str = "".join(animated[i:i+10])
                 await channel.send(emojis_str)
         await channel.send(f"```For non nitro user, you can do ,emotename, or :emotename: to use available animated emotes in this server.```")
+
+class MySource(menus.ListPageSource):
+    def __init__(self, data):
+        super().__init__(data, per_page=4)
+
+    async def format_page(self, menu, entries):
+        offset = menu.current_page * self.per_page
+        return '\n'.join(f'{i}. {v}' for i, v in enumerate(entries, start=offset))
+
+    @commands.command(aliases=[ 'emst'],brief='show stat of server emotes')
+    @commands.has_guild_permissions(administrator=True)
+    async def emojistat(self, ctx, channel : discord.TextChannel=None):
+        if not channel:
+            return await ctx.send("Please provide a channel")
+        allemojis = [str(e) for e in ctx.guild.emojis]
+        dict = {}
+        async with ctx.typing():
+            async for message1 in ctx.channel.history(limit = 5000, oldest_first = False):
+                if message1.content in allemojis:
+                    if message1.content in dict.keys():
+                        dict[f"{message1.content}"] += 1
+                    else:
+                        dict[f"{message1.content}"] = 1
+        sorted_d = (sorted(dict.items(), key=operator.itemgetter(1),reverse=True))
+        pages = menus.MenuPages(source=MySource(list(sorted_d)), clear_reactions_after=True,timeout=300.0, delete_message_after=True)
+        await pages.start(ctx)
 
 def setup(client):
     client.add_cog(Emotes(client))
