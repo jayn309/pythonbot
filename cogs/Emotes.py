@@ -4,6 +4,14 @@ import operator
 from discord.ext import commands, menus
 from typing import List
 
+class MySource(menus.ListPageSource):
+    def __init__(self, data):
+        super().__init__(data, per_page=4)
+
+    async def format_page(self, menu, entries):
+        offset = menu.current_page * self.per_page
+        return '\n'.join(f'{i}. {v}' for i, v in enumerate(entries, start=offset))
+
 class Emotes(commands.Cog):
     def __init__(self, client):
         self.client = client
@@ -70,19 +78,11 @@ class Emotes(commands.Cog):
                 await channel.send(emojis_str)
         await channel.send(f"```For non nitro user, you can do ,emotename, or :emotename: to use available animated emotes in this server.```")
 
-class MySource(menus.ListPageSource):
-    def __init__(self, data):
-        super().__init__(data, per_page=4)
-
-    async def format_page(self, menu, entries):
-        offset = menu.current_page * self.per_page
-        return '\n'.join(f'{i}. {v}' for i, v in enumerate(entries, start=offset))
-
     @commands.command(aliases=[ 'emst'],brief='show stat of server emotes')
     @commands.has_guild_permissions(administrator=True)
     async def emojistat(self, ctx, channel : discord.TextChannel=None):
         if not channel:
-            return await ctx.send("Please provide a channel")
+            return await ctx.send("Please provide a valid channel")
         allemojis = [str(e) for e in ctx.guild.emojis]
         dict = {}
         async with ctx.typing():
