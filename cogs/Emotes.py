@@ -6,7 +6,7 @@ from typing import List
 
 class MySource(menus.ListPageSource):
     def __init__(self, data):
-        super().__init__(data, per_page=4)
+        super().__init__(data, per_page=10)
 
     async def format_page(self, menu, entries):
         offset = menu.current_page * self.per_page
@@ -78,7 +78,7 @@ class Emotes(commands.Cog):
                 await channel.send(emojis_str)
         await channel.send(f"```For non nitro user, you can do ,emotename, or :emotename: to use available animated emotes in this server.```")
 
-    @commands.command(aliases=[ 'emst'],brief='show stat of server emotes')
+    @commands.command(aliases=[ 'emst'],brief='show stat of server emotes in a channel')
     @commands.has_guild_permissions(administrator=True)
     async def emojistat(self, ctx, channel : discord.TextChannel=None):
         if not channel:
