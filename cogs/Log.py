@@ -68,7 +68,7 @@ class Log(commands.Cog):
             for name, value, inline in fields:
                 embed.add_field(name=name, value=value, inline=inline)
 
-        await log_channel.send(embed=embed)
+            await log_channel.send(embed=embed)
 
         if before.avatar_url != after.avatar_url:
             embed = discord.Embed(title="Avatar change",
