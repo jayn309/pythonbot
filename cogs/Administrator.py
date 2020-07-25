@@ -382,21 +382,17 @@ class Administrator(commands.Cog):
                 pass
 
         def _check(m):
-            return (m.author == message.author
-					and len(m.mentions)
+            return (m.author == message.author and len(m.mentions)
 					and (datetime.datetime.utcnow()-m.created_at).seconds < 60)
 
         if not message.author.client:
             if len(list(filter(lambda m: _check(m), self.client.cached_messages))) >= 3:
                 await message.channel.send("Don't spam mentions!", delete_after=10)
-                unmutes = await self.mute(message, [message.author], 60, reason="Mention spam")
+                unmutes = await self.mute(message.author, 60, reason="Mention spam")
 
                 if len(unmutes):
                     await sleep(60)
-                    await self.unmute(message.guild, [message.author])
-
-
-
+                    await self.unmute(ctx.guild, message.author)
 
 def setup(client):
     client.add_cog(Administrator(client))
