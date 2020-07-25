@@ -99,7 +99,7 @@ class Administrator(commands.Cog):
 
     @commands.command(brief='mute a member')
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
-    async def mute(self,ctx,message, member : discord.Member,time:TimeConverter=None,*, reason=None):
+    async def mute(self,ctx, member : discord.Member,time:TimeConverter=None,*, reason=None):
         role = discord.utils.get(ctx.guild.roles, name="Muted")
         privaterole = discord.utils.get(ctx.guild.roles, name="betunamluv")
         privaterole1 = discord.utils.get(ctx.guild.roles, name="Test Subject")
@@ -134,7 +134,7 @@ class Administrator(commands.Cog):
 
         if channel:
                 mute_embed = discord.Embed(title='Moderation Mute',colour=member.color,timestamp=datetime.datetime.utcnow())
-                mute_embed.add_field(name="Punished by", value=message.author,inline=False)
+                mute_embed.add_field(name="Punished by", value=ctx.author,inline=False)
                 mute_embed.add_field(name="Punished User", value=member.name,inline=False)
                 mute_embed.add_field(name="Reason", value=reason,inline=False)
                 mute_embed.add_field(name="Duration", value=time,inline=False)
