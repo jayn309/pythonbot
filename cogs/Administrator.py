@@ -98,7 +98,7 @@ class Administrator(commands.Cog):
 
     @commands.command(brief='mute a member')
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
-    async def mute(self,ctx, member : discord.Member,*, reason=None, time:TimeConverter=None):
+    async def mute(self,ctx, member : discord.Member,time:TimeConverter=None,*, reason=None):
         role = discord.utils.get(ctx.guild.roles, name="Muted")
         privaterole = discord.utils.get(ctx.guild.roles, name="betunamluv")
         privaterole1 = discord.utils.get(ctx.guild.roles, name="Test Subject")
