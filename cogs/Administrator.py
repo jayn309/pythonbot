@@ -99,7 +99,7 @@ class Administrator(commands.Cog):
 
     @commands.command(brief='mute a member')
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
-    async def mute(self,ctx, member : discord.Member,time:TimeConverter=None,*, reason=None):
+    async def mute(self,ctx,message, member : discord.Member,time:TimeConverter=None,*, reason=None):
         role = discord.utils.get(ctx.guild.roles, name="Muted")
         privaterole = discord.utils.get(ctx.guild.roles, name="betunamluv")
         privaterole1 = discord.utils.get(ctx.guild.roles, name="Test Subject")
@@ -134,7 +134,7 @@ class Administrator(commands.Cog):
 
         if channel:
                 mute_embed = discord.Embed(title='Moderation Mute',colour=member.color,timestamp=datetime.datetime.utcnow())
-                mute_embed.add_field(name="Punished by", value=ctx.author,inline=False)
+                mute_embed.add_field(name="Punished by", value=message.author,inline=False)
                 mute_embed.add_field(name="Punished User", value=member.name,inline=False)
                 mute_embed.add_field(name="Reason", value=reason,inline=False)
                 mute_embed.add_field(name="Duration", value=time,inline=False)
@@ -158,7 +158,7 @@ class Administrator(commands.Cog):
 
     @commands.command(brief='unmute a member',description='Unmute a member. Then add roles for privates channels (WRcord only).')
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
-    async def unmute(self,ctx, member : discord.Member):
+    async def unmute(self,ctx,message, member : discord.Member):
         role = discord.utils.get(ctx.guild.roles, name="Muted")
         privaterole = discord.utils.get(ctx.guild.roles, name="betunamluv")
         privaterole2 = discord.utils.get(ctx.guild.roles, name="Solitary Confinement")
@@ -168,7 +168,7 @@ class Administrator(commands.Cog):
         await ctx.send(f"{member.mention} was unmuted")
         if channel:
                 unmute_embed = discord.Embed(title='Moderation Unmute',colour=member.color,timestamp=datetime.datetime.utcnow())
-                unmute_embed.add_field(name="Unmuted by", value=ctx.author,inline=False)
+                unmute_embed.add_field(name="Unmuted by", value=message.author,inline=False)
                 unmute_embed.add_field(name="User", value=member.name,inline=False)
                 unmute_embed.set_thumbnail(url=member.avatar_url)
                 unmute_embed.set_author(name=member.name, icon_url=member.avatar_url)
