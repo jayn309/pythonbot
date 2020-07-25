@@ -150,7 +150,16 @@ class Administrator(commands.Cog):
                 await member.remove_roles(role)
                 await ctx.send(f"{member.mention} was unmuted")
 
-        
+            if channel:
+                unmute_embed = discord.Embed(title='Moderation Unmute',colour=member.color,timestamp=datetime.datetime.utcnow())
+                unmute_embed.add_field(name="Unmuted by", value=ctx.author,inline=False)
+                unmute_embed.add_field(name="User", value=member.name,inline=False)
+                unmute_embed.set_thumbnail(url=member.avatar_url)
+                unmute_embed.set_author(name=member.name, icon_url=member.avatar_url)
+                unmute_embed.set_footer(text=f"Member ID:{member.id}")
+                await channel.send(embed=unmute_embed)
+
+
     @mute.error
     async def mute_error(self,ctx, error):
         if isinstance(error, commands.CheckFailure):
@@ -388,7 +397,7 @@ class Administrator(commands.Cog):
         if not message.author.id == 685307035142586380:
             if len(list(filter(lambda m: _check(m), self.client.cached_messages))) >= 3:
                 await message.channel.send("Don't spam mentions!", delete_after=10)
-                unmutes = await self.mute(message.channel, message.author, 60, reason="Mention spam")
+                unmutes = await self.mute(self, message.author, 60, reason="Mention spam")
 
                 if len(unmutes):
                     await sleep(60)
