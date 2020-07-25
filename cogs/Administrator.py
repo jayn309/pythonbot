@@ -158,7 +158,7 @@ class Administrator(commands.Cog):
 
     @commands.command(brief='unmute a member',description='Unmute a member. Then add roles for privates channels (WRcord only).')
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
-    async def unmute(self,ctx,message, member : discord.Member):
+    async def unmute(self,ctx, member : discord.Member):
         role = discord.utils.get(ctx.guild.roles, name="Muted")
         privaterole = discord.utils.get(ctx.guild.roles, name="betunamluv")
         privaterole2 = discord.utils.get(ctx.guild.roles, name="Solitary Confinement")
@@ -168,7 +168,7 @@ class Administrator(commands.Cog):
         await ctx.send(f"{member.mention} was unmuted")
         if channel:
                 unmute_embed = discord.Embed(title='Moderation Unmute',colour=member.color,timestamp=datetime.datetime.utcnow())
-                unmute_embed.add_field(name="Unmuted by", value=message.author,inline=False)
+                unmute_embed.add_field(name="Unmuted by", value=ctx.author,inline=False)
                 unmute_embed.add_field(name="User", value=member.name,inline=False)
                 unmute_embed.set_thumbnail(url=member.avatar_url)
                 unmute_embed.set_author(name=member.name, icon_url=member.avatar_url)
