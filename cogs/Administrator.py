@@ -392,7 +392,7 @@ class Administrator(commands.Cog):
 
                 if len(unmutes):
                     await sleep(60)
-                    await self.unmute(ctx.guild, message.author)
+                    await self.unmute(message.guild, message.author)
 
 def setup(client):
     client.add_cog(Administrator(client))
