@@ -9,6 +9,7 @@ from discord.ext.commands import Greedy
 from discord.utils import get
 from datetime import timedelta
 from discord import Member, Embed, DMChannel
+from asyncio import sleep
 
 time_regex = re.compile("(?:(\d{1,5})(h|s|m|d))+?")
 time_dict= {'h': 3600, 's': 1, 'm': 60 , 'd' : 86400}
@@ -131,13 +132,6 @@ class Administrator(commands.Cog):
                     
         await ctx.send(f"{member.mention} was muted for {time}s." if time else f"{member.mention} was muted.")
 
-        if time:
-            await asyncio.sleep(time)
-
-            if role in member.roles:
-                await member.remove_roles(role)
-                await ctx.send(f"{member.mention} was unmuted")
-
         if channel:
                 mute_embed = discord.Embed(title='Moderation Mute',colour=member.color,timestamp=datetime.datetime.utcnow())
                 mute_embed.add_field(name="Punished by", value=ctx.author,inline=False)
@@ -148,6 +142,15 @@ class Administrator(commands.Cog):
                 mute_embed.set_author(name=member.name, icon_url=member.avatar_url)
                 mute_embed.set_footer(text=f"Member ID:{member.id}")
                 await channel.send(embed=mute_embed)
+
+        if time:
+            await asyncio.sleep(time)
+
+            if role in member.roles:
+                await member.remove_roles(role)
+                await ctx.send(f"{member.mention} was unmuted")
+
+        
     @mute.error
     async def mute_error(self,ctx, error):
         if isinstance(error, commands.CheckFailure):
@@ -377,6 +380,23 @@ class Administrator(commands.Cog):
                             await message.channel.send("Only members can use modmail.")
             else:
                 pass
+
+        def _check(m):
+            return (m.author == message.author
+					and len(m.mentions)
+					and (datetime.datetime.utcnow()-m.created_at).seconds < 60)
+
+        if not message.author.client:
+            if len(list(filter(lambda m: _check(m), self.client.cached_messages))) >= 3:
+                await message.channel.send("Don't spam mentions!", delete_after=10)
+                unmutes = await self.mute(message, [message.author], 60, reason="Mention spam")
+
+                if len(unmutes):
+                    await sleep(60)
+                    await self.unmute(message.guild, [message.author])
+
+
+
 
 def setup(client):
     client.add_cog(Administrator(client))
