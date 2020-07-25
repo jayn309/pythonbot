@@ -385,7 +385,7 @@ class Administrator(commands.Cog):
             return (m.author == message.author and len(m.mentions)
 					and (datetime.datetime.utcnow()-m.created_at).seconds < 60)
 
-        if not message.author.client:
+        if not message.author.id == 685307035142586380:
             if len(list(filter(lambda m: _check(m), self.client.cached_messages))) >= 3:
                 await message.channel.send("Don't spam mentions!", delete_after=10)
                 unmutes = await self.mute(message.author, 60, reason="Mention spam")

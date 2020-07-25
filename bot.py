@@ -24,7 +24,7 @@ client.load_extension(f'cogs.Pun')
 async def on_ready():
     print(f'{client.user} has connected to Discord!')
     channel = client.get_channel(686446361419186199)
-    await channel.send("Sonbae in now online!")
+    await channel.send("Sonbae is now online!")
     await client.change_presence(activity=discord.Activity(type=2,name="Spotify"))
 
 @client.command(brief='load a cog (Admin only)')
