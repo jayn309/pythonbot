@@ -2,6 +2,7 @@ import discord
 import time
 import datetime
 import asyncio
+import re
 
 from discord.ext import commands 
 from discord.ext.commands import Greedy
@@ -9,6 +10,22 @@ from discord.utils import get
 from datetime import timedelta
 from discord import Member, Embed, DMChannel
 
+time_regex = re.compile("(?:(\d{1,5})(h|s|m|d))+?")
+time_dict= {'h': 3600, 's': 1, 'm': 60 , 'd' : 86400}
+
+class TimeConverter(commands.Converter):
+    async def convert(self,ctx, argument):
+        args = argument.lower()
+        matches = re.findall(time_regex, args)
+        time = 0
+        for key, value in matches:
+            try: 
+                time += time_dict[value] *float(key)
+            except KeyError:
+                raise commands.BadArgument(f'{value} is an invalid time key! h|m|s|d are valid arguments.')
+            except ValueError:
+                raise commands.BadArgument(f'{key} is not a number!')
+        return time
 
 class Administrator(commands.Cog):
     def __init__(self, client):
@@ -81,7 +98,7 @@ class Administrator(commands.Cog):
 
     @commands.command(brief='mute a member')
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
-    async def mute(self,ctx, member : discord.Member,*, reason=None):
+    async def mute(self,ctx, member : discord.Member,*, reason=None, time:TimeConverter):
         role = discord.utils.get(ctx.guild.roles, name="Muted")
         privaterole = discord.utils.get(ctx.guild.roles, name="betunamluv")
         privaterole1 = discord.utils.get(ctx.guild.roles, name="Test Subject")
@@ -112,12 +129,21 @@ class Administrator(commands.Cog):
             if privaterole2:
                 await member.remove_roles(privaterole2)
                     
-        await ctx.send(f"{member.mention} was muted")
+        await ctx.send(f"{member.mention} was muted for {time}s." if time else f"{member.mention} was muted.")
+
+        if time:
+            await asyncio.sleep(time)
+
+            if role in member.roles:
+                await member.remove_roles(role)
+                await ctx.send(f"{member.mention} was unmuted")
+
         if channel:
                 mute_embed = discord.Embed(title='Moderation Mute',colour=member.color,timestamp=datetime.datetime.utcnow())
                 mute_embed.add_field(name="Punished by", value=ctx.author,inline=False)
                 mute_embed.add_field(name="Punished User", value=member.name,inline=False)
                 mute_embed.add_field(name="Reason", value=reason,inline=False)
+                mute_embed.add_field(name="Duration", value=time,inline=False)
                 mute_embed.set_thumbnail(url=member.avatar_url)
                 mute_embed.set_author(name=member.name, icon_url=member.avatar_url)
                 mute_embed.set_footer(text=f"Member ID:{member.id}")
