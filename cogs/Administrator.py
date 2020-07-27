@@ -216,7 +216,7 @@ class Administrator(commands.Cog):
 
     @commands.command(brief='unmute a member',description='Unmute a member. Then add roles for privates channels (WRcord only).')
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
-    async def unmute(self,ctx, member : discord.Member,reason= None):
+    async def unmute(self,ctx, member : discord.Member,reason=None):
         role = discord.utils.get(ctx.guild.roles, name="Muted")
         if role not in member.roles:
             await ctx.send(f"{member.mention} is not muted.")
@@ -409,7 +409,7 @@ class Administrator(commands.Cog):
 
                 if unmutes:
                     await sleep(60)
-                    await self.unmute_member(message.guild, message.author,reason="Mute time expired.")      
+                    await self.unmute_member(message.guild, message.author, reason="Mute time expired")      
 
 def setup(client):
     client.add_cog(Administrator(client))
