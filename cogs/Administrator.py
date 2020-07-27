@@ -141,7 +141,6 @@ class Administrator(commands.Cog):
 
             if role in member.roles:
                 await member.remove_roles(role)
-                await channel1.send(f"{member.mention} was unmuted")
 
             if channel:
                 unmute_embed = discord.Embed(title='Moderation Unmute',colour=member.color,timestamp=datetime.datetime.utcnow())
@@ -157,6 +156,9 @@ class Administrator(commands.Cog):
     async def mute(self,ctx, member : discord.Member,time:TimeConverter=None,*, reason=None):
         await self.mute_member(ctx.message, member,time,reason)
         await ctx.send(f"{member.mention} was muted for {time}s." if time else f"{member.mention} was muted.")
+        if time:
+            await asyncio.sleep(time)
+            await ctx.send(f"{member.mention} was unmuted")
 
     async def mute_error(self,ctx, error):
         if isinstance(error, commands.CheckFailure):
