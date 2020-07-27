@@ -57,6 +57,18 @@ class MicsCommands(commands.Cog):
     async def divide(self,ctx, a: int, b: int):
         await ctx.send(a/b)
 
+    @commands.command(pass_context=True, name="calc", aliases=["calculate"],brief='solves a math problem\n+ = add, - = subtract, * = multiply, and / = divide\nExample:\n_calc 1+1+3*4')
+    async def calc(self, ctx, evaluation):
+        prob = re.sub("[^0-9+-/* ]", "", ctx.message.content[len(ctx.prefix + ctx.command.name) + 1:].strip())
+        if len(evaluation) > 64:
+            await ctx.send("That evalution is too big, I can allow a maximum of 64 characters, I suggest you divide it in smaller portions.")
+            return
+        try:
+            answer = str(eval(prob))
+            await ctx.send("`{}` = `{}`".format(prob, answer))
+        except:
+            await ctx.send("I couldn't solve that problem, it's too hard.")
+
     @commands.command(aliases=['flip', 'coin'],brief='flip a coin')
     async def coinflip(self, ctx):
         """ Coinflip! """
