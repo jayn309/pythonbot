@@ -146,6 +146,7 @@ class Administrator(commands.Cog):
                 unmute_embed = discord.Embed(title='Moderation Unmute',colour=member.color,timestamp=datetime.datetime.utcnow())
                 unmute_embed.add_field(name="Unmuted by", value=message.author,inline=False)
                 unmute_embed.add_field(name="User", value=member.name,inline=False)
+                unmute_embed.add_field(name="Reason", value=reason,inline=False)
                 unmute_embed.set_thumbnail(url=member.avatar_url)
                 unmute_embed.set_author(name=member.name, icon_url=member.avatar_url)
                 unmute_embed.set_footer(text=f"Member ID:{member.id}")
@@ -164,53 +165,59 @@ class Administrator(commands.Cog):
         if isinstance(error, commands.CheckFailure):
             await ctx.send(f"{ctx.author.mention} was muted")
 
-    @commands.command(brief='unmute a member',description='Unmute a member. Then add roles for privates channels (WRcord only).')
-    @commands.has_guild_permissions(ban_members=True, kick_members=True)
-    async def unmute(self,ctx, member : discord.Member):
-        role = discord.utils.get(ctx.guild.roles, name="Muted")
-        privaterole = discord.utils.get(ctx.guild.roles, name="betunamluv")
-        privaterole1 = discord.utils.get(ctx.guild.roles, name="Indomie")
+    async def unmute_member(self, message, member, time, reason):
+        role = discord.utils.get(message.guild.roles, name="Muted")
+        privaterole = discord.utils.get(message.guild.roles, name="betunamluv")
+        privaterole1 = discord.utils.get(message.guild.roles, name="Indomie")
         channel = discord.utils.get(member.guild.text_channels, name='mod-log')
+        channel1 = message.channel
         await member.remove_roles(role)
-        await ctx.send(f"{member.mention} was unmuted")
+        
         if channel:
                 unmute_embed = discord.Embed(title='Moderation Unmute',colour=member.color,timestamp=datetime.datetime.utcnow())
-                unmute_embed.add_field(name="Unmuted by", value=ctx.author,inline=False)
+                unmute_embed.add_field(name="Unmuted by", value=message.author,inline=False)
                 unmute_embed.add_field(name="User", value=member.name,inline=False)
+                unmute_embed.add_field(name="Reason", value=reason,inline=False)
                 unmute_embed.set_thumbnail(url=member.avatar_url)
                 unmute_embed.set_author(name=member.name, icon_url=member.avatar_url)
                 unmute_embed.set_footer(text=f"Member ID:{member.id}")
                 await channel.send(embed=unmute_embed)
 
-        if ctx.guild.id == 626016069873696791:
-            await ctx.send("Does this member need roles for private channels? If yes how many? If none type 0")
+        if message.guild.id == 626016069873696791:
+            await channel1.send("Does this member need roles for private channels? If yes how many? If none type 0")
             def check(m):
                     try:
-                        return int(m.content) and m.author.id == ctx.author.id and m.channel.id == ctx.channel.id
+                        return int(m.content) and m.author.id == message.author.id and m.channel.id == message.channel.id
                     except ValueError:
                         return False
             msg = await self.client.wait_for('message',check=check)
             number_of_roles = int(msg.content)
             if number_of_roles != 0:
-                await ctx.send("Please type the roles name below.")
+                await channel1.send("Please type the roles name below.")
                 while number_of_roles != 0:
                     msg_channel_name = await self.client.wait_for('message',check=check)
                     if msg_channel_name.content.lower () == 'betunamluv':
                         await member.add_roles(privaterole)
                         number_of_roles -= 1
-                        await ctx.send("Role was added to this member. Type next role below or leave me alone if you're done.")
+                        await channel1.send("Role was added to this member. Type next role below or leave me alone if you're done.")
                     if msg_channel_name.content.lower () == 'Indomie' or msg_channel_name.content.lower () == 'idm':
                         await member.add_roles(privaterole1)
                         number_of_roles -= 1
-                        await ctx.send("Role was added to this member. Type next role below or leave me alone if you're done.")
+                        await channel1.send("Role was added to this member. Type next role below or leave me alone if you're done.")
                     if number_of_roles == 0:
-                        await ctx.send("All roles are added.")
+                        await channel1.send("All roles are added.")
                         break
             else:
-                await ctx.send("No private role need to be added to this member")
+                await channel1.send("No private role need to be added to this member")
         else:
             return
 
+    @commands.command(brief='unmute a member',description='Unmute a member. Then add roles for privates channels (WRcord only).')
+    @commands.has_guild_permissions(ban_members=True, kick_members=True)
+    async def unmute(self,ctx, member : discord.Member,reason= None):
+        await self.unmute_member(ctx.message, member,time,reason)
+        await ctx.send(f"{member.mention} was unmuted")
+        
     @unmute.error
     async def unmute_error(self,ctx, error):
         if isinstance(error, commands.CheckFailure):
