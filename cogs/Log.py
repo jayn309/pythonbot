@@ -125,7 +125,6 @@ class Log(commands.Cog):
     @commands.Cog.listener()
     async def on_message_edit(self, before,after):
         try:
-            log_channel = discord.utils.get(before.guild.channels, name='log')
             if before.author.id == 685307035142586380 or before.author.id == 325387620266016768 or before.author.id == 234395307759108106 or before.author.id == 235088799074484224 or before.author.id == 172002275412279296 or before.author.id == 359401025330741248:
                 return
             if before.content == after.content:
@@ -138,13 +137,14 @@ class Log(commands.Cog):
                 edit_embed.set_footer(text=f"Author ID:{before.author.id} • Message ID: {before.id}")
                 edit_embed.add_field(name='Before:', value=before.content, inline=False)
                 edit_embed.add_field(name="After:", value=after.content, inline=False)
-                await log_channel.send(embed=edit_embed)
+                for channel in before.guild.channels:
+                    if channel.name == 'log':
+                        await channel.send(embed=edit_embed)
         except AttributeError:
             return
 
     @commands.Cog.listener()
     async def on_message_delete(self, message):
-        log_channel = self.client.get_channel(684130494023073865)
         if message.guild.id  != 626016069873696791:
             return
         if not message.author.id == 685307035142586380:
@@ -156,7 +156,9 @@ class Log(commands.Cog):
             fields = [("Content",message.content, False)]
             for name, value, inline in fields:
                 delete_embed.add_field(name=name, value=value,inline=inline)
-            await log_channel.send(embed=delete_embed)
+            for channel in message.guild.channels:
+                    if channel.name == 'log':
+                        await channel.send(embed=delete_embed)
 
     @commands.Cog.listener()
     async def on_bulk_message_delete(self, messages):
