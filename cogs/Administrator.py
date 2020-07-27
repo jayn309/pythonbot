@@ -407,9 +407,9 @@ class Administrator(commands.Cog):
                 await message.channel.send("Don't spam mentions!", delete_after=10)
                 unmutes = await self.mute_member(message, message.author, 60, reason="Mention spam")
 
-                if len(unmutes):
+                if unmutes:
                     await sleep(60)
-                    await self.unmute_member(message.guild, message.author)      
+                    await self.unmute_member(message.guild, message.author,reason="Mute time expired.")      
 
 def setup(client):
     client.add_cog(Administrator(client))
