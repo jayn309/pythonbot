@@ -186,43 +186,12 @@ class Administrator(commands.Cog):
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
     async def unmute(self,ctx, member : discord.Member,reason=None):
         role = discord.utils.get(ctx.guild.roles, name="Muted")
-        privaterole = discord.utils.get(ctx.guild.roles, name="betunamluv")
-        privaterole1 = discord.utils.get(ctx.guild.roles, name="Indomie")
         if role not in member.roles:
             await ctx.send(f"{member.mention} is not muted.")
         else:
             await self.unmute_member(ctx.message, member,reason)
             await ctx.send(f"{member.mention} was unmuted")
 
-        if ctx.guild.id == 626016069873696791:
-            await ctx.send("Does this member need roles for private channels? If yes how many? If none type 0")
-            def cccheck(m):
-                    try:
-                        return int(m.content) and m.author.id == ctx.author.id and m.channel.id == ctx.channel.id
-                    except ValueError:
-                        return False
-            msg = await self.client.wait_for('message',check=cccheck)
-            number_of_roles = int(msg.content)
-            if number_of_roles != 0:
-                await ctx.send("Please type the roles name below.")
-                while number_of_roles != 0:
-                    try: 
-                        msg_channel_name = await self.client.wait_for('message',check=cccheck,timeout=60.0)
-                        if msg_channel_name.content.lower () == 'betunamluv'or msg_channel_name.content.lower () == 'btnl':
-                            await member.add_roles(privaterole)
-                            number_of_roles -= 1
-                            await ctx.send("Role was added to this member. Type next role below or leave me alone if you're done.")
-                        if msg_channel_name.content.lower () == 'Indomie' or msg_channel_name.content.lower () == 'idm':
-                            await member.add_roles(privaterole1)
-                            number_of_roles -= 1
-                            await ctx.send("Role was added to this member. Type next role below or leave me alone if you're done.")
-                        if number_of_roles == 0:
-                            await ctx.send("All roles are added.")
-                            break
-                    except asyncio.TimeoutError:
-                        await ctx.send("K.Bye.")
-            else:
-                return
         
     @unmute.error
     async def unmute_error(self,ctx, error):
