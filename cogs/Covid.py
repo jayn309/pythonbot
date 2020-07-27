@@ -245,9 +245,6 @@ class Covid(commands.Cog):
                 case = data['cases']
                 cases_format = format(case, ",")
 
-                population = data["population"]
-                population_format = format(population, ",")
-
                 deaths = data["deaths"]
                 deaths_format = format(deaths, ",")
 
@@ -263,17 +260,11 @@ class Covid(commands.Cog):
                 tests = data["tests"]
                 tests_format = format(tests, ",")
 
-                countries = data['countries']
-
 
                 #making stats
                 fatality = deaths/case*100
                 fatality_rounded_value = round(fatality, 4)
                 fatality_rate_percent = "{}%".format(fatality_rounded_value)
-
-                infected = case/population*100
-                infected_format = round(infected, 4)
-                infected_rate_percent = "{}%".format(infected_format)
 
                 critical_rate = critical/active*100
                 critical_rate_round = round(critical_rate, 4)
@@ -284,11 +275,6 @@ class Covid(commands.Cog):
                 recovered_rate_format = round(recovered_rate, 4)
                 recovered_rate_percent = "{}%".format(recovered_rate_format)
 
-                test_rate = tests/population*100
-                test_rate_format = round(test_rate, 4)
-                test_rate_percent = "{}%".format(test_rate_format)
-
-
                 # making embed
                 embed = discord.Embed(title=f'Covid Details of {state}')
                 embed.set_thumbnail(url='https://i2x.ai/wp-content/uploads/2018/01/flag-global.jpg')
@@ -298,14 +284,10 @@ class Covid(commands.Cog):
                 embed.add_field(name='Recovered', value=recovered_format, inline=True)
                 embed.add_field(name='Critical', value=critical_format, inline=True)
                 embed.add_field(name='Tests', value=tests_format, inline=True)
-                embed.add_field(name='Population', value=population_format, inline=True)
-                embed.add_field(name='Infection Rate', value=infected_rate_percent, inline=True)
                 embed.add_field(name='Fatality Rate', value=fatality_rate_percent, inline=True)
                 embed.add_field(name='Critical Rate', value=critical_rate_percent, inline=True)
                 embed.add_field(name='Recovery Rate', value=recovered_rate_percent, inline=True)
-                embed.add_field(name='Test Rate', value=test_rate_percent, inline=True)
-                embed.add_field(name='Countries', value=countries, inline=True)
-
+        
                 await ctx.send(embed=embed)
 
 def setup(client):
