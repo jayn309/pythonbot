@@ -12,11 +12,10 @@ class Covid(commands.Cog):
     Covid API Commands!
     """
 
-
     def __init__(self, client):
         self.client = client
 
-    @commands.group(help= 'Base command',description='Get infomation of Covid-19 stats')
+    @commands.group(help= 'Base command',description='Get infomation of Covid-19 stats\n_covid all\n_covid country <countryname>\n_covid continent <continentname>')
     async def covid(self, ctx):
         if ctx.invoked_subcommand is None:
             await ctx.send("Please use a valid Option `ALl`, `Country`, `Continent`")

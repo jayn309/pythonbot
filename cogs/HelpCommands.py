@@ -37,10 +37,11 @@ class HelpCommands(commands.Cog):
             embed = discord.Embed(description='Here is the list of commands! \nFor more info on a specific command use _help {command}',
                         colour = discord.Colour.blurple())
             embed.set_author(name="Command list")
-            embed.add_field(name='👑 Admin', value="`kick`  `ban`  `unban` `mute`  `unmute`  `purge`  `say`  `edit`  `showemotes`  `addrole`  `removerole`  `move`  `alladdrole`  `allremoverole`  `countr`  `showemotes`  `slowmode`  `limit`  `emojistat`"
+            embed.add_field(name='👑 **Admin**', value="`kick`  `ban`  `unban` `mute`  `unmute`  `purge`  `say`  `edit`  `showemotes`  `addrole`  `removerole`  `move`  `alladdrole`  `allremoverole`  `countr`  `showemotes`  `slowmode`  `limit`  `emojistat`"
                 ,inline=False)
-            embed.add_field(name='🎉 Fun', value="`eightb`  `coinflip`  `f`  `choose`  `hug`  `rate`  `hot`  `slot`  `tableflip`  `unflip`  `add`  `subtract`  `multiply`  `divide`  `avatar`  `usersinfo`  `numgame`  `rps`  `riddle`  `pun`  `google`  `youtube`  `spotify`  `translate`"
+            embed.add_field(name='🎉 **Fun**', value="`eightb`  `coinflip`  `f`  `choose`  `hug`  `rate`  `hot`  `slot`  `tableflip`  `unflip`  `add`  `subtract`  `multiply`  `divide`  `numgame`  `rps`  `riddle`  `pun`"
                 ,inline=False)
+            embed.add_field(name='🔧 **Utility**', value="`avatar`  `usersinfo`  `google`  `youtube`  `spotify`  `translate`  `covid`")
             await ctx.send(embed=embed)
         
         else:
