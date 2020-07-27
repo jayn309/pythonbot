@@ -6,6 +6,7 @@ import asyncio
 from discord.ext import commands, tasks
 from itertools import cycle
 from discord.utils import get
+from time import time
 
 client = commands.Bot(command_prefix = '_')
 
@@ -46,7 +47,10 @@ async def unload(ctx, extension):
 
 @client.command(brief='bot ping (Admin only)')
 async def ping(ctx):
-    await ctx.send(f'Pong! {round(client.latency * 1000)} ms')
+    start = time()
+    message = await ctx.send(f'Pong! Latency: {client.latency*1000:,.0f} ms.')
+    end = time()
+    await message.edit(content=f'Pong! Latency: {client.latency*1000:,.0f} ms. Response time:{(end-start)}')
     
 @client.event
 async def on_raw_reaction_add(payload):
