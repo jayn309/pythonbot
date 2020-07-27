@@ -15,13 +15,13 @@ class Covid(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.group(help= 'Base command',description='Get infomation of Covid-19 stats\n_covid all\n_covid country <countryname>\n_covid continent <continentname>\n_covid state <statename>')
+    @commands.group(help= 'Base command',description='Get infomation of Covid-19 stats\n_covid all\n_covid country <countryname>\n_covid continent <continentname>')
     async def covid(self, ctx):
         if ctx.invoked_subcommand is None:
             await ctx.send("Please use a valid Option `ALl`, `Country`, `Continent`")
 
 
-    @covid.group(help= 'Gets information of Covid-19 stats of a country',description='_covid country <countryname>',aliases=['ctr'])
+    @covid.group(help= 'Gets information of Covid-19 stats of a country',aliases=['ctr'])
     async def country(self, ctx, country1):
         url = f'https://disease.sh/v3/covid-19/countries/{country1}'
         async with ClientSession() as session:
@@ -160,7 +160,7 @@ class Covid(commands.Cog):
                 embed.add_field(name='Infected Countries', value=infected_countries, inline=True)
                 await ctx.send(embed=embed)
 
-    @covid.group(help= 'Gets Summary of a continent with Covid-19',description='_covid continent <continentname>',aliases=['ctn'])
+    @covid.group(help= 'Gets Summary of a continent with Covid-19',aliases=['ctn'])
     async def continent(self, ctx, continent):
         url = f'https://disease.sh/v3/covid-19/continents/{continent}'
         async with ClientSession() as session:
@@ -232,45 +232,6 @@ class Covid(commands.Cog):
                 embed.add_field(name='Test Rate', value=test_rate_percent, inline=True)
                 embed.add_field(name='Countries', value=countries, inline=True)
 
-                await ctx.send(embed=embed)
-
-    @covid.group(help= 'Gets Summary of a US State with Covid-19',description='_covid state <statename>',aliases=['st'])
-    async def state(self, ctx, state):
-        url = f'https://disease.sh/v3/covid-19/states/{state}'
-        async with ClientSession() as session:
-            async with session.get(url) as response:
-                data = await response.json()
-
-                #getting data from API then format to readable numbers
-                case = data['cases']
-                cases_format = format(case, ",")
-
-                deaths = data["deaths"]
-                deaths_format = format(deaths, ",")
-
-                active = data["active"]
-                active_format = format(active, ",")
-
-                tests = data["tests"]
-                tests_format = format(tests, ",")
-
-                todaycases = data["todayCases"]
-                todaycases_format = format(todaycases, ",")
-
-                #making stats
-                fatality = deaths/case*100
-                fatality_rounded_value = round(fatality, 4)
-                fatality_rate_percent = "{}%".format(fatality_rounded_value)
-
-                # making embed
-                embed = discord.Embed(title=f'Covid Details of {state}')
-                embed.set_thumbnail(url='https://i2x.ai/wp-content/uploads/2018/01/flag-global.jpg')
-                embed.add_field(name='Total Cases', value=cases_format + '\u200b', inline=True)
-                embed.add_field(name='Total Deaths', value=deaths_format, inline=True)
-                embed.add_field(name='Today Cases', value=todaycases_format, inline=True)
-                embed.add_field(name='Active', value=active_format, inline=True)
-                embed.add_field(name='Tests', value=tests_format, inline=True)
-                embed.add_field(name='Fatality Rate', value=fatality_rate_percent, inline=True)
                 await ctx.send(embed=embed)
 
 def setup(client):
