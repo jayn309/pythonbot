@@ -15,13 +15,13 @@ class Covid(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.group(help= 'Base command',description='Get infomation of Covid-19 stats\n_covid all\n_covid country <countryname>\n_covid continent <continentname>')
+    @commands.group(help= 'Base command',description='Get infomation of Covid-19 stats\n_covid all\n_covid country <countryname>\n_covid continent <continentname>\n_covid state <statename>')
     async def covid(self, ctx):
         if ctx.invoked_subcommand is None:
             await ctx.send("Please use a valid Option `ALl`, `Country`, `Continent`")
 
 
-    @covid.group(help= 'Gets information of Covid-19 stats of a country',description='_covid country <countryname>')
+    @covid.group(help= 'Gets information of Covid-19 stats of a country',description='_covid country <countryname>',aliases=['ctr'])
     async def country(self, ctx, country1):
         url = f'https://disease.sh/v3/covid-19/countries/{country1}'
         async with ClientSession() as session:
@@ -160,7 +160,7 @@ class Covid(commands.Cog):
                 embed.add_field(name='Infected Countries', value=infected_countries, inline=True)
                 await ctx.send(embed=embed)
 
-    @covid.group(help= 'Gets Summary of a continent with Covid-19',description='_covid continent <continentname>')
+    @covid.group(help= 'Gets Summary of a continent with Covid-19',description='_covid continent <continentname>',aliases=['ctn'])
     async def continent(self, ctx, continent):
         url = f'https://disease.sh/v3/covid-19/continents/{continent}'
         async with ClientSession() as session:
@@ -234,7 +234,7 @@ class Covid(commands.Cog):
 
                 await ctx.send(embed=embed)
 
-    @covid.group(help= 'Gets Summary of a US State with Covid-19',description='_covid state <statename>')
+    @covid.group(help= 'Gets Summary of a US State with Covid-19',description='_covid state <statename>',aliases=['st'])
     async def state(self, ctx, state):
         url = f'https://disease.sh/v3/covid-19/states/{state}'
         async with ClientSession() as session:
@@ -254,6 +254,8 @@ class Covid(commands.Cog):
                 tests = data["tests"]
                 tests_format = format(tests, ",")
 
+                todaycases = data["todayCases"]
+                todaycases_format = format(todaycases, ",")
 
                 #making stats
                 fatality = deaths/case*100
@@ -265,6 +267,7 @@ class Covid(commands.Cog):
                 embed.set_thumbnail(url='https://i2x.ai/wp-content/uploads/2018/01/flag-global.jpg')
                 embed.add_field(name='Total Cases', value=cases_format + '\u200b', inline=True)
                 embed.add_field(name='Total Deaths', value=deaths_format, inline=True)
+                embed.add_field(name='Today Cases', value=todaycases_format, inline=True)
                 embed.add_field(name='Active', value=active_format, inline=True)
                 embed.add_field(name='Tests', value=tests_format, inline=True)
                 embed.add_field(name='Fatality Rate', value=fatality_rate_percent, inline=True)
