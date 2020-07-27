@@ -102,6 +102,7 @@ class Administrator(commands.Cog):
         privaterole = discord.utils.get(message.guild.roles, name="betunamluv")
         privaterole1 = discord.utils.get(message.guild.roles, name="Indomie")
         channel = discord.utils.get(message.guild.text_channels, name='mod-log')
+        channel1 = message.channels
         if not role: # checks if there is muted role
             try: # creates muted role 
                 muted = await message.guild.create_role(name="Muted", reason="To use for muting")
@@ -110,7 +111,7 @@ class Administrator(commands.Cog):
                                                 read_message_history=True,
                                                 read_messages=True)
             except discord.Forbidden:
-                return await channel.send("I have no permissions to make a muted role") # self-explainatory
+                return await channel1.send("I have no permissions to make a muted role") # self-explainatory
             await member.add_roles(muted) # adds newly created muted role
             if privaterole:
                 await member.remove_roles(privaterole)
@@ -140,7 +141,7 @@ class Administrator(commands.Cog):
 
             if role in member.roles:
                 await member.remove_roles(role)
-                await self.client.say(f"{member.mention} was unmuted")
+                await channel1.send(f"{member.mention} was unmuted")
 
             if channel:
                 unmute_embed = discord.Embed(title='Moderation Unmute',colour=member.color,timestamp=datetime.datetime.utcnow())
@@ -157,7 +158,6 @@ class Administrator(commands.Cog):
         await self.mute_member(ctx.message, member,time,reason)
         await ctx.send(f"{member.mention} was muted for {time}s." if time else f"{member.mention} was muted.")
 
-    @mute.error
     async def mute_error(self,ctx, error):
         if isinstance(error, commands.CheckFailure):
             await ctx.send(f"{ctx.author.mention} was muted")
