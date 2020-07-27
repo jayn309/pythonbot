@@ -198,7 +198,7 @@ class Administrator(commands.Cog):
             await ctx.send("Does this member need roles for private channels? If yes how many? If none type 0")
             def check(m):
                     try:
-                        return int(m.content) and m.author.id == ctx.author.id and m.channel.id == ctx.channel.id
+                        return int(m.content) and m.channel.id == ctx.channel.id
                     except ValueError:
                         return False
             msg = await self.client.wait_for('message',check=check)
