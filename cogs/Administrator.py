@@ -102,7 +102,7 @@ class Administrator(commands.Cog):
         privaterole = discord.utils.get(message.guild.roles, name="betunamluv")
         privaterole1 = discord.utils.get(message.guild.roles, name="Indomie")
         channel = discord.utils.get(message.guild.text_channels, name='mod-log')
-        channel1 = message.channels
+        channel1 = message.channel
         if not role: # checks if there is muted role
             try: # creates muted role 
                 muted = await message.guild.create_role(name="Muted", reason="To use for muting")
