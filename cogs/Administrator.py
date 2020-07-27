@@ -192,31 +192,28 @@ class Administrator(commands.Cog):
                         return int(m.content) and m.author.id == message.author.id and m.channel.id == message.channel.id
                     except ValueError:
                         return False
-            msg = await self.client.wait_for('message',check=check,timeout=30.0)
-            try:
-                number_of_roles = int(msg.content)
-                if number_of_roles != 0:
-                    await channel1.send("Please type the roles name below.")
-                    while number_of_roles != 0:
-                        msg_channel_name = await self.client.wait_for('message',check=check,timeout=60.0)
-                        try:
-                            if msg_channel_name.content.lower () == 'betunamluv':
-                                await member.add_roles(privaterole)
-                                number_of_roles -= 1
-                                await channel1.send("Role was added to this member. Type next role below or leave me alone if you're done.")
-                            if msg_channel_name.content.lower () == 'Indomie' or msg_channel_name.content.lower () == 'idm':
-                                await member.add_roles(privaterole1)
-                                number_of_roles -= 1
-                                await channel1.send("Role was added to this member. Type next role below or leave me alone if you're done.")
-                            if number_of_roles == 0:
-                                await channel1.send("All roles are added.")
-                                break
-                        except asyncio.TimeoutError:
-                            await channel1.send("K.Bye.")
-            except asyncio.TimeoutError:
-                    await channel1.send("No private role need to be added to this member")
-        else:
-            return
+            msg = await self.client.wait_for('message',check=check)
+            number_of_roles = int(msg.content)
+            if number_of_roles != 0:
+                await channel1.send("Please type the roles name below.")
+                while number_of_roles != 0:
+                    msg_channel_name = await self.client.wait_for('message',check=check,timeout=60.0)
+                    try:
+                        if msg_channel_name.content.lower () == 'betunamluv':
+                            await member.add_roles(privaterole)
+                            number_of_roles -= 1
+                            await channel1.send("Role was added to this member. Type next role below or leave me alone if you're done.")
+                        if msg_channel_name.content.lower () == 'Indomie' or msg_channel_name.content.lower () == 'idm':
+                            await member.add_roles(privaterole1)
+                            number_of_roles -= 1
+                            await channel1.send("Role was added to this member. Type next role below or leave me alone if you're done.")
+                        if number_of_roles == 0:
+                            await channel1.send("All roles are added.")
+                            break
+                    except asyncio.TimeoutError:
+                        await channel1.send("K.Bye.")
+            else:
+                return
 
     @commands.command(brief='unmute a member',description='Unmute a member.')
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
