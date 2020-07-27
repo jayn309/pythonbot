@@ -103,65 +103,66 @@ class Administrator(commands.Cog):
         privaterole1 = discord.utils.get(message.guild.roles, name="Indomie")
         channel = discord.utils.get(message.guild.text_channels, name='mod-log')
         channel1 = message.channel
-        if role in member.roles:
-            await channel1.send(f"{member.mention} is already muted.")
-        else:
-            if not role: # checks if there is muted role
-                try: # creates muted role 
-                    muted = await message.guild.create_role(name="Muted", reason="To use for muting")
-                    for channel in message.guild.channels: # removes permission to view and send in the channels 
-                        await channel.set_permissions(muted, send_messages=False,
+        if not role: # checks if there is muted role
+            try: # creates muted role 
+                muted = await message.guild.create_role(name="Muted", reason="To use for muting")
+                for channel in message.guild.channels: # removes permission to view and send in the channels 
+                    await channel.set_permissions(muted, send_messages=False,
                                                     read_message_history=True,
                                                     read_messages=True)
-                except discord.Forbidden:
-                    return await channel1.send("I have no permissions to make a muted role") # self-explainatory
-                await member.add_roles(muted) # adds newly created muted role
-                if privaterole:
-                    await member.remove_roles(privaterole)
-                if privaterole1:
-                    await member.remove_roles(privaterole1)
-            else:
-                await member.add_roles(role)
-                if privaterole:
-                    await member.remove_roles(privaterole)
-                if privaterole1:
-                    await member.remove_roles(privaterole1)
+            except discord.Forbidden:
+                return await channel1.send("I have no permissions to make a muted role") # self-explainatory
+            await member.add_roles(muted) # adds newly created muted role
+            if privaterole:
+                await member.remove_roles(privaterole)
+            if privaterole1:
+                await member.remove_roles(privaterole1)
+        else:
+            await member.add_roles(role)
+            if privaterole:
+                await member.remove_roles(privaterole)
+            if privaterole1:
+                await member.remove_roles(privaterole1)
                         
+        if channel:
+                mute_embed = discord.Embed(title='Moderation Mute',colour=member.color,timestamp=datetime.datetime.utcnow())
+                mute_embed.add_field(name="Punished by", value=message.author,inline=False)
+                mute_embed.add_field(name="Punished User", value=member.name,inline=False)
+                mute_embed.add_field(name="Reason", value=reason,inline=False)
+                mute_embed.add_field(name="Duration", value=time,inline=False)
+                mute_embed.set_thumbnail(url=member.avatar_url)
+                mute_embed.set_author(name=member.name, icon_url=member.avatar_url)
+                mute_embed.set_footer(text=f"Member ID:{member.id}")
+                await channel.send(embed=mute_embed)
+
+        if time:
+            await asyncio.sleep(time)
+
+            if role in member.roles:
+                await member.remove_roles(role)
+
             if channel:
-                    mute_embed = discord.Embed(title='Moderation Mute',colour=member.color,timestamp=datetime.datetime.utcnow())
-                    mute_embed.add_field(name="Punished by", value=message.author,inline=False)
-                    mute_embed.add_field(name="Punished User", value=member.name,inline=False)
-                    mute_embed.add_field(name="Reason", value=reason,inline=False)
-                    mute_embed.add_field(name="Duration", value=time,inline=False)
-                    mute_embed.set_thumbnail(url=member.avatar_url)
-                    mute_embed.set_author(name=member.name, icon_url=member.avatar_url)
-                    mute_embed.set_footer(text=f"Member ID:{member.id}")
-                    await channel.send(embed=mute_embed)
-
-            if time:
-                await asyncio.sleep(time)
-
-                if role in member.roles:
-                    await member.remove_roles(role)
-
-                if channel:
-                    unmute_embed = discord.Embed(title='Moderation Unmute',colour=member.color,timestamp=datetime.datetime.utcnow())
-                    unmute_embed.add_field(name="Unmuted by", value=message.author,inline=False)
-                    unmute_embed.add_field(name="User", value=member.name,inline=False)
-                    unmute_embed.add_field(name="Reason", value=reason,inline=False)
-                    unmute_embed.set_thumbnail(url=member.avatar_url)
-                    unmute_embed.set_author(name=member.name, icon_url=member.avatar_url)
-                    unmute_embed.set_footer(text=f"Member ID:{member.id}")
-                    await channel.send(embed=unmute_embed)
+                unmute_embed = discord.Embed(title='Moderation Unmute',colour=member.color,timestamp=datetime.datetime.utcnow())
+                unmute_embed.add_field(name="Unmuted by", value=message.author,inline=False)
+                unmute_embed.add_field(name="User", value=member.name,inline=False)
+                unmute_embed.add_field(name="Reason", value=reason,inline=False)
+                unmute_embed.set_thumbnail(url=member.avatar_url)
+                unmute_embed.set_author(name=member.name, icon_url=member.avatar_url)
+                unmute_embed.set_footer(text=f"Member ID:{member.id}")
+                await channel.send(embed=unmute_embed)
         
     @commands.command(brief='mute a member')
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
     async def mute(self,ctx, member : discord.Member,time:TimeConverter=None,*, reason=None):
-        await self.mute_member(ctx.message, member,time,reason)
-        await ctx.send(f"{member.mention} was muted for {time}s." if time else f"{member.mention} was muted.")
-        if time:
-            await asyncio.sleep(time)
-            await ctx.send(f"{member.mention} was unmuted")
+        role = discord.utils.get(ctx.guild.roles, name="Muted")
+        if role in member.roles:
+            await ctx.send(f"{member.mention} is already muted.")
+        else:
+            await self.mute_member(ctx.message, member,time,reason)
+            await ctx.send(f"{member.mention} was muted for {time}s." if time else f"{member.mention} was muted.")
+            if time:
+                await asyncio.sleep(time)
+                await ctx.send(f"{member.mention} was unmuted")
 
     async def mute_error(self,ctx, error):
         if isinstance(error, commands.CheckFailure):
