@@ -97,44 +97,36 @@ class Administrator(commands.Cog):
         if isinstance(error, commands.CheckFailure):
             await ctx.send(f"{ctx.author.mention} got kicked")
 
-    @commands.command(brief='mute a member')
-    @commands.has_guild_permissions(ban_members=True, kick_members=True)
-    async def mute(self,ctx, member : discord.Member,time:TimeConverter=None,*, reason=None):
-        role = discord.utils.get(ctx.guild.roles, name="Muted")
-        privaterole = discord.utils.get(ctx.guild.roles, name="betunamluv")
-        privaterole1 = discord.utils.get(ctx.guild.roles, name="Test Subject")
-        privaterole2 = discord.utils.get(ctx.guild.roles, name="Solitary Confinement")
-        channel = discord.utils.get(member.guild.text_channels, name='mod-log')
+    async def mute_member(self, message, member, time, reason):
+        role = discord.utils.get(message.guild.roles, name="Muted")
+        privaterole = discord.utils.get(message.guild.roles, name="betunamluv")
+        privaterole1 = discord.utils.get(message.guild.roles, name="Indomie")
+        channel = discord.utils.get(message.guild.text_channels, name='mod-log')
         if not role: # checks if there is muted role
             try: # creates muted role 
-                muted = await ctx.guild.create_role(name="Muted", reason="To use for muting")
-                for channel in ctx.guild.channels: # removes permission to view and send in the channels 
+                muted = await message.guild.create_role(name="Muted", reason="To use for muting")
+                for channel in message.guild.channels: # removes permission to view and send in the channels 
                     await channel.set_permissions(muted, send_messages=False,
                                                 read_message_history=True,
                                                 read_messages=True)
             except discord.Forbidden:
-                return await ctx.send("I have no permissions to make a muted role") # self-explainatory
+                return await self.client.say("I have no permissions to make a muted role") # self-explainatory
             await member.add_roles(muted) # adds newly created muted role
             if privaterole:
                 await member.remove_roles(privaterole)
             if privaterole1:
                 await member.remove_roles(privaterole1)
-            if privaterole2:
-                await member.remove_roles(privaterole2)
         else:
             await member.add_roles(role)
             if privaterole:
                 await member.remove_roles(privaterole)
             if privaterole1:
                 await member.remove_roles(privaterole1)
-            if privaterole2:
-                await member.remove_roles(privaterole2)
                     
-        await ctx.send(f"{member.mention} was muted for {time}s." if time else f"{member.mention} was muted.")
 
         if channel:
                 mute_embed = discord.Embed(title='Moderation Mute',colour=member.color,timestamp=datetime.datetime.utcnow())
-                mute_embed.add_field(name="Punished by", value=ctx.author,inline=False)
+                mute_embed.add_field(name="Punished by", value=message.author,inline=False)
                 mute_embed.add_field(name="Punished User", value=member.name,inline=False)
                 mute_embed.add_field(name="Reason", value=reason,inline=False)
                 mute_embed.add_field(name="Duration", value=time,inline=False)
@@ -148,17 +140,22 @@ class Administrator(commands.Cog):
 
             if role in member.roles:
                 await member.remove_roles(role)
-                await ctx.send(f"{member.mention} was unmuted")
+                await self.client.say(f"{member.mention} was unmuted")
 
             if channel:
                 unmute_embed = discord.Embed(title='Moderation Unmute',colour=member.color,timestamp=datetime.datetime.utcnow())
-                unmute_embed.add_field(name="Unmuted by", value=ctx.author,inline=False)
+                unmute_embed.add_field(name="Unmuted by", value=message.author,inline=False)
                 unmute_embed.add_field(name="User", value=member.name,inline=False)
                 unmute_embed.set_thumbnail(url=member.avatar_url)
                 unmute_embed.set_author(name=member.name, icon_url=member.avatar_url)
                 unmute_embed.set_footer(text=f"Member ID:{member.id}")
                 await channel.send(embed=unmute_embed)
-
+        
+    @commands.command(brief='mute a member')
+    @commands.has_guild_permissions(ban_members=True, kick_members=True)
+    async def mute(self,ctx, member : discord.Member,time:TimeConverter=None,*, reason=None):
+        await self.mute_member
+        await ctx.send(f"{member.mention} was muted for {time}s." if time else f"{member.mention} was muted.")
 
     @mute.error
     async def mute_error(self,ctx, error):
@@ -170,8 +167,7 @@ class Administrator(commands.Cog):
     async def unmute(self,ctx, member : discord.Member):
         role = discord.utils.get(ctx.guild.roles, name="Muted")
         privaterole = discord.utils.get(ctx.guild.roles, name="betunamluv")
-        privaterole2 = discord.utils.get(ctx.guild.roles, name="Solitary Confinement")
-        privaterole3 = discord.utils.get(ctx.guild.roles, name="YadongYaseol")
+        privaterole1 = discord.utils.get(ctx.guild.roles, name="Indomie")
         channel = discord.utils.get(member.guild.text_channels, name='mod-log')
         await member.remove_roles(role)
         await ctx.send(f"{member.mention} was unmuted")
@@ -201,14 +197,10 @@ class Administrator(commands.Cog):
                         await member.add_roles(privaterole)
                         number_of_roles -= 1
                         await ctx.send("Role was added to this member. Type next role below or leave me alone if you're done.")
-                    if msg_channel_name.content.lower () == 'yadongyaseol' or msg_channel_name.content.lower () == 'yy':
-                        await member.add_roles(privaterole3)
+                    if msg_channel_name.content.lower () == 'Indomie' or msg_channel_name.content.lower () == 'idm':
+                        await member.add_roles(privaterole1)
                         number_of_roles -= 1
                         await ctx.send("Role was added to this member. Type next role below or leave me alone if you're done.")
-                    if msg_channel_name.content.lower () == 'solitary' or msg_channel_name.content.lower () == 'sc':
-                        await member.add_roles(privaterole2)
-                        number_of_roles -= 1
-                        await ctx.send("Role was added to this member. Type next role below or leave me alone if you're done." )
                     if number_of_roles == 0:
                         await ctx.send("All roles are added.")
                         break
