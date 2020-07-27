@@ -50,7 +50,7 @@ async def ping(ctx):
     start = time()
     message = await ctx.send(f'Pong! Latency: {client.latency*1000:,.0f} ms.')
     end = time()
-    await message.edit(content=f'Pong! Latency: {client.latency*1000:,.0f} ms. Response time:{(end-start)*1000:,.0f}')
+    await message.edit(content=f'Pong! Latency: {client.latency*1000:,.0f} ms. Response time:{(end-start)*1000:,.0f} ms.')
     
 @client.event
 async def on_raw_reaction_add(payload):
