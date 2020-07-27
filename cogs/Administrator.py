@@ -154,7 +154,7 @@ class Administrator(commands.Cog):
     @commands.command(brief='mute a member')
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
     async def mute(self,ctx, member : discord.Member,time:TimeConverter=None,*, reason=None):
-        await self.mute_member
+        await self.mute_member(ctx.message, member,time,reason)
         await ctx.send(f"{member.mention} was muted for {time}s." if time else f"{member.mention} was muted.")
 
     @mute.error
