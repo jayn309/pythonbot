@@ -234,5 +234,79 @@ class Covid(commands.Cog):
 
                 await ctx.send(embed=embed)
 
+    @covid.group(help= 'Gets Summary of a US State with Covid-19',description='_covid state <statename>')
+    async def state(self, ctx, state):
+        url = f'https://disease.sh/v3/covid-19/states/{state}'
+        async with ClientSession() as session:
+            async with session.get(url) as response:
+                data = await response.json()
+
+                #getting data from API then format to readable numbers
+                case = data['cases']
+                cases_format = format(case, ",")
+
+                population = data["population"]
+                population_format = format(population, ",")
+
+                deaths = data["deaths"]
+                deaths_format = format(deaths, ",")
+
+                active = data["active"]
+                active_format = format(active, ",")
+
+                recovered = data["recovered"]
+                recovered_format = format(recovered, ",")
+
+                critical = data["critical"]
+                critical_format = format(critical, ",")
+
+                tests = data["tests"]
+                tests_format = format(tests, ",")
+
+                countries = data['countries']
+
+
+                #making stats
+                fatality = deaths/case*100
+                fatality_rounded_value = round(fatality, 4)
+                fatality_rate_percent = "{}%".format(fatality_rounded_value)
+
+                infected = case/population*100
+                infected_format = round(infected, 4)
+                infected_rate_percent = "{}%".format(infected_format)
+
+                critical_rate = critical/active*100
+                critical_rate_round = round(critical_rate, 4)
+                critical_rate_percent = "{}%".format(critical_rate_round)
+
+
+                recovered_rate = recovered/case*100
+                recovered_rate_format = round(recovered_rate, 4)
+                recovered_rate_percent = "{}%".format(recovered_rate_format)
+
+                test_rate = tests/population*100
+                test_rate_format = round(test_rate, 4)
+                test_rate_percent = "{}%".format(test_rate_format)
+
+
+                # making embed
+                embed = discord.Embed(title=f'Covid Details of {state}')
+                embed.set_thumbnail(url='https://i2x.ai/wp-content/uploads/2018/01/flag-global.jpg')
+                embed.add_field(name='Total Cases', value=cases_format + '\u200b', inline=True)
+                embed.add_field(name='Total Deaths', value=deaths_format, inline=True)
+                embed.add_field(name='Active', value=active_format, inline=True)
+                embed.add_field(name='Recovered', value=recovered_format, inline=True)
+                embed.add_field(name='Critical', value=critical_format, inline=True)
+                embed.add_field(name='Tests', value=tests_format, inline=True)
+                embed.add_field(name='Population', value=population_format, inline=True)
+                embed.add_field(name='Infection Rate', value=infected_rate_percent, inline=True)
+                embed.add_field(name='Fatality Rate', value=fatality_rate_percent, inline=True)
+                embed.add_field(name='Critical Rate', value=critical_rate_percent, inline=True)
+                embed.add_field(name='Recovery Rate', value=recovered_rate_percent, inline=True)
+                embed.add_field(name='Test Rate', value=test_rate_percent, inline=True)
+                embed.add_field(name='Countries', value=countries, inline=True)
+
+                await ctx.send(embed=embed)
+
 def setup(client):
     client.add_cog(Covid(client))
