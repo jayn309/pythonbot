@@ -110,7 +110,7 @@ class Administrator(commands.Cog):
                                                 read_message_history=True,
                                                 read_messages=True)
             except discord.Forbidden:
-                return await self.client.say("I have no permissions to make a muted role") # self-explainatory
+                return await channel.send("I have no permissions to make a muted role") # self-explainatory
             await member.add_roles(muted) # adds newly created muted role
             if privaterole:
                 await member.remove_roles(privaterole)
