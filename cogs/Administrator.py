@@ -196,18 +196,18 @@ class Administrator(commands.Cog):
 
         if ctx.guild.id == 626016069873696791:
             await ctx.send("Does this member need roles for private channels? If yes how many? If none type 0")
-            def check(m):
+            def cccheck(m):
                     try:
-                        return int(m.content) and m.channel.id == ctx.channel.id
+                        return int(m.content) and m.author.id == ctx.author.id and m.channel.id == ctx.channel.id
                     except ValueError:
                         return False
-            msg = await self.client.wait_for('message',check=check)
+            msg = await self.client.wait_for('message',check=cccheck)
             number_of_roles = int(msg.content)
             if number_of_roles != 0:
                 await ctx.send("Please type the roles name below.")
                 while number_of_roles != 0:
-                    msg_channel_name = await self.client.wait_for('message',check=check,timeout=60.0)
-                    try:
+                    try: 
+                        msg_channel_name = await self.client.wait_for('message',check=cccheck,timeout=60.0)
                         if msg_channel_name.content.lower () == 'betunamluv'or msg_channel_name.content.lower () == 'btnl':
                             await member.add_roles(privaterole)
                             number_of_roles -= 1

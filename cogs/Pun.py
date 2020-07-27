@@ -98,11 +98,5 @@ class Pun(commands.Cog):
             return  await ctx.channel.purge(limit=1)
 
 
-
-
-
-
-
-
 def setup(client):
     client.add_cog(Pun(client)) 
