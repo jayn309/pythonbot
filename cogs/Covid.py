@@ -245,9 +245,6 @@ class Covid(commands.Cog):
                 case = data['cases']
                 cases_format = format(case, ",")
 
-                population = data["population"]
-                population_format = format(population, ",")
-
                 deaths = data["deaths"]
                 deaths_format = format(deaths, ",")
 
@@ -298,7 +295,6 @@ class Covid(commands.Cog):
                 embed.add_field(name='Recovered', value=recovered_format, inline=True)
                 embed.add_field(name='Critical', value=critical_format, inline=True)
                 embed.add_field(name='Tests', value=tests_format, inline=True)
-                embed.add_field(name='Population', value=population_format, inline=True)
                 embed.add_field(name='Infection Rate', value=infected_rate_percent, inline=True)
                 embed.add_field(name='Fatality Rate', value=fatality_rate_percent, inline=True)
                 embed.add_field(name='Critical Rate', value=critical_rate_percent, inline=True)
