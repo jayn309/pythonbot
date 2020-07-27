@@ -170,10 +170,7 @@ class Administrator(commands.Cog):
 
     async def unmute_member(self, message, member,reason=None):
         role = discord.utils.get(message.guild.roles, name="Muted")
-        privaterole = discord.utils.get(message.guild.roles, name="betunamluv")
-        privaterole1 = discord.utils.get(message.guild.roles, name="Indomie")
         channel = discord.utils.get(member.guild.text_channels, name='mod-log')
-        channel1 = message.channel
         await member.remove_roles(role)   
         if channel:
                 unmute_embed = discord.Embed(title='Moderation Unmute',colour=member.color,timestamp=datetime.datetime.utcnow())
@@ -185,45 +182,47 @@ class Administrator(commands.Cog):
                 unmute_embed.set_footer(text=f"Member ID:{member.id}")
                 await channel.send(embed=unmute_embed)
 
-        if message.guild.id == 626016069873696791:
-            await channel1.send("Does this member need roles for private channels? If yes how many? If none type 0")
-            def check(m):
-                    try:
-                        return int(m.content) and m.author.id == message.author.id and m.channel.id == message.channel.id
-                    except ValueError:
-                        return False
-            msg = await self.client.wait_for('message',check=check)
-            number_of_roles = int(msg.content)
-            if number_of_roles != 0:
-                await channel1.send("Please type the roles name below.")
-                while number_of_roles != 0:
-                    msg_channel_name = await self.client.wait_for('message',check=check,timeout=60.0)
-                    try:
-                        if msg_channel_name.content.lower () == 'betunamluv':
-                            await member.add_roles(privaterole)
-                            number_of_roles -= 1
-                            await channel1.send("Role was added to this member. Type next role below or leave me alone if you're done.")
-                        if msg_channel_name.content.lower () == 'Indomie' or msg_channel_name.content.lower () == 'idm':
-                            await member.add_roles(privaterole1)
-                            number_of_roles -= 1
-                            await channel1.send("Role was added to this member. Type next role below or leave me alone if you're done.")
-                        if number_of_roles == 0:
-                            await channel1.send("All roles are added.")
-                            break
-                    except asyncio.TimeoutError:
-                        await channel1.send("K.Bye.")
-            else:
-                return
-
     @commands.command(brief='unmute a member',description='Unmute a member.')
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
     async def unmute(self,ctx, member : discord.Member,reason=None):
         role = discord.utils.get(ctx.guild.roles, name="Muted")
+        privaterole = discord.utils.get(ctx.guild.roles, name="betunamluv")
+        privaterole1 = discord.utils.get(ctx.guild.roles, name="Indomie")
         if role not in member.roles:
             await ctx.send(f"{member.mention} is not muted.")
         else:
             await self.unmute_member(ctx.message, member,reason)
             await ctx.send(f"{member.mention} was unmuted")
+
+        if ctx.guild.id == 626016069873696791:
+            await ctx.send("Does this member need roles for private channels? If yes how many? If none type 0")
+            def check(m):
+                    try:
+                        return int(m.content) and m.author.id == ctx.author.id and m.channel.id == ctx.channel.id
+                    except ValueError:
+                        return False
+            msg = await self.client.wait_for('message',check=check)
+            number_of_roles = int(msg.content)
+            if number_of_roles != 0:
+                await ctx.send("Please type the roles name below.")
+                while number_of_roles != 0:
+                    msg_channel_name = await self.client.wait_for('message',check=check,timeout=60.0)
+                    try:
+                        if msg_channel_name.content.lower () == 'betunamluv'or msg_channel_name.content.lower () == 'btnl':
+                            await member.add_roles(privaterole)
+                            number_of_roles -= 1
+                            await ctx.send("Role was added to this member. Type next role below or leave me alone if you're done.")
+                        if msg_channel_name.content.lower () == 'Indomie' or msg_channel_name.content.lower () == 'idm':
+                            await member.add_roles(privaterole1)
+                            number_of_roles -= 1
+                            await ctx.send("Role was added to this member. Type next role below or leave me alone if you're done.")
+                        if number_of_roles == 0:
+                            await ctx.send("All roles are added.")
+                            break
+                    except asyncio.TimeoutError:
+                        await ctx.send("K.Bye.")
+            else:
+                return
         
     @unmute.error
     async def unmute_error(self,ctx, error):
