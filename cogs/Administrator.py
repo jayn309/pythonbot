@@ -10,7 +10,6 @@ from discord.utils import get
 from datetime import timedelta
 from discord import Member, Embed, DMChannel
 from asyncio import sleep
-from typing import Optional
 
 time_regex = re.compile("(?:(\d{1,5})(h|s|m|d))+?")
 time_dict= {'h': 3600, 's': 1, 'm': 60 , 'd' : 86400}
@@ -157,7 +156,7 @@ class Administrator(commands.Cog):
         
     @commands.command(brief='mute a member')
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
-    async def mute(self,ctx, member : discord.Member,time:TimeConverter=None,*, reason:Optional[str]):
+    async def mute(self,ctx, member : discord.Member,time:TimeConverter=None,*, reason=None):
         await self.mute_member(ctx.message, member,time,reason)
         await ctx.send(f"{member.mention} was muted for {time}s." if time else f"{member.mention} was muted.")
         if time:
@@ -168,7 +167,7 @@ class Administrator(commands.Cog):
         if isinstance(error, commands.CheckFailure):
             await ctx.send(f"{ctx.author.mention} was muted")
 
-    async def unmute_member(self, message, member, time, reason):
+    async def unmute_member(self, message, member,reason=None):
         role = discord.utils.get(message.guild.roles, name="Muted")
         privaterole = discord.utils.get(message.guild.roles, name="betunamluv")
         privaterole1 = discord.utils.get(message.guild.roles, name="Indomie")
@@ -220,7 +219,7 @@ class Administrator(commands.Cog):
     @commands.command(brief='unmute a member',description='Unmute a member. Then add roles for privates channels (WRcord only).')
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
     async def unmute(self,ctx, member : discord.Member,reason= None):
-        await self.unmute_member(ctx.message, member,time,reason)
+        await self.unmute_member(ctx.message, member,reason)
         await ctx.send(f"{member.mention} was unmuted")
         
     @unmute.error
@@ -408,7 +407,7 @@ class Administrator(commands.Cog):
 
                 if len(unmutes):
                     await sleep(60)
-                    await self.unmute_member(message.guild, [message.author],0,reason="Mention spam" )      
+                    await self.unmute_member(message.guild, [message.author])      
 
 def setup(client):
     client.add_cog(Administrator(client))
