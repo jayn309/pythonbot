@@ -41,7 +41,7 @@ class MicsCommands(commands.Cog):
             'Very doubtful.']
         await ctx.send(f'Question: {question}\nAnswer: {random.choice(responses)}')
     
-    @commands.command(aliases=["calc"],brief='solves a math problem\n+ = add, - = subtract, * = multiply, and / = divide\nExample:\n_calc 1+1+3*4')
+    @commands.command(pass_context=True, aliases=["calc"],brief='Solves a math problem + = add, - = subtract, * = multiply, and / = divide',description='Example:\n_calc 1+1+3*4')
     async def calculate(self, ctx, evaluation):
         prob = re.sub("[^0-9+-/* ]", "", ctx.message.content[len(ctx.prefix + ctx.command.name) + 1:].strip())
         if len(evaluation) > 64:
