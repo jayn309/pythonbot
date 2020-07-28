@@ -41,8 +41,8 @@ class MicsCommands(commands.Cog):
             'Very doubtful.']
         await ctx.send(f'Question: {question}\nAnswer: {random.choice(responses)}')
     
-    @commands.command(pass_context=True, aliases=["calc"],brief='Solves a math problem + = add, - = subtract, * = multiply, and / = divide',description='Example:\n_calc 1+1+3*4')
-    async def calculate(self, ctx, evaluation):
+    @commands.command(pass_context=True,brief='Solves a math problem + = add, - = subtract, * = multiply, and / = divide\nExample:\n_calc 1+1+3*4')
+    async def calc(self, ctx, evaluation):
         prob = re.sub("[^0-9+-/* ]", "", ctx.message.content[len(ctx.prefix + ctx.command.name) + 1:].strip())
         if len(evaluation) > 64:
             await ctx.send("That evalution is too big, I can allow a maximum of 64 characters, I suggest you divide it in smaller portions.")
