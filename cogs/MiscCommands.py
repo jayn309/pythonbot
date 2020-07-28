@@ -40,25 +40,18 @@ class MicsCommands(commands.Cog):
             'Outlook not so good.',
             'Very doubtful.']
         await ctx.send(f'Question: {question}\nAnswer: {random.choice(responses)}')
-
-    @commands.group(aliases=["calc"],brief='solves a math problem\n+ = add, - = subtract, * = multiply, and / = divide\nExample:\n_calc 1+1+3*4')
-    async def calculate(self,ctx):
-        pass
-    @calculate.command(pass_context=True)
-    async def add(self,ctx, *, a: int, b:int):
-        await ctx.send(a+b)
-        
-    @calculate.command(pass_context=True)
-    async def subtract(self,ctx, a: int, b:int):
-        await ctx.send(a-b)
-        
-    @calculate.command(pass_context=True)
-    async def multiply(self,ctx, a: int, b:int):
-        await ctx.send(a*b)
-        
-    @calculate.command(pass_context=True)
-    async def divide(self, ctx, a: int, b:int):
-        await ctx.send(a/b)
+    
+    @commands.command(pass_context=True, aliases=["calc"],brief='solves a math problem\n+ = add, - = subtract, * = multiply, and / = divide\nExample:\n_calc 1+1+3*4')
+    async def calculate(self, ctx, evaluation):
+        prob = re.sub("[^0-9+-/* ]", "", ctx.message.content[len(ctx.prefix + ctx.command.name) + 1:].strip())
+        if len(evaluation) > 64:
+            await ctx.send("That evalution is too big, I can allow a maximum of 64 characters, I suggest you divide it in smaller portions.")
+            return
+        try:
+            answer = str(eval(prob))
+            await ctx.send("`{}` = `{}`".format(prob, answer))
+        except:
+            await ctx.send("I couldn't solve that problem, it's too hard.")
 
     @commands.command(aliases=['flip', 'coin'],brief='flip a coin')
     async def coinflip(self, ctx):
