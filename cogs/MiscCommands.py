@@ -286,7 +286,7 @@ class MicsCommands(commands.Cog):
         author = ctx.message.author
         embed = discord.Embed(title="Google Result", color= ctx.message.author.colour)
         argument1 = argument.replace(" ","+")
-        embed.add_field(name="Here is your result:", value=f"**Request**: {argument}\n**Result**: Click [here](https://www.google.com/search?q=*{argument1})")
+        embed.add_field(name="Here is your result:", value=f"**Request**: {argument}\n**Result**: Click [here](https://www.google.com/search?q={argument1})")
         embed.set_footer(text=f"Requested by {author}")
         await ctx.send(embed=embed)   
 
