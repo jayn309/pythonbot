@@ -285,8 +285,8 @@ class MicsCommands(commands.Cog):
     async def google(self,ctx, *,argument):
         author = ctx.message.author
         embed = discord.Embed(title="Google Result", color= ctx.message.author.colour)
-        argument1 = ''.join(argument.split())
-        embed.add_field(name="Here is your result:", value=f"**Request**: {argument}\n**Result**: Click [here](https://www.google.com/search?q={argument1})")
+        
+        embed.add_field(name="Here is your result:", value=f"**Request**: {argument}\n**Result**: Click [here](https://www.google.com/search?q={argument})")
         embed.set_footer(text=f"Requested by {author}")
         await ctx.send(embed=embed)   
 
