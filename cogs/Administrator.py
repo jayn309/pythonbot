@@ -135,7 +135,7 @@ class Administrator(commands.Cog):
                 mute_embed.set_footer(text=f"Member ID:{member.id}")
                 await channel.send(embed=mute_embed)
         else:
-            return
+            pass
 
         if time:
             await asyncio.sleep(time)
