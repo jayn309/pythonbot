@@ -172,7 +172,7 @@ class Administrator(commands.Cog):
         if isinstance(error, commands.CheckFailure):
             await ctx.send(f"{ctx.author.mention} was muted")
 
-    async def unmute_member(self, message, member,reason=None):
+    async def unmute_member(self, message, member,reason):
         role = discord.utils.get(message.guild.roles, name="Muted")
         channel = discord.utils.get(member.guild.text_channels, name='mod-log')
         await member.remove_roles(role)   
