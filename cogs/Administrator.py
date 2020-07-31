@@ -134,6 +134,8 @@ class Administrator(commands.Cog):
                 mute_embed.set_author(name=member.name, icon_url=member.avatar_url)
                 mute_embed.set_footer(text=f"Member ID:{member.id}")
                 await channel.send(embed=mute_embed)
+        else:
+            return
 
         if time:
             await asyncio.sleep(time)
@@ -150,6 +152,8 @@ class Administrator(commands.Cog):
                 unmute_embed.set_author(name=member.name, icon_url=member.avatar_url)
                 unmute_embed.set_footer(text=f"Member ID:{member.id}")
                 await channel.send(embed=unmute_embed)
+            else:
+                return
         
     @commands.command(brief='mute a member')
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
@@ -181,6 +185,8 @@ class Administrator(commands.Cog):
                 unmute_embed.set_author(name=member.name, icon_url=member.avatar_url)
                 unmute_embed.set_footer(text=f"Member ID:{member.id}")
                 await channel.send(embed=unmute_embed)
+        else:
+            return
 
     @commands.command(brief='unmute a member',description='Unmute a member.')
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
