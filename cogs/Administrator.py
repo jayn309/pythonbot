@@ -375,7 +375,7 @@ class Administrator(commands.Cog):
         def _check(m):
             return (m.author == message.author
 					and len(m.mentions)
-					and (datetime.datetime.utcnow()-m.created_at).seconds < 60)
+					and (datetime.datetime.utcnow()-m.created_at).seconds < 10)
 
         if not message.author.bot:
             if len(list(filter(lambda m: _check(m), self.client.cached_messages))) >= 3:
