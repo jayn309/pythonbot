@@ -12,6 +12,7 @@ from discord.ext import commands
 from random import choice as randchoice
 from random import randint, sample
 from googletrans import Translator, LANGUAGES,LANGCODES
+from typing import Union
 
 class MicsCommands(commands.Cog):
     def __init__(self, client):
@@ -361,6 +362,10 @@ class MicsCommands(commands.Cog):
             embed.add_field(name=name, value=value, inline=inline)
 
         await ctx.send(embed=embed)
+
+    @commands.command(aliases=['el','large'],brief='get an enlarged version of an emote')
+    async def enlarge(self,ctx, emote: discord.Emoji):
+        await ctx.send(f"Here you go:\n{discord.Emoji.url}")
 
 def setup(client):
     client.add_cog(MicsCommands(client))
