@@ -86,8 +86,8 @@ class Pun(commands.Cog):
         try:     
             msg = await self.client.wait_for('message',check=check,timeout=30.0)
             await ctx.channel.purge(limit=3)
-            if msg.content.startswith(':',0):
-                pass
+            if msg.content.startswith(':'):
+                await ctx.send(f'Answer the question!!!')
             if msg.content.lower() != Answers[i]:
                 await asyncio.sleep(1)
                 await ctx.send(f'Incorrect. Game over. Dumb Dumb! <:wendyyikes:682673361725554785>')
