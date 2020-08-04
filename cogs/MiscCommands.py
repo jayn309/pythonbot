@@ -365,7 +365,7 @@ class MicsCommands(commands.Cog):
 
     @commands.command(aliases=['el','large'],brief='get an enlarged version of an emote')
     async def enlarge(self,ctx, emotes: Union[discord.Emoji, discord.PartialEmoji]):
-        if emotes in discord.Emoji:
+        if discord.Emoji:
             await ctx.send(f"{discord.Emoji.url}")
         else:
             await ctx.sned(f"{discord.PartialEmoji.url}")
