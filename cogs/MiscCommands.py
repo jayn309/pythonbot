@@ -364,8 +364,8 @@ class MicsCommands(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['el','large'],brief='get an enlarged version of an emote')
-    async def enlarge(self,ctx, emote: discord.Emoji):
-        await ctx.send(f"Here you go:\n{discord.Emoji.url}")
+    async def enlarge(self,ctx, file: discord.File):
+        pass
 
 def setup(client):
     client.add_cog(MicsCommands(client))
