@@ -365,18 +365,18 @@ class MicsCommands(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['el','l'],brief='get an enlarged verson of an emote')
-    async def enlarge(self, ctx, emoji):
+    async def enlarge(self, ctx, emoji: str):
         base_url = 'https://cdn.discordapp.com/emojis/{}.png?v=1'
         match = re.match(r'<:(\w+):(\d+)>', emoji)
         animated_url = 'https://cdn.discordapp.com/emojis/{}.gif?v=1'
-        amatch = re.match(r'<(\w):(\w+):(\d+)>', emoji)
+        amatch = re.match(r'<[a]:(\w+):(\d+)>', emoji)
         if match:
             url = base_url.format(match.group(2))
             await ctx.send(f'{url}')
         elif amatch:
-            x = re.search(r'<(\w+)>', emoji)
+            x = re.search(r'<(\d+)>', emoji)
             try:
-                await ctx.send(x.group())
+                await ctx.send(x)
             except AttributeError:
                 return await ctx.send('Cannot find')
             aurl = animated_url.format(match.group(3))
