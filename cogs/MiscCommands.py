@@ -374,7 +374,7 @@ class MicsCommands(commands.Cog):
             url = base_url.format(match.group(2))
             await ctx.send(f'{url}')
         elif amatch:
-            x = re.search(r'<(\d+)>', emoji)
+            x = re.search(r'<[a-n]:>', emoji)
             await ctx.send(x)
             aurl = animated_url.format(match.group(3))
             await ctx.send(f'{aurl}')
