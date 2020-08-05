@@ -9,6 +9,7 @@ import datetime
 
 from discord import Spotify
 from discord.ext import commands
+from discord.ext.commands import EmojiConverter, PartialEmojiConverter
 from random import choice as randchoice
 from random import randint, sample
 from googletrans import Translator, LANGUAGES,LANGCODES
@@ -363,12 +364,18 @@ class MicsCommands(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(aliases=['el','large'],brief='get an enlarged version of an emote')
-    async def enlarge(self,ctx, emotes: Union[discord.Emoji, discord.PartialEmoji]):
-        if discord.Emoji:
-            await ctx.send(f"{discord.Emoji.url}")
+    @commands.command()
+    async def inspect(self, ctx, emoji : str):
+        base_url = 'https://cdn.discordapp.com/emojis/{}.png?v=1'
+        match = re.match(r'<:(\w+):(\d+)>', emoji)
+        embed = discord.Embed()
+        if not match:
+            embed = discord.Embed(description=f'``{emoji}`` is not am emoji')
         else:
-            await ctx.sned(f"{discord.PartialEmoji.url}")
+            url = base_url.format(match.group(2))
+            print('emoji url:',url)
+            embed.set_image(url=url)
+        await ctx.send(embed=embed)
         
 
 def setup(client):
