@@ -367,14 +367,13 @@ class MicsCommands(commands.Cog):
     @commands.command(aliases=['el','l'],brief='get an enlarged verson of an emote')
     async def enlarge(self, ctx, emoji : str):
         base_url = 'https://cdn.discordapp.com/emojis/{}.png?v=1'
-        match = re.match(r'<:(\w+):(\d+)>', emoji)
         animated_url = 'https://cdn.discordapp.com/emojis/{}.gif?v=1'
-        animated_match = re.match(r'<:(\w+):(\d+)>', emoji)
-        if match:
+        match = re.match(r'<:(\w+):(\d+)>', emoji)
+        if base_url.split('.')[-1] == "png":
             url = base_url.format(match.group(2))
             await ctx.send(f'{url}')
         else:
-            aurl = animated_url.format(animated_match.group(2))
+            aurl = animated_url.format(match.group(2))
             await ctx.send(f'{aurl}')
 
 def setup(client):
