@@ -376,10 +376,10 @@ class MicsCommands(commands.Cog):
         elif amatch:
             x = re.search(r'(\d+)', emoji)
             try:
-                await ctx.send(f"{x.group()}")
+                await ctx.send(f"{x.group(1)}")
             except AttributeError:
                 return await ctx.send('Cannot find')
-            aurl = animated_url.format(match(x.group()))
+            aurl = animated_url.format(x.group(1))
             await ctx.send(f'{aurl}')
         else:
             await ctx.send(f'``{emoji}`` is not an emoji')
