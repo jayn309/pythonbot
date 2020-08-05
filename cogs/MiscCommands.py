@@ -373,7 +373,7 @@ class MicsCommands(commands.Cog):
         if match:
             url = base_url.format(match.group(2))
             await ctx.send(f'{url}')
-        elif amath:
+        elif amatch:
             aurl = animated_url.format(match.group(2))
             await ctx.send(f'{aurl}')
         else:
