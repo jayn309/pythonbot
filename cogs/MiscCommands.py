@@ -364,18 +364,15 @@ class MicsCommands(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command()
-    async def inspect(self, ctx, emoji : str):
+    @commands.command(aliases=['el','l'],brief='get an enlarged verson of an emote')
+    async def enlarge(self, ctx, emoji : str):
         base_url = 'https://cdn.discordapp.com/emojis/{}.png?v=1'
         match = re.match(r'<:(\w+):(\d+)>', emoji)
-        embed = discord.Embed()
         if not match:
-            embed = discord.Embed(description=f'``{emoji}`` is not am emoji')
+            await ctx.send(f'``{emoji}`` is not an emoji')
         else:
             url = base_url.format(match.group(2))
-            print('emoji url:',url)
-            embed.set_image(url=url)
-        await ctx.send(embed=embed)
+            await ctx.send(f'{url}')
         
 
 def setup(client):
