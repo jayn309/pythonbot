@@ -370,9 +370,7 @@ class MicsCommands(commands.Cog):
         match = re.match(r'<:(\w+):(\d+)>', emoji)
         animated_url = 'https://cdn.discordapp.com/emojis/{}.gif?v=1'
         animated_match = re.match(r'<:(\w+):(\d+)>', emoji)
-        if not match or animated_match:
-            await ctx.send(f'``{emoji}`` is not an emoji')
-        elif match:
+        if match:
             url = base_url.format(match.group(2))
             await ctx.send(f'{url}')
         else:
