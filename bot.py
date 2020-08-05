@@ -24,8 +24,8 @@ client.load_extension(f'cogs.Pun')
 client.load_extension(f'cogs.Covid')
 
 async def main():
-    DATABASE_URL = os.environ['DATABASE_URL']
-    conn = await asyncpg.connect(DATABASE_URL)
+    DATABASE_URL = os.environ.get['DATABASE_URL']
+    conn = await asyncpg.connect(DATABASE_URL,ssl=True)
 
 @client.event
 async def on_ready():
