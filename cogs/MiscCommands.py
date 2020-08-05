@@ -370,6 +370,7 @@ class MicsCommands(commands.Cog):
         animated_url = 'https://cdn.discordapp.com/emojis/{}.gif?v=1'
         match = re.match(r'<:(\w+):(\d+)>', emoji)
         result = re.search('https://cdn.discordapp.com/emojis/{}.(.*)?v=1', base_url)
+        await ctx.send(result)
         if result == "png":
             url = base_url.format(match.group(2))
             await ctx.send(f'{url}')
