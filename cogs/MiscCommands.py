@@ -364,7 +364,7 @@ class MicsCommands(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(aliases=['el','l'],brief='get an enlarged verson of an emote')
+    @commands.command(aliases=['el','l'],brief='get an enlarged version of an emote')
     async def enlarge(self, ctx, emoji: str):
         base_url = 'https://cdn.discordapp.com/emojis/{}.png?v=1'
         match = re.match(r'<:(\w+):(\d+)>', emoji)
