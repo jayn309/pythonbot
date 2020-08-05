@@ -376,7 +376,7 @@ class MicsCommands(commands.Cog):
         elif amatch:
             x = re.search(r'<(\d+)>', emoji)
             try:
-                await ctx.send("pattern found inside the string")
+                await ctx.send(f"{x}")
             except AttributeError:
                 return await ctx.send('Cannot find')
             aurl = animated_url.format(x)
