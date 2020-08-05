@@ -368,12 +368,17 @@ class MicsCommands(commands.Cog):
     async def enlarge(self, ctx, emoji : str):
         base_url = 'https://cdn.discordapp.com/emojis/{}.png?v=1'
         match = re.match(r'<:(\w+):(\d+)>', emoji)
-        if not match:
+        animated_url = 'https://cdn.discordapp.com/emojis/{}.gif?v=1'
+        animated_match = re.match(r'<:(\w+):(\d+)>', emoji)
+        if not match or animated_match:
             await ctx.send(f'``{emoji}`` is not an emoji')
-        else:
+        elif match:
             url = base_url.format(match.group(2))
             await ctx.send(f'{url}')
-        
+        else:
+            aurl = animated_url.format(match.group(2))
+            await ctx.send(f'{aurl}')
+
 
 def setup(client):
     client.add_cog(MicsCommands(client))
