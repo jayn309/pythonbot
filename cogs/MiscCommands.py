@@ -373,11 +373,9 @@ class MicsCommands(commands.Cog):
         if match:
             url = base_url.format(match.group(2))
             await ctx.send(f'{url}')
-        elif animated_match:
+        else:
             aurl = animated_url.format(animated_match.group(0))
             await ctx.send(f'{aurl}')
-        else:
-            ctx.send('whyyyyyyyyyyy')
 
 def setup(client):
     client.add_cog(MicsCommands(client))
