@@ -2,6 +2,7 @@ import os
 import discord
 import time
 import asyncio
+import asyncpg
 
 from discord.ext import commands, tasks
 from itertools import cycle
@@ -21,6 +22,10 @@ client.load_extension(f'cogs.Log')
 client.load_extension(f'cogs.Riddle')
 client.load_extension(f'cogs.Pun')
 client.load_extension(f'cogs.Covid')
+
+async def main():
+    DATABASE_URL = os.environ['DATABASE_URL']
+    conn = await asyncpg.connect(DATABASE_URL, sslmode='require')
 
 @client.event
 async def on_ready():
