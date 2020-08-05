@@ -379,7 +379,7 @@ class MicsCommands(commands.Cog):
                 await ctx.send(f"{x.group()}")
             except AttributeError:
                 return await ctx.send('Cannot find')
-            aurl = animated_url.format(match.group(x.group()))
+            aurl = animated_url.format(match(x.group()))
             await ctx.send(f'{aurl}')
         else:
             await ctx.send(f'``{emoji}`` is not an emoji')
