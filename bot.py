@@ -26,7 +26,13 @@ client.load_extension(f'cogs.Covid')
 async def main():
     DATABASE_URL = os.environ.get['DATABASE_URL']
     conn = await asyncpg.connect(DATABASE_URL,ssl=True)
-
+    await conn.execute('''
+    CREATE TABLE IF NOT EXIST users (
+            id serial PRIMARY KEY,
+            name text,
+            dob date
+        )
+    ''') 
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to Discord!')
@@ -70,6 +76,7 @@ async def on_raw_reaction_add(payload):
         reaction = get(message.reactions, emoji=payload.emoji.name)
         if reaction.count >= 3:
             await message.pin()
-    
+
+asyncio.get_event_loop().run_until_complete(main())
 client.run(os.environ['DISCORD_TOKEN'])
 
