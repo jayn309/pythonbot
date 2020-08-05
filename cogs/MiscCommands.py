@@ -374,7 +374,7 @@ class MicsCommands(commands.Cog):
             url = base_url.format(match.group(2))
             await ctx.send(f'{url}')
         else:
-            aurl = animated_url.format(animated_match.group(0))
+            aurl = animated_url.format(animated_match.group(2))
             await ctx.send(f'{aurl}')
 
 def setup(client):
