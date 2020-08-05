@@ -370,13 +370,14 @@ class MicsCommands(commands.Cog):
         match = re.match(r'<:(\w+):(\d+)>', emoji)
         animated_url = 'https://cdn.discordapp.com/emojis/{}.gif?v=1'
         animated_match = re.match(r'<:(\w+):(\d+)>', emoji)
-        if base_url:
+        if match:
             url = base_url.format(match.group(2))
             await ctx.send(f'{url}')
-        else:
-            aurl = animated_url.format(animated_match)
+        elif animated_match:
+            aurl = animated_url.format(animated_match.group(2))
             await ctx.send(f'{aurl}')
-
+        else:
+            ctx.send('whyyyyyyyyyyy')
 
 def setup(client):
     client.add_cog(MicsCommands(client))
