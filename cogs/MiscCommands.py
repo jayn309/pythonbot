@@ -394,7 +394,7 @@ class MicsCommands(commands.Cog):
 
     @commands.command(aliases=["p","mkpoll","mp"],brief="start a poll for a set time")
     @commands.has_guild_permissions(manage_guild=True)
-    async def poll(self, ctx, hours: int, question: str, *options):
+    async def poll(self, ctx, seconds: int, question: str, *options):
         numbers = ("1️⃣", "2⃣", "3⃣", "4⃣", "5⃣",
 		   "6⃣", "7⃣", "8⃣", "9⃣", "🔟")
 
@@ -419,7 +419,7 @@ class MicsCommands(commands.Cog):
                 await message.add_reaction(emoji)
 
             self.polls.append((message.channel.id, message.id))
-            self.client.scheduler.add_job(self.complete_poll, "date", run_date=datetime.now()+timedelta(seconds=hours),
+            self.client.scheduler.add_job(self.complete_poll, "date", run_date=datetime.now()+timedelta(seconds=seconds),
 									   args=[message.channel.id, message.id])
 
     async def complete_poll(self, channel_id, message_id):
