@@ -436,7 +436,7 @@ class MicsCommands(commands.Cog):
         message = await self.client.get_channel(payload.channel_id).fetch_message(payload.message_id)
 
         for reaction in message.reactions:
-            if (not payload.member.client
+            if (not payload.member.bot
                 and payload.member in await reaction.users().flatten()
                 and reaction.emoji != payload.emoji.name):
                 await message.remove_reaction(reaction.emoji, payload.member)
