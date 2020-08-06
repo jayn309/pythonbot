@@ -430,5 +430,16 @@ class MicsCommands(commands.Cog):
         await message.channel.send(f"The results are in and option {most_voted.emoji} was the most popular with {most_voted.count-1:,} votes!")
         self.polls.remove((message.channel.id, message.id))
 
+    @commands.Cog.listener()
+    async def on_raw_reaction_add(self,payload):
+        payload.message_id in (poll[1] for poll in self.polls)
+        message = await self.client.get_channel(payload.channel_id).fetch_message(payload.message_id)
+
+        for reaction in message.reactions:
+            if (not payload.member.client
+                and payload.member in await reaction.users().flatten()
+                and reaction.emoji != payload.emoji.name):
+                await message.remove_reaction(reaction.emoji, payload.member)
+
 def setup(client):
     client.add_cog(MicsCommands(client))
