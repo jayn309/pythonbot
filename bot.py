@@ -3,11 +3,13 @@ import discord
 import time
 import asyncio
 import asyncpg
+import apscheduler
 
 from discord.ext import commands, tasks
 from itertools import cycle
 from discord.utils import get
 from time import time
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 client = commands.Bot(command_prefix = '_')
 
@@ -33,8 +35,9 @@ client.load_extension(f'cogs.Covid')
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to Discord!')
+    client.scheduler = AsyncIOScheduler()
+    client.scheduler.start()
     channel = client.get_channel(686446361419186199)
-    client.schduler.start()
     await channel.send("Sonbae is now online!")
     await client.change_presence(activity=discord.Activity(type=2,name="Spotify"))
 
