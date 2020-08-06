@@ -392,9 +392,9 @@ class MicsCommands(commands.Cog):
         for emoji in reaction:
             await message.add_reaction(emoji)
 
-    @commands.command(aliases=["mkpoll","mp"],brief="start a poll for a set time")
+    @commands.command(aliases=["p","mkpoll","mp"],brief="start a poll for a set time")
     @commands.has_guild_permissions(manage_guild=True)
-    async def create_poll(self, ctx, hours: int, question: str, *options):
+    async def poll(self, ctx, hours: int, question: str, *options):
         numbers = ("1️⃣", "2⃣", "3⃣", "4⃣", "5⃣",
 		   "6⃣", "7⃣", "8⃣", "9⃣", "🔟")
 
