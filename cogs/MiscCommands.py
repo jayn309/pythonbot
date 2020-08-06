@@ -382,7 +382,7 @@ class MicsCommands(commands.Cog):
 
     @commands.command(brief='casting vote')   
     async def vote(self,ctx,*, agrs):
-        emoji= "✅ ❌"
+        emoji= ["✅","❌"]
         message = await ctx.send(agrs)
         await message.add_reaction(emoji)
 
