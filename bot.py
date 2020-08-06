@@ -23,9 +23,9 @@ client.load_extension(f'cogs.Riddle')
 client.load_extension(f'cogs.Pun')
 client.load_extension(f'cogs.Covid')
 
-async def main(ctx):
+async def main():
     conn = await asyncpg.connect(os.environ['DATABASE_URL'])
-    await ctx.send('Database connected.')
+    print('Database connected.')
 
 @client.event
 async def on_ready():
