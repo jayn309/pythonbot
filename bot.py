@@ -23,12 +23,12 @@ client.load_extension(f'cogs.Riddle')
 client.load_extension(f'cogs.Pun')
 client.load_extension(f'cogs.Covid')
 
-async def main():
-    con = await asyncpg.connect(os.environ['DATABASE_URL'])
-    print('Database connected.')
-    await con.execute('''
-        DROP TABLE mytab;
-    ''')
+#async def main():
+    #con = await asyncpg.connect(os.environ['DATABASE_URL'])
+    #print('Database connected.')
+    #await con.execute('''
+        #DROP TABLE mytab;
+    #''')
 
 @client.event
 async def on_ready():
@@ -74,6 +74,6 @@ async def on_raw_reaction_add(payload):
         if reaction.count >= 3:
             await message.pin()
 
-asyncio.get_event_loop().run_until_complete(main())
+#asyncio.get_event_loop().run_until_complete(main())
 client.run(os.environ['DISCORD_TOKEN'])
 
