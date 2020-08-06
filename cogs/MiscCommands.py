@@ -16,7 +16,6 @@ from googletrans import Translator, LANGUAGES,LANGCODES
 from typing import Union
 from datetime import datetime, timedelta
 
-numbers =(':one:',':two:',':three:',':four:',':five:',':six:',':seven:',':eight:',':nine:',':ten:')
 
 class MicsCommands(commands.Cog):
     def __init__(self, client):
@@ -394,6 +393,9 @@ class MicsCommands(commands.Cog):
     @commands.command(aliases=["mkpoll","mp"],brief="start a poll for a set time")
     @commands.has_guild_permissions(manage_guild=True)
     async def create_poll(self, ctx, hours: int, question: str, *options):
+        numbers = ("1️⃣", "2⃣", "3⃣", "4⃣", "5⃣",
+		   "6⃣", "7⃣", "8⃣", "9⃣", "🔟")
+
         if len(options) > 10:
             await ctx.send("You can only supply a maximum of 10 options.")
 
