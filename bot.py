@@ -26,7 +26,7 @@ client.load_extension(f'cogs.Covid')
 async def main():
     conn = await asyncpg.connect(os.environ['DATABASE_URL'])
     await conn.execute('''
-    CREATE TABLE IF NOT EXIST users (
+    CREATE TABLE IF NOT EXISTS users (
             id serial PRIMARY KEY,
             name text,
             dob date
