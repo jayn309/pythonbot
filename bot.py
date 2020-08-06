@@ -27,9 +27,9 @@ async def main():
     con = await asyncpg.connect(os.environ['DATABASE_URL'])
     print('Database connected.')
     await con.execute('''
-...     CREATE TABLE mytab (a int);
-...     INSERT INTO mytab (a) VALUES (100), (200), (300);
-... ''')
+        CREATE TABLE mytab (a int);
+        INSERT INTO mytab (a) VALUES (100), (200), (300);
+    ''')
 
 @client.event
 async def on_ready():
