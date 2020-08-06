@@ -27,8 +27,7 @@ async def main():
     con = await asyncpg.connect(os.environ['DATABASE_URL'])
     print('Database connected.')
     await con.execute('''
-        DROP TABLE mytab (a int);
-
+        DROP TABLE mytab;
     ''')
 
 @client.event
