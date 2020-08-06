@@ -25,13 +25,8 @@ client.load_extension(f'cogs.Covid')
 
 async def main():
     conn = await asyncpg.connect(os.environ['DATABASE_URL'])
-    await conn.execute('''
-    CREATE TABLE IF NOT EXISTS users (
-            id serial PRIMARY KEY,
-            name text,
-            dob date
-        )
-    ''') 
+    await ctx.send('Database connected.')
+    
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to Discord!')
