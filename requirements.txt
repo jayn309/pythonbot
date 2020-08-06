@@ -4,3 +4,4 @@ git+https://github.com/Rapptz/discord-ext-menus
 pendulum
 googletrans
 asyncpg
+apscheduler

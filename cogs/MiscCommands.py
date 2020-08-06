@@ -6,6 +6,7 @@ import aiohttp
 import pendulum
 import googletrans
 import datetime
+import apscheduler
 
 from discord import Spotify, Embed
 from discord.ext import commands
@@ -15,12 +16,13 @@ from random import randint, sample
 from googletrans import Translator, LANGUAGES,LANGCODES
 from typing import Union
 from datetime import datetime, timedelta
-
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 class MicsCommands(commands.Cog):
     def __init__(self, client):
         self.client = client
         self.polls = []
+        self.scheduler =  AsyncIOScheduler
 
     @commands.command(aliases=[ '8b'],brief='get random answer for a question')
     async def eightb(self, ctx, *, question):
