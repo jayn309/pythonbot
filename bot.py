@@ -23,10 +23,10 @@ client.load_extension(f'cogs.Riddle')
 client.load_extension(f'cogs.Pun')
 client.load_extension(f'cogs.Covid')
 
-async def main():
+async def main(ctx):
     conn = await asyncpg.connect(os.environ['DATABASE_URL'])
     await ctx.send('Database connected.')
-    
+
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to Discord!')
