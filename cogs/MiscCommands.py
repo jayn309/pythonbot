@@ -22,7 +22,7 @@ class MicsCommands(commands.Cog):
     def __init__(self, client):
         self.client = client
         self.polls = []
-        self.scheduler =  AsyncIOScheduler
+        self.scheduler = AsyncIOScheduler()
 
     @commands.command(aliases=[ '8b'],brief='get random answer for a question')
     async def eightb(self, ctx, *, question):
