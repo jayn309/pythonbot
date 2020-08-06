@@ -41,7 +41,7 @@ class HelpCommands(commands.Cog):
                 ,inline=False)
             embed.add_field(name='🎉 **Fun**', value="`eightb`  `coinflip`  `f`  `choose`  `hug`  `rate`  `hot`  `slot`  `tableflip`  `unflip`  `calc`  `numgame`  `rps`  `riddle`  `pun`"
                 ,inline=False)
-            embed.add_field(name='🔧 **Utility**', value="`avatar`  `usersinfo`  `serverinfo`  `google`  `youtube`  `spotify`  `translate`  `covid`  `enlarge`")
+            embed.add_field(name='🔧 **Utility**', value="`avatar`  `usersinfo`  `serverinfo`  `google`  `youtube`  `spotify`  `translate`  `covid`  `enlarge` `vote` `poll`")
             await ctx.send(embed=embed)
         
         else:

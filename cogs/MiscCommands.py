@@ -7,17 +7,21 @@ import pendulum
 import googletrans
 import datetime
 
-from discord import Spotify
+from discord import Spotify, Embed
 from discord.ext import commands
 from discord.ext.commands import EmojiConverter, PartialEmojiConverter
 from random import choice as randchoice
 from random import randint, sample
 from googletrans import Translator, LANGUAGES,LANGCODES
 from typing import Union
+from datetime import datetime, timedelta
+
+numbers =(':one:',':two:',':three:',':four:',':five:',':six:',':seven:',':eight:',':nine:',':ten:')
 
 class MicsCommands(commands.Cog):
     def __init__(self, client):
         self.client = client
+        self.polls = []
 
     @commands.command(aliases=[ '8b'],brief='get random answer for a question')
     async def eightb(self, ctx, *, question):
@@ -386,6 +390,41 @@ class MicsCommands(commands.Cog):
         message = await ctx.send(agrs)
         for emoji in reaction:
             await message.add_reaction(emoji)
+
+    @commands.command(aliases=["mkpoll","mp"],brief="start a poll for a set time")
+    @commands.has_guild_permissions(manage_guild=True)
+    async def create_poll(self, ctx, hours: int, question: str, *options):
+        if len(options) > 10:
+            await ctx.send("You can only supply a maximum of 10 options.")
+
+        else:
+            embed = Embed(title="Poll",
+						  description=question,
+						  colour=ctx.author.colour,
+						  timestamp=datetime.utcnow())
+
+            fields = [("Options", "\n".join([f"{numbers[idx]} {option}" for idx, option in enumerate(options)]), False),
+					  ("Instructions", "React to cast a vote!", False)]
+
+            for name, value, inline in fields:
+                embed.add_field(name=name, value=value, inline=inline)
+
+            message = await ctx.send(embed=embed)
+
+            for emoji in numbers[:len(options)]:
+                await message.add_reaction(emoji)
+
+            self.polls.append((message.channel.id, message.id))
+            self.client.scheduler.add_job(self.complete_poll, "date", run_date=datetime.now()+timedelta(seconds=hours),
+									   args=[message.channel.id, message.id])
+
+    async def complete_poll(self, channel_id, message_id):
+        message = await self.client.get_channel(channel_id).fetch_message(message_id)
+
+        most_voted = max(message.reactions, key=lambda r: r.count)
+
+        await message.channel.send(f"The results are in and option {most_voted.emoji} was the most popular with {most_voted.count-1:,} votes!")
+        self.polls.remove((message.channel.id, message.id))
 
 def setup(client):
     client.add_cog(MicsCommands(client))
