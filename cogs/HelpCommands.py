@@ -31,7 +31,6 @@ class HelpCommands(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command(name="help")
-    @commands.guild_only()
     async def show_help(self, ctx, cmd: Optional[str]):
         #Shows this message
         if cmd is None:

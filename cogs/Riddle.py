@@ -12,7 +12,6 @@ class Riddle(commands.Cog):
 
     @commands.command(aliases=[ 'rd'],brief='guess a word from riddles',description='_rd to start')
     @commands.cooldown(rate=1, per=10.0, type=commands.BucketType.user)
-    @commands.guild_only()
     async def riddle(self,ctx):
         Questions =['What has to be broken before you can use it?', 
                 'I’m tall when I’m young, and I’m short when I’m old. What am I?',

@@ -34,7 +34,6 @@ class Administrator(commands.Cog):
 
     @commands.command(brief='ban a member')
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
-    @commands.guild_only()
     async def ban(self, ctx, member : discord.Member, *, reason=None):
         channel = discord.utils.get(member.guild.text_channels, name='mod-log')
         try:
@@ -59,7 +58,6 @@ class Administrator(commands.Cog):
 
     @commands.command(brief='unban a member')
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
-    @commands.guild_only()
     async def unban(self,ctx, member, *, reason=None):
         member = await self.client.fetch_user(int(member))
         await ctx.guild.unban(member, reason=reason)
@@ -78,7 +76,6 @@ class Administrator(commands.Cog):
 
     @commands.command(brief='kick a member')
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
-    @commands.guild_only()
     async def kick(self,ctx, member : discord.Member, *, reason=None):
         channel = discord.utils.get(member.guild.text_channels, name='mod-log')
         try:
@@ -160,7 +157,6 @@ class Administrator(commands.Cog):
         
     @commands.command(brief='mute a member')
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
-    @commands.guild_only()
     async def mute(self,ctx, member : discord.Member,time:TimeConverter=None,*, reason=None):
         role = discord.utils.get(ctx.guild.roles, name="Muted")
         if role in member.roles:
@@ -194,7 +190,6 @@ class Administrator(commands.Cog):
 
     @commands.command(brief='unmute a member',description='Unmute a member.')
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
-    @commands.guild_only()
     async def unmute(self,ctx, member : discord.Member,reason=None):
         role = discord.utils.get(ctx.guild.roles, name="Muted")
         if role not in member.roles:
@@ -211,7 +206,6 @@ class Administrator(commands.Cog):
 
     @commands.command(brief = 'clear an amount of messages (of members if mentioned)',description='mention members to delete their messages\n_purge @member number of messages to delete (count messages from others also, but the bot will only delete messages from mentioned member \n count up to the message you want to delete')
     @commands.has_guild_permissions(administrator=True)
-    @commands.guild_only()
     async def purge(self,ctx, members: Greedy[Member], number:int=None):
         def _check(message):
             return not len(members) or message.author in members
@@ -224,7 +218,6 @@ class Administrator(commands.Cog):
 
     @commands.command(brief='make the bot say something in a channel',description='_say #channel message')
     @commands.has_guild_permissions(administrator=True)
-    @commands.guild_only()
     async def say(self, ctx, channel, *, msg):
         channel_mentions = ctx.message.channel_mentions
         channel = discord.utils.get(channel_mentions, mention=channel)
@@ -233,7 +226,6 @@ class Administrator(commands.Cog):
 
     @commands.command(brief='edit a bot message in a channel',description='_edit #channel message_id content')
     @commands.has_guild_permissions(administrator=True)
-    @commands.guild_only()
     async def edit(self,ctx,channel,message_id, *,content):
         try:
             channel_mentions = ctx.message.channel_mentions
@@ -246,21 +238,18 @@ class Administrator(commands.Cog):
 
     @commands.command(brief='remove a role from a member',description='_removerole rolename @member')
     @commands.has_guild_permissions(administrator=True)
-    @commands.guild_only()
     async def removerole(self,ctx,role: discord.Role, *, member : discord.Member):
         await member.remove_roles(role)
         await ctx.send(f"Remove role from {member.mention}")
 
     @commands.command(brief='add a role to a member',description='_addrole rolename @member')
     @commands.has_guild_permissions(administrator=True)
-    @commands.guild_only()
     async def addrole(self,ctx,role: discord.Role, *, member : discord.Member):
         await member.add_roles(role)
         await ctx.send(f"Add role to {member.mention}")
 
     @commands.command(aliases=['aar'],brief='add a role to all members (Admin only)',description='_aar rolename')
     @commands.has_guild_permissions(administrator=True)
-    @commands.guild_only()
     async def alladdrole(self,ctx, *,role: discord.Role):
         num_members = len(ctx.guild.members)
         await ctx.send("This will take awhile.")
@@ -274,7 +263,6 @@ class Administrator(commands.Cog):
 
     @commands.command(aliases=['arr'],brief='remove a role from all members',description='_arr rolename')
     @commands.has_guild_permissions(administrator=True)
-    @commands.guild_only()
     async def allremoverole(self,ctx, *,role: discord.Role):
         num_members = len(role.members)
         await ctx.send("This will take awhile.")
@@ -289,7 +277,6 @@ class Administrator(commands.Cog):
 
     @commands.command(brief='number of members have that role',description='_countr rolename')
     @commands.has_guild_permissions(administrator=True)
-    @commands.guild_only()
     async def countr(self,ctx, *,role: discord.Role):
         def ccheck(m):
             try:
@@ -320,7 +307,6 @@ class Administrator(commands.Cog):
 
     @commands.command(brief='move member to another voice chat or disconnect from voicechat',description='Mention voice chat channel by <#channelID>. \n _move @members without channel will disconnect members from vchat.\n _move #channel without members will move everyone to another voice chat channel.')
     @commands.has_guild_permissions(administrator=True)
-    @commands.guild_only()
     async def move(self,ctx,members: commands.Greedy[discord.Member] = None, channel: discord.VoiceChannel = None):
         if ctx.author.voice:
             members = members or ctx.author.voice.channel.members
@@ -340,7 +326,6 @@ class Administrator(commands.Cog):
         await ctx.send(f'Moved {success}/{total} users', delete_after=10)
     
     @commands.command(aliases=[ 'slm'],brief='set slowmode for channel', description='Slowmode by number of seconds for a channel. \n Put 0  to disable slowmode.') 
-    @commands.guild_only()
     async def slowmode(self,ctx,channel:discord.TextChannel,seconds:int):
         if seconds is None:
             await ctx.send("Please put a number or 0 to disable")

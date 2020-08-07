@@ -7,7 +7,6 @@ class usersinfo(commands.Cog):
         self.client = client
 
     @commands.command(aliases=[ 'ui'],brief='get info',description='Get your info or mention a member to get theirs' )
-    @commands.guild_only()
     async def usersinfo(self, ctx, member: discord.Member = None):
         member = ctx.author if not member else member
     

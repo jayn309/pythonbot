@@ -58,7 +58,6 @@ class Emotes(commands.Cog):
 
     @commands.command(aliases=[ 'shem'],brief='show all emotes of server in a channel',description='Mention a channel to show all emote there\n _shem #channel')
     @commands.has_guild_permissions(administrator=True)
-    @commands.guild_only()
     async def showemotes(self,ctx,channel,emoji: discord.Emoji =None):
         channel_mentions = ctx.message.channel_mentions
         channel = discord.utils.get(channel_mentions, mention=channel)
@@ -81,7 +80,6 @@ class Emotes(commands.Cog):
 
     @commands.command(aliases=[ 'emst'],brief='show stat of server emotes')
     @commands.has_guild_permissions(administrator=True)
-    @commands.guild_only()
     async def emojistat(self, ctx, channel):
         channel_mentions = ctx.message.channel_mentions
         channel = discord.utils.get(channel_mentions, mention=channel)
