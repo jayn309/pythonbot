@@ -26,6 +26,7 @@ bot.load_extension(f'cogs.Pun')
 bot.load_extension(f'cogs.Covid')
 bot.load_extension(f'cogs.Instagram')
 bot.load_extension(f'cogs.WolframAlpha')
+bot.load_extension(f'cogs.Weather')
 
 #async def main():
     #con = await asyncpg.connect(os.environ['DATABASE_URL'])
