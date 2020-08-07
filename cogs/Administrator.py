@@ -370,9 +370,9 @@ class Administrator(commands.Cog):
                     await message.channel.send("Muted members cannot use modmail.")
                 else:
                     if member_role in member.roles and not muted_member in member.roles:
-                        if len(message.content) < 50:
+                        if len(message.content) < 50 and not message.content[0]=="_":
                             await message.channel.send("Your message should be at least 50 characters in length.")
-                        elif message.content.startwith('_'):
+                        elif message.content[0]=="_":
                             await message.channelsend("Get lost!")
                         else:
                             embed = Embed(title="Modmail",
