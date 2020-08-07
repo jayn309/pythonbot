@@ -37,7 +37,7 @@ class Instagram(commands.Cog):
         self.bot = bot
         self.session = aiohttp.ClientSession()
 
-        self.cookies_file = self.bot.config['instagram']['cookies_file']
+        self.cookies_file = "./cogs/ig_cookies.json"
         with open(self.cookies_file, 'r') as f:
             self.session.cookie_jar.update_cookies(cookies=json.load(f))
 
@@ -120,3 +120,6 @@ class Instagram(commands.Cog):
 
     async def cog_before_invoke(self, ctx):
         await ctx.trigger_typing()
+
+def setup(bot):
+    bot.add_cog(Instagram(bot))
