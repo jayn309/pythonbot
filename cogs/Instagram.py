@@ -12,9 +12,8 @@ from discord.ext import commands
 
 logger = logging.getLogger(__name__)
 
-INSPECT_EMOJI = '\N{RIGHT-POINTING MAGNIFYING GLASS}'
+INSPECT_EMOJI = '\N{RIGHT-POINTING MAGNIFYING GLASS}' 
 
-@staticmethod
 def chunker(iterable, n, return_index=False):
         """
         Produces a generator that yields chunks of given size from an iterator.
@@ -27,11 +26,10 @@ def chunker(iterable, n, return_index=False):
             if return_index:
                 yield i, iterable[i:i + n]
             else:
-                yield iterable[i:i + n]      
-
+                yield iterable[i:i + n]     
 
 class Instagram(commands.Cog):
-    URL_REGEX = r"https?://www.instagram.com/(p|tv)/(.*?)/"
+    URL_REGEX = r"https?://www.instagram.com/(p|tv)/(.*?)/" 
 
     def __init__(self, bot):
         self.bot = bot
@@ -69,7 +67,7 @@ class Instagram(commands.Cog):
             media = data['edge_sidecar_to_children']['edges']
             return [media['node']['display_url'] if
                     media['node']['__typename'] == 'GraphImage' else media['node']['video_url'] for media in media]
-          
+    
 
     async def show_media(self, ctx, url):
         media = await self.get_media(url)
@@ -116,6 +114,7 @@ class Instagram(commands.Cog):
             self.session.cookie_jar.update_cookies(cookies=json.load(f))
 
         await ctx.send(f'Loaded {len(self.session.cookie_jar)} cookies')
+
 
 
     async def cog_before_invoke(self, ctx):
