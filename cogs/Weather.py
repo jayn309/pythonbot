@@ -68,7 +68,7 @@ class Weather(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.app_id = self.bot.config['openweathermap']['app_id']
+        self.app_id = os.environ['wtapp_id']
         self.session = aiohttp.ClientSession()
 
     async def _make_request(self, method, route):
