@@ -359,6 +359,8 @@ class Administrator(commands.Cog):
         modlog_channel = self.client.get_channel(731357775652847686)
         if not modlog_channel:
             print("Mail channel not found! Reconfigure bot!")
+        if self.client.command:
+            return  
         if not message.author.id == 685307035142586380:
             if isinstance(message.channel, DMChannel):
                 guild = self.client.get_guild(626016069873696791)
