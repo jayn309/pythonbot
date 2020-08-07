@@ -60,18 +60,18 @@ class Help(Cog):
 	async def show_help(self, ctx, cmd: Optional[str]):
 		"""Shows this message."""
 		if cmd is None:
-			menu = MenuPages(source=HelpMenu(ctx, list(self.client.commands)),
+			menu = MenuPages(source=HelpMenu(ctx, list(self.bot.commands)),
 							 delete_message_after=True,
 							 timeout=60.0)
 			await menu.start(ctx)
 	
 		else:
 			
-			if (command := get(self.client.commands, name=cmd)):
+			if (command := get(self.bot.commands, name=cmd)):
 				await self.cmd_help(ctx, command)
 
 			else:
 				await ctx.send("That command does not exist.")
 
-def setup(client):
-	client.add_cog(Help(client))
+def setup(bot):
+	bot.add_cog(Help(bot))

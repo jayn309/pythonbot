@@ -12,8 +12,8 @@ class Covid(commands.Cog):
     Covid API Commands!
     """
 
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
 
     @commands.group(help= 'Base command',description='Get infomation of Covid-19 stats\n_covid all\n_covid country <countryname>\n_covid continent <continentname>')
     @commands.guild_only()
@@ -238,5 +238,5 @@ class Covid(commands.Cog):
 
                 await ctx.send(embed=embed)
 
-def setup(client):
-    client.add_cog(Covid(client))
+def setup(bot):
+    bot.add_cog(Covid(bot))

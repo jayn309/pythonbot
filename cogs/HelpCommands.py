@@ -19,9 +19,9 @@ def syntax(command):
 	return f"`{cmd_and_aliases} {params}`"
 
 class HelpCommands(commands.Cog):
-    def __init__(self, client):
-        self.client = client
-        self.client.remove_command("help")
+    def __init__(self, bot):
+        self.bot = bot
+        self.bot.remove_command("help")
 
     async def cmd_help(self, ctx, command):
         embed = Embed(title=f"Help with `{command}`",
@@ -47,11 +47,11 @@ class HelpCommands(commands.Cog):
         
         else:
 
-            if (command := get(self.client.commands, name=cmd)):
+            if (command := get(self.bot.commands, name=cmd)):
                 await self.cmd_help(ctx, command)
 
             else:
                 await ctx.send("That command does not exist.")
 
-def setup(client):
-    client.add_cog(HelpCommands(client))
+def setup(bot):
+    bot.add_cog(HelpCommands(bot))

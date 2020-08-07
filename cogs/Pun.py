@@ -7,8 +7,8 @@ from random import choice as randchoice
 from random import randint, sample
 
 class Pun(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
 
     @commands.command(brief='guess a word from puns',description='_pun to start')
     @commands.cooldown(rate=1, per=10.0, type=commands.BucketType.user)
@@ -85,7 +85,7 @@ class Pun(commands.Cog):
         await ctx.send('Type your answer(1 word) below. You have 30 seconds and only 1 chance.',delete_after=30)
                 
         try:     
-            msg = await self.client.wait_for('message',check=check,timeout=30.0)
+            msg = await self.bot.wait_for('message',check=check,timeout=30.0)
             await ctx.channel.purge(limit=3) 
             if msg.content.lower() != Answers[i]:
                 await asyncio.sleep(1)
@@ -99,5 +99,5 @@ class Pun(commands.Cog):
             return  await ctx.channel.purge(limit=1)
 
 
-def setup(client):
-    client.add_cog(Pun(client)) 
+def setup(bot):
+    bot.add_cog(Pun(bot)) 

@@ -7,8 +7,8 @@ from discord.utils import get
 from typing import Any, List, Union, Optional
 
 class Log(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
             
     @commands.Cog.listener()
     async def on_member_join(self, member):
@@ -37,7 +37,7 @@ class Log(commands.Cog):
 
     @commands.Cog.listener()
     async def on_user_update(self,before,after):
-        log_channel = self.client.get_channel(700137514572185662)
+        log_channel = self.bot.get_channel(700137514572185662)
         if before.name != after.name:
             embed = discord.Embed(title="Username change",
                             colour=after.colour,
@@ -85,8 +85,8 @@ class Log(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_update(self, before, after):
-        log_channel = self.client.get_channel(700137514572185662)
-        rolelog_channel = self.client.get_channel(700120282140246026)
+        log_channel = self.bot.get_channel(700137514572185662)
+        rolelog_channel = self.bot.get_channel(700120282140246026)
         if before.guild.id != 626016069873696791:
             return
         else:    
@@ -179,5 +179,5 @@ class Log(commands.Cog):
                         await channel.send(embed=delete_embed)
 		
 
-def setup(client):
-    client.add_cog(Log(client))
+def setup(bot):
+    bot.add_cog(Log(bot))

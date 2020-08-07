@@ -7,8 +7,8 @@ from discord.utils import get
 role ="Unvelvified"
 
 class Roles(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
 
     @commands.Cog.listener() 
     async def on_member_join(self, member):
@@ -22,7 +22,7 @@ class Roles(commands.Cog):
         channel_id = payload.channel_id
         if  message_id == 684015060888453148:
             guild_id = payload.guild_id
-            guild = discord.utils.find(lambda g : g.id == guild_id, self.client.guilds)
+            guild = discord.utils.find(lambda g : g.id == guild_id, self.bot.guilds)
             
             if payload.emoji.name == 'wendysip':
                 role = discord.utils.get(guild.roles, name='Admiral')
@@ -62,7 +62,7 @@ class Roles(commands.Cog):
 
         if message_id == 683696135793279127:
             guild_id = payload.guild_id
-            guild = discord.utils.find(lambda g : g.id == guild_id, self.client.guilds)
+            guild = discord.utils.find(lambda g : g.id == guild_id, self.bot.guilds)
             if payload.emoji.name == 'wendyfist':
                 role = discord.utils.get(guild.roles, name='Velvified')
                 role1 = discord.utils.get(guild.roles, name='Unvelvified')
@@ -90,5 +90,5 @@ class Roles(commands.Cog):
             else:
                 print("Role not found.")
 
-def setup(client):
-    client.add_cog(Roles(client))
+def setup(bot):
+    bot.add_cog(Roles(bot))

@@ -5,8 +5,8 @@ from discord.ext.commands import CommandNotFound
 
 commands_tally = {}
 class CommandEvents(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
@@ -25,5 +25,5 @@ class CommandEvents(commands.Cog):
             print(commands_tally)
 
 
-def setup(client):
-    client.add_cog(CommandEvents(client))
+def setup(bot):
+    bot.add_cog(CommandEvents(bot))

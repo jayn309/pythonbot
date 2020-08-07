@@ -7,8 +7,8 @@ from random import choice as randchoice
 from random import randint, sample
 
 class Riddle(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
 
     @commands.command(aliases=[ 'rd'],brief='guess a word from riddles',description='_rd to start')
     @commands.cooldown(rate=1, per=10.0, type=commands.BucketType.user)
@@ -94,7 +94,7 @@ class Riddle(commands.Cog):
         await ctx.send('Type your answer(1 word) below. You have 30 seconds and only 1 chance.',delete_after=30)
         
         try:     
-            msg = await self.client.wait_for('message',check=check,timeout=30.0)
+            msg = await self.bot.wait_for('message',check=check,timeout=30.0)
             await ctx.channel.purge(limit=3)
             if msg.content.lower() != Answers[i]:
                 await asyncio.sleep(1)
@@ -107,5 +107,5 @@ class Riddle(commands.Cog):
                 await asyncio.sleep(1)
                 return await ctx.channel.purge(limit=1)
 
-def setup(client):
-    client.add_cog(Riddle(client))        
+def setup(bot):
+    bot.add_cog(Riddle(bot))        

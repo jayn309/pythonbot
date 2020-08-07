@@ -19,10 +19,10 @@ from datetime import datetime, timedelta
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 class MicsCommands(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
         self.polls = []
-        self.client.scheduler = AsyncIOScheduler()
+        self.bot.scheduler = AsyncIOScheduler()
 
     @commands.command(aliases=[ '8b'],brief='get random answer for a question')
     @commands.guild_only()
@@ -167,7 +167,7 @@ class MicsCommands(commands.Cog):
         guess = 5
         while guess != 0:
             try:
-                msg = await self.client.wait_for('message',check=check,timeout=60.0)
+                msg = await self.bot.wait_for('message',check=check,timeout=60.0)
                 attempt = int(msg.content)
                 if attempt > number:
                     await asyncio.sleep(1)
@@ -274,7 +274,7 @@ class MicsCommands(commands.Cog):
             # if args is not empty it's a possible msg id
             msgid=int(args.strip())
             msg=await ctx.channel.fetch_message(msgid)
-            msgctx = await self.client.get_context(msg)
+            msgctx = await self.bot.get_context(msg)
             # if targetted msg was from the bot
             if msg.author.id==685307035142586380:
                 await ctx.send(f"{msg.clean_content}")
@@ -441,11 +441,11 @@ class MicsCommands(commands.Cog):
                 await message.add_reaction(emoji)
 
             self.polls.append((message.channel.id, message.id))
-            self.client.scheduler.add_job(self.complete_poll, "date", run_date=datetime.now()+timedelta(seconds=seconds),
+            self.bot.scheduler.add_job(self.complete_poll, "date", run_date=datetime.now()+timedelta(seconds=seconds),
 									   args=[message.channel.id, message.id])
 
     async def complete_poll(self, channel_id, message_id):
-        message = await self.client.get_channel(channel_id).fetch_message(message_id)
+        message = await self.bot.get_channel(channel_id).fetch_message(message_id)
 
         most_voted = max(message.reactions, key=lambda r: r.count)
 
@@ -455,7 +455,7 @@ class MicsCommands(commands.Cog):
     @commands.Cog.listener()
     async def on_raw_reaction_add(self,payload):
         payload.message_id in (poll[1] for poll in self.polls)
-        message = await self.client.get_channel(payload.channel_id).fetch_message(payload.message_id)
+        message = await self.bot.get_channel(payload.channel_id).fetch_message(payload.message_id)
 
         for reaction in message.reactions:
             if (not payload.member.bot
@@ -463,5 +463,5 @@ class MicsCommands(commands.Cog):
                 and reaction.emoji != payload.emoji.name):
                 await message.remove_reaction(reaction.emoji, payload.member)
 
-def setup(client):
-    client.add_cog(MicsCommands(client))
+def setup(bot):
+    bot.add_cog(MicsCommands(bot))

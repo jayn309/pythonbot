@@ -29,8 +29,8 @@ class TimeConverter(commands.Converter):
         return time
 
 class Administrator(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
 
     @commands.command(brief='ban a member')
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
@@ -61,10 +61,10 @@ class Administrator(commands.Cog):
     @commands.has_guild_permissions(ban_members=True, kick_members=True)
     @commands.guild_only()
     async def unban(self,ctx, member, *, reason=None):
-        member = await self.client.fetch_user(int(member))
+        member = await self.bot.fetch_user(int(member))
         await ctx.guild.unban(member, reason=reason)
         await ctx.send(f'Unbanned the user.')
-        channel = self.client.get_channel(706728600874909712)
+        channel = self.bot.get_channel(706728600874909712)
         if channel:
                 unban_embed = discord.Embed(title='Moderation Unban',colour=member.color,timestamp=datetime.datetime.utcnow())
                 unban_embed.add_field(name="Unbanned by", value=ctx.author,inline=False)
@@ -304,7 +304,7 @@ class Administrator(commands.Cog):
         if counter != 0:
             await ctx.send('Do you want a list of those members? If yes type 1, if no just go.')
             try:
-                msg_countr = await self.client.wait_for('message',timeout=10.0,check=ccheck)
+                msg_countr = await self.bot.wait_for('message',timeout=10.0,check=ccheck)
                 if msg_countr.content == '1':
                     await ctx.send("This will take awhile.")
                     while counter != 0:
@@ -357,12 +357,12 @@ class Administrator(commands.Cog):
         
     @commands.Cog.listener()
     async def on_message(self, message):
-        modlog_channel = self.client.get_channel(731357775652847686)
+        modlog_channel = self.bot.get_channel(731357775652847686)
         if not modlog_channel:
             print("Mail channel not found! Reconfigure bot!")
         if not message.author.id == 685307035142586380:
             if isinstance(message.channel, DMChannel):
-                guild = self.client.get_guild(626016069873696791)
+                guild = self.bot.get_guild(626016069873696791)
                 member = guild.get_member(message.author.id)
                 member_role = guild.get_role(687823988831027203)
                 muted_member = guild.get_role(690770300002107442)
@@ -396,7 +396,7 @@ class Administrator(commands.Cog):
 					and (datetime.datetime.utcnow()-m.created_at).seconds < 10)
 
         if not message.author.bot:
-            if len(list(filter(lambda m: _check(m), self.client.cached_messages))) >= 3:
+            if len(list(filter(lambda m: _check(m), self.bot.cached_messages))) >= 3:
                 await message.channel.send("Don't spam mentions!", delete_after=10)
                 unmutes = await self.mute_member(message, message.author, 60, reason="Mention spam")
 
@@ -404,5 +404,5 @@ class Administrator(commands.Cog):
                     await sleep(60)
                     await self.unmute_member(message.guild, message.author, reason="Mute time expired")      
 
-def setup(client):
-    client.add_cog(Administrator(client))
+def setup(bot):
+    bot.add_cog(Administrator(bot))

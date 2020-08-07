@@ -13,8 +13,8 @@ class MySource(menus.ListPageSource):
         return '\n'.join(f'{i}. {v}' for i, v in enumerate(entries, start=offset))
 
 class Emotes(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
 
     @commands.Cog.listener()
     async def on_message(self,message):
@@ -40,7 +40,7 @@ class Emotes(commands.Cog):
                 if matchlength == len(message.content):
 
                     #print(f"message has nothing but emotes. {len(message.content)}={matchlength}")
-                    emotes = self.client.emojis
+                    emotes = self.bot.emojis
                     finalmsg=""
                     for x in matches:
                         requestedemoji = x.strip()[1:-1]
@@ -98,5 +98,5 @@ class Emotes(commands.Cog):
         pages = menus.MenuPages(source=MySource(list(sorted_d)), clear_reactions_after=True,timeout=300.0, delete_message_after=True)
         await pages.start(ctx)
 
-def setup(client):
-    client.add_cog(Emotes(client))
+def setup(bot):
+    bot.add_cog(Emotes(bot))

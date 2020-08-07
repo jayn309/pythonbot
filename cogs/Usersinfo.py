@@ -3,8 +3,8 @@ import datetime
 from discord.ext import commands
 
 class usersinfo(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
 
     @commands.command(aliases=[ 'ui'],brief='get info',description='Get your info or mention a member to get theirs' )
     @commands.guild_only()
@@ -42,5 +42,5 @@ class usersinfo(commands.Cog):
 						  timestamp=datetime.datetime.utcnow())
         embed.set_image(url=member.avatar_url)
         await ctx.send(embed=embed)
-def setup(client):
-    client.add_cog(usersinfo(client))
+def setup(bot):
+    bot.add_cog(usersinfo(bot))
