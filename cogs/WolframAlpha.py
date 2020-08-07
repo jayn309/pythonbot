@@ -29,7 +29,7 @@ class WolframAlpha(commands.Cog):
 
 
     @commands.group(name='wolframalpha', aliases=['wa'], invoke_without_command=True,
-                    brief='Query WolframAlpha\nExample:\n_wa 40c in f\n_wa time korea')
+                    brief='Query WolframAlpha (Limited Use)\nExample:\n_wa 40c in f\n_wa time korea')
     async def wolfram_alpha(self, ctx, *, args=None):
         if args:
             await ctx.invoke(self.simple, query=args)
