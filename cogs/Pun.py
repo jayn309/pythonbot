@@ -12,6 +12,7 @@ class Pun(commands.Cog):
 
     @commands.command(brief='guess a word from puns',description='_pun to start')
     @commands.cooldown(rate=1, per=10.0, type=commands.BucketType.user)
+    @commands.guild_only()
     async def pun(self,ctx):
         Questions =['What bird can write?',
         'What clothing does a house wear?',
