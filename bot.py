@@ -43,6 +43,7 @@ async def on_ready():
 
 @client.command(brief='load a cog (Admin only)')
 @commands.has_guild_permissions(administrator=True)
+@commands.guild_only()
 async def load(ctx, extension):
     client.load_extension(f'cogs.{extension}') #loads the extension in the "cogs" folder
     await ctx.send(f'loaded "{extension}"')
@@ -51,6 +52,7 @@ async def load(ctx, extension):
 
 @client.command(brief='unload a cog (Admin only)')
 @commands.has_guild_permissions(administrator=True)
+@commands.guild_only()
 async def unload(ctx, extension):
     client.unload_extension(f'cogs.{extension}') #unloads the extension in the "cogs" folder
     await ctx.send(f'unloaded "{extension}"')
@@ -58,6 +60,7 @@ async def unload(ctx, extension):
     return
 
 @client.command(brief='bot ping (Admin only)')
+@commands.guild_only()
 async def ping(ctx):
     start = time()
     message = await ctx.send(f'Pong! Latency: {client.latency*1000:,.0f} ms.')

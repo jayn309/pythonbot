@@ -16,12 +16,14 @@ class Covid(commands.Cog):
         self.client = client
 
     @commands.group(help= 'Base command',description='Get infomation of Covid-19 stats\n_covid all\n_covid country <countryname>\n_covid continent <continentname>')
+    @commands.guild_only()
     async def covid(self, ctx):
         if ctx.invoked_subcommand is None:
             await ctx.send("Please use a valid Option `ALl`, `Country`, `Continent`")
 
 
     @covid.group(help= 'Gets information of Covid-19 stats of a country',aliases=['ctr'])
+    @commands.guild_only()
     async def country(self, ctx, country1):
         url = f'https://disease.sh/v3/covid-19/countries/{country1}'
         async with ClientSession() as session:
@@ -89,6 +91,7 @@ class Covid(commands.Cog):
                 await ctx.send(embed=embed)
 
     @covid.group(help= 'Gets Summary of All countries with Covid-19')
+    @commands.guild_only()
     async def all(self, ctx):
         url = f'https://disease.sh/v3/covid-19/all'
         async with ClientSession() as session:
@@ -161,6 +164,7 @@ class Covid(commands.Cog):
                 await ctx.send(embed=embed)
 
     @covid.group(help= 'Gets Summary of a continent with Covid-19',aliases=['ctn'])
+    @commands.guild_only()
     async def continent(self, ctx, continent):
         url = f'https://disease.sh/v3/covid-19/continents/{continent}'
         async with ClientSession() as session:
