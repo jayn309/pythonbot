@@ -14,7 +14,6 @@ from asyncio import sleep
 time_regex = re.compile("(?:(\d{1,5})(h|s|m|d))+?")
 time_dict= {'h': 3600, 's': 1, 'm': 60 , 'd' : 86400}
 
-
 class TimeConverter(commands.Converter):
     async def convert(self,ctx, argument):
         args = argument.lower()
@@ -370,7 +369,13 @@ class Administrator(commands.Cog):
                     await message.channel.send("Muted members cannot use modmail.")
                 else:
                     if member_role in member.roles and not muted_member in member.roles:
-                        if len(message.content) < 50:
+<<<<<<< HEAD
+                        if self.client.command:
+=======
+                        if message.content.startWith('_'):
+>>>>>>> parent of 3288543... Update Administrator.py
+                            return
+                        elif len(message.content) < 50:
                             await message.channel.send("Your message should be at least 50 characters in length.")
                         else:
                             embed = Embed(title="Modmail",
