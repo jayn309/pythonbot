@@ -25,7 +25,7 @@ class usersinfo(commands.Cog):
         embed.add_field(name="Created at:", value=member.created_at.strftime("%d/%m/%Y %H:%M:%S"))
         embed.add_field(name="Joined at:", value=member.joined_at.strftime("%d/%m/%Y %H:%M:%S"))
     
-        embed.add_field(name=f"Roles ({len(roles)})", value=" ".join([role.mention for role in roles]))
+        embed.add_field(name=f"Roles ({len(roles)})", value=" ".join(map(str, (role.mention for role in member.roles[1:]))))
         embed.add_field(name="Top role:", value=member.top_role.mention)
         embed.add_field(name="Boosted?", value=bool(member.premium_since))
         embed.add_field(name="Bot?", value=member.bot)

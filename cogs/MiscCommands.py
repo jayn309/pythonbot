@@ -15,7 +15,7 @@ from random import choice as randchoice
 from random import randint, sample
 from googletrans import Translator, LANGUAGES,LANGCODES
 from typing import Union
-from datetime import datetime, timedelta
+from datetime import timedelta
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 class MicsCommands(commands.Cog):
@@ -427,7 +427,7 @@ class MicsCommands(commands.Cog):
             embed = Embed(title="Poll",
 						  description=question,
 						  colour=ctx.author.colour,
-						  timestamp=datetime.utcnow())
+						  timestamp=datetime.datetime.utcnow())
 
             fields = [("Options", "\n".join([f"{numbers[idx]} {option}" for idx, option in enumerate(options)]), False),
 					  ("Instructions", "React to cast a vote!", False)]
@@ -441,7 +441,7 @@ class MicsCommands(commands.Cog):
                 await message.add_reaction(emoji)
 
             self.polls.append((message.channel.id, message.id))
-            self.bot.scheduler.add_job(self.complete_poll, "date", run_date=datetime.now()+timedelta(seconds=seconds),
+            self.bot.scheduler.add_job(self.complete_poll, "date", run_date=datetime.datetime.now()+timedelta(seconds=seconds),
 									   args=[message.channel.id, message.id])
 
     async def complete_poll(self, channel_id, message_id):
