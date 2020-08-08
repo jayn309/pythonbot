@@ -11,7 +11,7 @@ class usersinfo(commands.Cog):
     async def usersinfo(self, ctx, member: discord.Member = None):
         member = ctx.author if not member else member
     
-        roles = [role for role in member.roles]
+        roles = [role for role in member.roles[1:]]
     
         embed = discord.Embed(colour=member.color, timestamp=ctx.message.created_at)
     
