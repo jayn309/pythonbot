@@ -9,12 +9,11 @@ class Urban(commands.Cog):  # Creates class
 		self.bot = bot
 
 	@commands.command()  # Creats command object
-	# Defines command
-	async def urban(self, ctx, index: typing.Optional[int] = 0, *, term: str):
+	async def urban(self, ctx, index: typing.Optional[int] = 0, *, term: str):  # Defines command
 		try:
+
 			async with aiohttp.ClientSession() as session:  # Opens client session
-				# Result
-				async with session.get("https://api.urbandictionary.com/v0/define", params={"term": term}) as r:
+				async with session.get("https://api.urbandictionary.com/v0/define", params={"term": term}) as r:  # Result
 					result = await r.json()  # Parses file as json
 
 				data = result["list"][index]  # Assigns list in dict as 'data'
@@ -37,8 +36,7 @@ class Urban(commands.Cog):  # Creates class
 											url=data["permalink"],
 											colour=0x025513)
 				# Creates# embed with a title with a hyperlink and set's the colour of the bar
-				urban_embed.add_field(name="Definition", value=defin,
-									  inline=False)  # Adds field
+				urban_embed.add_field(name="Definition", value=defin, inline=False)  # Adds field
 				urban_embed.add_field(name="Example", value=example or "N/A", inline=False)
 				urban_embed.add_field(name="👍", value=data["thumbs_up"], inline=True)
 				urban_embed.add_field(name="👎", value=data["thumbs_down"], inline=True)
