@@ -34,7 +34,7 @@ class Urban(commands.Cog):  # Creates class
 
 				urban_embed = discord.Embed(title="Result for {0}".format(term),
 											url=data["permalink"],
-											colour=0x025513)
+											colour=ctx.author.color)
 				# Creates# embed with a title with a hyperlink and set's the colour of the bar
 				urban_embed.add_field(name="Definition", value=defin, inline=False)  # Adds field
 				urban_embed.add_field(name="Example", value=example or "N/A", inline=False)
