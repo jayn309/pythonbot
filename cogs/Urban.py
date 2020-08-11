@@ -43,6 +43,8 @@ class Urban(commands.Cog):  # Creates class
 				urban_embed.set_footer(text="Author: " + data["author"])
 				await ctx.send(embed=urban_embed)  # Sends the embed
 				return  # Halts further action
+		except IndexError:
+			await ctx.send("Your search terms gave no results.")
 		except:
 			return
 
