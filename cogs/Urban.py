@@ -8,7 +8,7 @@ class Urban(commands.Cog):  # Creates class
 	def __init__(self, bot):  # Defines initialise
 		self.bot = bot
 
-	@commands.command(aliases=['ub'],brief='search for definition on urban dictionary')  # Creats command object
+	@commands.command(aliases=['ub'],brief='search for definition from urban dictionary')  # Creats command object
 	async def urban(self, ctx, index: typing.Optional[int] = 0, *, term: str):  # Defines command
 		try:
 
