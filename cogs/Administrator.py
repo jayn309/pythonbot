@@ -407,7 +407,7 @@ class Administrator(commands.Cog):
 					await sleep(60)
 					await self.unmute_member(message.guild, message.author, reason="Mute time expired") 
 
-	@commands.command(name="stats")
+	@commands.command(name="stats",brief="show bot stats")
 	async def show_bot_stats(self, ctx):
 		embed = Embed(title="Bot stats",
 					  colour=ctx.author.colour,
