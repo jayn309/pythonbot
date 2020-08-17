@@ -5,3 +5,4 @@ pendulum
 googletrans
 asyncpg
 apscheduler
+psutil
