@@ -11,7 +11,7 @@ from discord.utils import get
 from time import time
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
-bot = commands.Bot(command_prefix = '_')
+bot = commands.Bot(command_prefix = '_',owner_id=359401025330741248) 
 
 bot.load_extension(f'cogs.Administrator')
 bot.load_extension(f'cogs.CommandEvents')
@@ -29,6 +29,7 @@ bot.load_extension(f'cogs.WolframAlpha')
 bot.load_extension(f'cogs.Weather')
 bot.load_extension(f'cogs.Urban')
 bot.load_extension("jishaku")
+print("All cogs are loaded.")
 
 #async def main():
     #con = await asyncpg.connect(os.environ['DATABASE_URL'])
