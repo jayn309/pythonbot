@@ -6,3 +6,4 @@ googletrans
 asyncpg
 apscheduler
 psutil
+jishaku

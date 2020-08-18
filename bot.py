@@ -28,6 +28,7 @@ bot.load_extension(f'cogs.Instagram')
 bot.load_extension(f'cogs.WolframAlpha')
 bot.load_extension(f'cogs.Weather')
 bot.load_extension(f'cogs.Urban')
+bot.load_extension("jishaku")
 
 #async def main():
     #con = await asyncpg.connect(os.environ['DATABASE_URL'])
