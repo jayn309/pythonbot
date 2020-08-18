@@ -34,8 +34,11 @@ class Instagram(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.ig_cookies = os.environ['ig_cookies']
         self.session = aiohttp.ClientSession()
+
+        self.cookies_file = "./cogs/ig_cookies.json"
+        with open(self.cookies_file, 'r') as f:
+            self.session.cookie_jar.update_cookies(cookies=json.load(f))
 
     def cog_unload(self):
         asyncio.create_task(self.session.close())
@@ -103,13 +106,13 @@ class Instagram(commands.Cog):
 
         await self.show_media(ctx, url)
 
-    #@instagram.command()
-    #@commands.is_owner()
-    #async def reload(self, ctx):
-        #with open(self.cookies_file, 'r') as f:
-            #self.session.cookie_jar.update_cookies(cookies=json.load(f))
+    @instagram.command()
+    @commands.is_owner()
+    async def reload(self, ctx):
+        with open(self.cookies_file, 'r') as f:
+            self.session.cookie_jar.update_cookies(cookies=json.load(f))
 
-        #await ctx.send(f'Loaded {len(self.session.cookie_jar)} cookies')
+        await ctx.send(f'Loaded {len(self.session.cookie_jar)} cookies')
 
 
     async def cog_before_invoke(self, ctx):
