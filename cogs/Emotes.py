@@ -102,16 +102,16 @@ class Emotes(commands.Cog):
     @commands.guild_only()
     async def enlarge(self, ctx, emoji: str = None):
         base_url = 'https://cdn.discordapp.com/emojis/{}.png?v=1'
-        match = re.match(r'<:(\w+):(\d+)>', emoji)
+        match = re.match(r'<:(\w+):(\d+)>', str(emoji))
         animated_url = 'https://cdn.discordapp.com/emojis/{}.gif?v=1'
-        amatch = re.match(r'<(\w):(\w+):(\d+)>', emoji)
+        amatch = re.match(r'<(\w):(\w+):(\d+)>', str(emoji))
         if emoji is None:
-            for message in ctx.channel.history(limit = 10, oldest_first = False):
+            for message in ctx.channel.history(limit = 10):
                 if message.search(message.content) is match:
                     url = base_url.format(match.group(2))
                     await ctx.send(f'{url}')
                 elif message.search(message.content) is amatch:
-                    x = re.search(r':(\d+)', emoji)
+                    x = re.search(r':(\d+)', str(emoji))
                     aurl = animated_url.format(x.group(1))
                     await ctx.send(f'{aurl}')
                 else:
