@@ -100,7 +100,7 @@ class Emotes(commands.Cog):
 
     @commands.command(aliases=['el','l'],brief='get an enlarged version of an emote')
     @commands.guild_only()
-    async def enlarge(self, ctx, emoji: str):
+    async def enlarge(self, ctx, emoji: str = None):
         base_url = 'https://cdn.discordapp.com/emojis/{}.png?v=1'
         match = re.match(r'<:(\w+):(\d+)>', emoji)
         animated_url = 'https://cdn.discordapp.com/emojis/{}.gif?v=1'
