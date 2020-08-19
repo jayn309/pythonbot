@@ -106,11 +106,14 @@ class Emotes(commands.Cog):
         animated_url = 'https://cdn.discordapp.com/emojis/{}.gif?v=1'
         amatch = re.match(r'<(\w):(\w+):(\d+)>', str(emoji))
         if emoji is None:
-            for message in ctx.channel.history(limit = 10):
+            for message in ctx.channel.history(limit = 10).flatten():
                 if message.search(message.content) is match:
-                    await ctx.send(message.content)
+                    url = base_url.format(match.group(2))
+                    await ctx.send(f'{url}')
                 elif message.search(message.content) is amatch:
-                    await ctx.send(message.content)
+                    x = re.search(r':(\d+)', str(emoji))
+                    aurl = animated_url.format(x.group(1))
+                    await ctx.send(f'{aurl}')
                 else:
                     await ctx.send(f'``{emoji}`` is not an emoji')
         else:
