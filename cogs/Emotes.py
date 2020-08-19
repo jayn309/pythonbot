@@ -100,16 +100,14 @@ class Emotes(commands.Cog):
 
     @commands.command(aliases=['el','l'],brief='get an enlarged version of an emote')
     @commands.guild_only()
-    async def enlarge(self, ctx, emoji: str = None):
+    async def enlarge(self, ctx, emoji: str):
         base_url = 'https://cdn.discordapp.com/emojis/{}.png?v=1'
-        prog = re.compile(r'<:(\w+):(\d+)>')
-        result = prog.match(emoji)
+        match = re.match(r'<:(\w+):(\d+)>', emoji)
         animated_url = 'https://cdn.discordapp.com/emojis/{}.gif?v=1'
-        aprog = re.compile(r'<(\w):(\w+):(\d+)>')
-        amatch = aprog.match(emoji)
+        amatch = re.match(r'<(\w):(\w+):(\d+)>', emoji)
         if emoji is not None:
-            if result:
-                url = base_url.format(result.group(2))
+            if match:
+                url = base_url.format(match.group(2))
                 await ctx.send(f'{url}')
             elif amatch:
                 x = re.search(r':(\d+)', emoji)
@@ -119,12 +117,10 @@ class Emotes(commands.Cog):
                 await ctx.send(f'``{emoji}`` is not an emoji')
         else:
             for message in ctx.channel.history(limit = 10, oldest_first = False):
-                search = message.search(result)
-                asearch = message.search(amatch)
-                if search is not None and asearch is None:
-                    url = base_url.format(result.group(2))
+                if message.search(message.content) is match:
+                    url = base_url.format(match.group(2))
                     await ctx.send(f'{url}')
-                elif search is None and asearch is not None:
+                elif message.search(message.content) is amatch:
                     x = re.search(r':(\d+)', emoji)
                     aurl = animated_url.format(x.group(1))
                     await ctx.send(f'{aurl}')
