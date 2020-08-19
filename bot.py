@@ -13,24 +13,6 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 bot = commands.Bot(command_prefix = '_',owner_id=359401025330741248) 
 
-bot.load_extension(f'cogs.Administrator')
-bot.load_extension(f'cogs.CommandEvents')
-bot.load_extension(f'cogs.HelpCommands')
-bot.load_extension(f'cogs.Usersinfo')
-bot.load_extension(f'cogs.MiscCommands')
-bot.load_extension(f'cogs.Roles')
-bot.load_extension(f'cogs.Emotes')
-bot.load_extension(f'cogs.Log')
-bot.load_extension(f'cogs.Riddle')
-bot.load_extension(f'cogs.Pun')
-bot.load_extension(f'cogs.Covid')
-bot.load_extension(f'cogs.Instagram')
-bot.load_extension(f'cogs.WolframAlpha')
-bot.load_extension(f'cogs.Weather')
-bot.load_extension(f'cogs.Urban')
-bot.load_extension(name='jishaku')
-print("All cogs are loaded.")
-
 #async def main():
     #con = await asyncpg.connect(os.environ['DATABASE_URL'])
     #print('Database connected.')
@@ -46,6 +28,11 @@ async def on_ready():
     bot.scheduler = AsyncIOScheduler()
     bot.scheduler.start()
     await bot.change_presence(activity=discord.Activity(type=2,name="Spotify"))
+    for filename in os.listdir('cogs'):
+        if filename.endswith('.py'):
+            bot.load_extension('cogs{}'.format(filename[:-3]))
+    bot.load_extension(name='jishaku')
+    await channel.send("All cogs are loaded.")
 
 @bot.command(brief='load a cog (Admin only)')
 @commands.has_guild_permissions(administrator=True)
