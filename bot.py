@@ -29,7 +29,7 @@ async def on_ready():
     bot.scheduler.start()
     await bot.change_presence(activity=discord.Activity(type=2,name="Spotify"))
     for filename in os.listdir('cogs'):
-        if filename.endswith('.py'):
+        if filename.endswith('.py') and filename != 'Help.py':
             bot.load_extension('cogs{}'.format(filename[:-3]))
     bot.load_extension(name='jishaku')
     await channel.send("All cogs are loaded.")
