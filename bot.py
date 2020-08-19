@@ -28,6 +28,7 @@ bot.load_extension(f'cogs.Instagram')
 bot.load_extension(f'cogs.WolframAlpha')
 bot.load_extension(f'cogs.Weather')
 bot.load_extension(f'cogs.Urban')
+bot.load_extension(name='jishaku')
 print("All cogs are loaded.")
 
 #async def main():

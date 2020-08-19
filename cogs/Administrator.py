@@ -34,7 +34,6 @@ class TimeConverter(commands.Converter):
 class Administrator(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
-		self.bot.load_extension(name='jishaku')
 
 	@commands.command(brief='ban a member')
 	@commands.has_guild_permissions(ban_members=True, kick_members=True)
