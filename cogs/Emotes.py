@@ -107,10 +107,10 @@ class Emotes(commands.Cog):
         amatch = re.match(r'<(\w):(\w+):(\d+)>', str(emoji))
         if emoji is None:
             async for message in ctx.channel.history(limit = 10):
-                if message.search(message.content) is match:
+                if message.content is match:
                     url = base_url.format(match.group(2))
                     await ctx.send(f'{url}')
-                elif message.search(message.content) is amatch:
+                elif message.content is amatch:
                     x = re.search(r':(\d+)', str(emoji))
                     aurl = animated_url.format(x.group(1))
                     await ctx.send(f'{aurl}')
