@@ -98,5 +98,35 @@ class Emotes(commands.Cog):
         pages = menus.MenuPages(source=MySource(list(sorted_d)), clear_reactions_after=True,timeout=300.0, delete_message_after=True)
         await pages.start(ctx)
 
+    @commands.command(aliases=['el','l'],brief='get an enlarged version of an emote')
+    @commands.guild_only()
+    async def enlarge(self, ctx, emoji: str):
+        base_url = 'https://cdn.discordapp.com/emojis/{}.png?v=1'
+        match = re.match(r'<:(\w+):(\d+)>', emoji)
+        animated_url = 'https://cdn.discordapp.com/emojis/{}.gif?v=1'
+        amatch = re.match(r'<(\w):(\w+):(\d+)>', emoji)
+        if match:
+            url = base_url.format(match.group(2))
+            await ctx.send(f'{url}')
+        elif amatch:
+            x = re.search(r':(\d+)', emoji)
+            aurl = animated_url.format(x.group(1))
+            await ctx.send(f'{aurl}')
+        else:
+            await ctx.send(f'``{emoji}`` is not an emoji')
+
+        if emoji == None:
+            for message in ctx.channel.history(limit = 10, oldest_first = False):
+                if message.content is match:
+                    url = base_url.format(match.group(2))
+                    await ctx.send(f'{url}')
+                elif message.content is amatch:
+                    x = re.search(r':(\d+)', emoji)
+                    aurl = animated_url.format(x.group(1))
+                    await ctx.send(f'{aurl}')
+                else:
+                    await ctx.send(f'``{emoji}`` is not an emoji')
+
+
 def setup(bot):
     bot.add_cog(Emotes(bot))
