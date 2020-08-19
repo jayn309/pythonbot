@@ -102,19 +102,32 @@ class Emotes(commands.Cog):
     @commands.guild_only()
     async def enlarge(self, ctx, emoji: str):
         base_url = 'https://cdn.discordapp.com/emojis/{}.png?v=1'
-        match = re.match(r'<:(\w+):(\d+)>', str(emoji))
+        prog = re.compile(r'<:(\w+):(\d+)>')
+        result = prog.match(emoji)
         animated_url = 'https://cdn.discordapp.com/emojis/{}.gif?v=1'
-        amatch = re.match(r'<(\w):(\w+):(\d+)>', str(emoji))
-        if match:
-            url = base_url.format(match.group(2))
-            await ctx.send(f'{url}')
-        elif amatch:
-            x = re.search(r':(\d+)', emoji)
-            aurl = animated_url.format(x.group(1))
-            await ctx.send(f'{aurl}')
+        aprog = re.compile(r'<(\w):(\w+):(\d+)>')
+        amatch = aprog.match(emoji)
+        if emoji is not None:
+            if result:
+                url = base_url.format(result.group(2))
+                await ctx.send(f'{url}')
+            elif amatch:
+                x = re.search(r':(\d+)', emoji)
+                aurl = animated_url.format(x.group(1))
+                await ctx.send(f'{aurl}')
+            else:
+                await ctx.send(f'``{emoji}`` is not an emoji')
         else:
-            await ctx.send(f'``{emoji}`` is not an emoji')
-
+            for message in ctx.channel.history(limit = 10, oldest_first = False):
+                if message.search(message.content) is result:
+                    url = base_url.format(result.group(2))
+                    await ctx.send(f'{url}')
+                elif message.search(message.content) is amatch:
+                    x = re.search(r':(\d+)', emoji)
+                    aurl = animated_url.format(x.group(1))
+                    await ctx.send(f'{aurl}')
+                else:
+                    await ctx.send(f'``{emoji}`` is not an emoji')
 
 def setup(bot):
     bot.add_cog(Emotes(bot))
