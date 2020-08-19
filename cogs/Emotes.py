@@ -116,8 +116,17 @@ class Emotes(commands.Cog):
             else:
                 await ctx.send(f'``{emoji}`` is not an emoji')
         else:
-            for message in ctx.channel.history(limit = 10, oldest_first = False):
-                ctx.send(f'{message}')
+            async with ctx.typing():
+                async for message in ctx.channel.history(limit = 10, oldest_first = False):
+                    if message.content is match:
+                        url = base_url.format(match.group(2))
+                        await ctx.send(f'{url}')
+                    elif message.content is amatch:
+                        x = re.search(r':(\d+)', emoji)
+                        aurl = animated_url.format(x.group(1))
+                        await ctx.send(f'{aurl}')
+                    else:
+                        await ctx.send(f'``{emoji}`` is not an emoji')
 
 def setup(bot):
     bot.add_cog(Emotes(bot))
