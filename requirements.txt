@@ -6,4 +6,4 @@ googletrans
 asyncpg
 apscheduler
 psutil
-jishaku
+git+https://github.com/Gorialis/jishaku@master#egg=jishaku
