@@ -108,12 +108,9 @@ class Emotes(commands.Cog):
         if emoji is None:
             for message in ctx.channel.history(limit = 10):
                 if message.search(message.content) is match:
-                    url = base_url.format(match.group(2))
-                    await ctx.send(f'{url}')
+                    await ctx.send(message.content)
                 elif message.search(message.content) is amatch:
-                    x = re.search(r':(\d+)', str(emoji))
-                    aurl = animated_url.format(x.group(1))
-                    await ctx.send(f'{aurl}')
+                    await ctx.send(message.content)
                 else:
                     await ctx.send(f'``{emoji}`` is not an emoji')
         else:
