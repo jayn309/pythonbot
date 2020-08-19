@@ -116,7 +116,7 @@ class Emotes(commands.Cog):
                 await ctx.send(f'``{emoji}`` is not an emoji')
         else:
             for message in ctx.channel.history(limit = 10, oldest_first = False):
-                nmatch = re.search(r'<:(\w+):(\d+)>',message.comtent)
+                nmatch = re.search(r'<:(\w+):(\d+)>',message.content)
                 namatch = re.search(r'<(\w):(\w+):(\d+)>', message.content)
                 if nmatch:
                     url = base_url.format(nmatch.group(2))
