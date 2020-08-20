@@ -100,32 +100,36 @@ class Emotes(commands.Cog):
 
     @commands.command(aliases=['el','l'],brief='get an enlarged version of an emote')
     @commands.guild_only()
-    async def enlarge(self, ctx, emoji = None):
+    async def enlarge(self, ctx, emoji: str):
         base_url = 'https://cdn.discordapp.com/emojis/{}.png?v=1'
         match = re.match(r'<:(\w+):(\d+)>', emoji)
         animated_url = 'https://cdn.discordapp.com/emojis/{}.gif?v=1'
         amatch = re.match(r'<(\w):(\w+):(\d+)>', emoji)
-        if emoji is not None:
-            if match:
-                url = base_url.format(match.group(2))
+        if match:
+            url = base_url.format(match.group(2))
+            await ctx.send(f'{url}')
+        elif amatch:
+            aurl = animated_url.format(amatch.group(3))
+            await ctx.send(f'{aurl}')
+        else:
+            await ctx.send(f'``{emoji}`` is not an emoji')
+
+    @commands.command(aliases=['em'],brief='get an enlarged version of emotes')
+    @commands.guild_only()
+    async def emoji(self, ctx):
+        base_url = 'https://cdn.discordapp.com/emojis/{}.png?v=1'
+        animated_url = 'https://cdn.discordapp.com/emojis/{}.gif?v=1'
+        for message in ctx.channel.history(limit = 10, oldest_first = False):
+            nmatch = re.match(r'<:(\w+):(\d+)>',message.content)
+            namatch = re.match(r'<(\w):(\w+):(\d+)>', message.content)
+            if nmatch:
+                url = base_url.format(nmatch.group(2))
                 await ctx.send(f'{url}')
-            elif amatch:
-                aurl = animated_url.format(amatch.group(3))
+            elif namatch:
+                aurl = animated_url.format(namatch.group(3))
                 await ctx.send(f'{aurl}')
             else:
-                await ctx.send(f'``{emoji}`` is not an emoji')
-        else:
-            for message in ctx.channel.history(limit = 10, oldest_first = False):
-                nmatch = re.match(r'<:(\w+):(\d+)>',message.content)
-                namatch = re.match(r'<(\w):(\w+):(\d+)>', message.content)
-                if nmatch:
-                    url = base_url.format(nmatch.group(2))
-                    await ctx.send(f'{url}')
-                elif namatch:
-                    url = animated_url.format(namatch.group(3))
-                    await ctx.send(f'{aurl}')
-                else:
-                    await ctx.send(f'``{emoji}`` is not an emoji')
+                await ctx.send('Error 404 Not Found.')
 
 def setup(bot):
     bot.add_cog(Emotes(bot))
