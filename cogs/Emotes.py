@@ -124,12 +124,12 @@ class Emotes(commands.Cog):
             namatch = re.findall(r'<(\w):(\w+):(\d+)>', message.content)
             if nmatch:
                 for x in namatch:
-                    x = re.search(r'<:(\w+):(\d+)>',message.content)
+                    x = re.search(r'<:(\w+):(\d+)>',nmatch)
                     url = base_url.format(x.group(2))
                     await ctx.send(f'{url}')
             elif namatch:
                 for x in namatch:
-                    x = re.search(r':(\d+)', message.content)
+                    x = re.search(r':(\d+)',namatch)
                     aurl = animated_url.format(x.group(1))
                     await ctx.send(f'{aurl}')
             else:
