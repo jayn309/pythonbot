@@ -129,7 +129,7 @@ class Emotes(commands.Cog):
                 aurl = animated_url.format(namatch.group(3))
                 await ctx.send(f'{aurl}')
             else:
-                return
+                pass
 
 def setup(bot):
     bot.add_cog(Emotes(bot))
