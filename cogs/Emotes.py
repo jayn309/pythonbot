@@ -120,14 +120,18 @@ class Emotes(commands.Cog):
         base_url = 'https://cdn.discordapp.com/emojis/{}.png?v=1'
         animated_url = 'https://cdn.discordapp.com/emojis/{}.gif?v=1'
         async for message in ctx.channel.history(limit = 11):
-            nmatch = re.search(r'<:(\w+):(\d+)>',message.content)
-            namatch = re.search(r'<(\w):(\w+):(\d+)>', message.content)
+            nmatch = re.findall(r'<:(\w+):(\d+)>',message.content)
+            namatch = re.findall(r'<(\w):(\w+):(\d+)>', message.content)
             if nmatch:
-                url = base_url.format(nmatch.group(2))
-                await ctx.send(f'{url}')
+                for x in namatch:
+                    x = re.search(r'<:(\w+):(\d+)>',message.content)
+                    url = base_url.format(x.group(2))
+                    await ctx.send(f'{url}')
             elif namatch:
-                aurl = animated_url.format(namatch.group(3))
-                await ctx.send(f'{aurl}')
+                for x in namatch:
+                    x = re.search(r':(\d+)', message.content)
+                    aurl = animated_url.format(x.group(1))
+                    await ctx.send(f'{aurl}')
             else:
                 pass
 
