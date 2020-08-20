@@ -119,7 +119,7 @@ class Emotes(commands.Cog):
     async def emoji(self, ctx):
         base_url = 'https://cdn.discordapp.com/emojis/{}.png?v=1'
         animated_url = 'https://cdn.discordapp.com/emojis/{}.gif?v=1'
-        for message in ctx.channel.history(limit = 10, oldest_first = False):
+        async for message in ctx.channel.history(limit = 10, oldest_first = False):
             nmatch = re.match(r'<:(\w+):(\d+)>',message.content)
             namatch = re.match(r'<(\w):(\w+):(\d+)>', message.content)
             if nmatch:
