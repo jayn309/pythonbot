@@ -64,7 +64,7 @@ class Administrator(commands.Cog):
 	@commands.command(brief='unban a member')
 	@commands.has_guild_permissions(ban_members=True, kick_members=True)
 	@commands.guild_only()
-	async def unban(self,ctx, member, *, reason=None):
+	async def unban(self,ctx, member, *, reason: typing.Optional[str]):
 		member = await self.bot.fetch_user(int(member))
 		await ctx.guild.unban(member, reason=reason)
 		await ctx.send(f'Unbanned the user.')
@@ -83,7 +83,7 @@ class Administrator(commands.Cog):
 	@commands.command(brief='kick a member')
 	@commands.has_guild_permissions(ban_members=True, kick_members=True)
 	@commands.guild_only()
-	async def kick(self,ctx, member : discord.Member, *, reason=None):
+	async def kick(self,ctx, member : discord.Member, *,reason: typing.Optional[str]):
 		channel = discord.utils.get(member.guild.text_channels, name='mod-log')
 		try:
 			await member.kick(reason=reason)
@@ -165,7 +165,7 @@ class Administrator(commands.Cog):
 	@commands.command(brief='mute a member')
 	@commands.has_guild_permissions(ban_members=True, kick_members=True)
 	@commands.guild_only()
-	async def mute(self,ctx, member : discord.Member,time:TimeConverter=None,*, reason=None):
+	async def mute(self,ctx, member : discord.Member,time:TimeConverter=None,*,reason: typing.Optional[str]):
 		role = discord.utils.get(ctx.guild.roles, name="Muted")
 		if role in member.roles:
 			await ctx.send(f"{member.mention} is already muted.")
@@ -199,7 +199,7 @@ class Administrator(commands.Cog):
 	@commands.command(brief='unmute a member',description='Unmute a member.')
 	@commands.has_guild_permissions(ban_members=True, kick_members=True)
 	@commands.guild_only()
-	async def unmute(self,ctx, member : discord.Member,reason=None):
+	async def unmute(self,ctx, member : discord.Member,reason: typing.Optional[str]):
 		role = discord.utils.get(ctx.guild.roles, name="Muted")
 		if role not in member.roles:
 			await ctx.send(f"{member.mention} is not muted.")
@@ -216,7 +216,7 @@ class Administrator(commands.Cog):
 	@commands.command(brief = 'clear an amount of messages (of members if mentioned)',description='mention members to delete their messages\ncount messages from others also, but the bot will only delete messages from mentioned member\ncount up to the message you want to delete')
 	@commands.has_guild_permissions(administrator=True)
 	@commands.guild_only()
-	async def purge(self,ctx, members: Greedy[Member], number:int=None):
+	async def purge(self,ctx, members: typing.Optional[Member], number:int=None):
 		def _check(message):
 			return not len(members) or message.author in members
 		if number is None:
