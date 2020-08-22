@@ -3,6 +3,7 @@ import time
 import datetime
 import asyncio
 import re
+import typing
 
 from discord.ext import commands 
 from discord.ext.commands import Greedy
@@ -38,7 +39,7 @@ class Administrator(commands.Cog):
 	@commands.command(brief='ban a member')
 	@commands.has_guild_permissions(ban_members=True, kick_members=True)
 	@commands.guild_only()
-	async def ban(self, ctx, member : discord.Member, *, reason=None):
+	async def ban(self, ctx, member : discord.Member, *, reason: typing.Optional[str]):
 		channel = discord.utils.get(member.guild.text_channels, name='mod-log')
 		try:
 			await member.ban(reason=reason)
