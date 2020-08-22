@@ -7,6 +7,7 @@ import pendulum
 import googletrans
 import datetime
 import apscheduler
+import typing
 
 from discord import Spotify, Embed
 from discord.ext import commands
@@ -71,7 +72,7 @@ class MicsCommands(commands.Cog):
 
     @commands.command(brief='pay your respect')
     @commands.guild_only()
-    async def f(self, ctx, *, reason: commands.clean_content = None):
+    async def f(self, ctx, *, reason: typing.Optional[str]):
         """ Press F to pay respect """
         hearts = ['❤', '💛', '💚', '💙', '💜']
         reason = f"for **{reason}** " if reason else ""
