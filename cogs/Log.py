@@ -12,8 +12,8 @@ class Log(commands.Cog):
             
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        channel = discord.utils.get(member.guild.text_channels, name='mod-log')
-        welcome_channel = discord.utils.get(member.guild.text_channels, name='lounge')
+        channel =  self.bot.get_channel(706728600874909712)
+        welcome_channel = self.bot.get_channel(626016070624346113)
         if channel:
             embed = discord.Embed(description=f'{len(member.guild.members)}th member joined', 
                                 colour=member.color,timestamp=datetime.datetime.utcnow())
@@ -27,7 +27,7 @@ class Log(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
-        channel = discord.utils.get(member.guild.text_channels, name='mod-log')
+        channel =  self.bot.get_channel(706728600874909712)
         if channel:
             embed = discord.Embed(description='Goodbye', colour=member.color,timestamp=datetime.datetime.utcnow())
             embed.set_thumbnail(url=member.avatar_url)
@@ -138,7 +138,7 @@ class Log(commands.Cog):
                 edit_embed.add_field(name='Before:', value=before.content, inline=False)
                 edit_embed.add_field(name="After:", value=after.content, inline=False)
                 for channel in before.guild.channels:
-                    if channel.name == 'log':
+                    if channel.id == 684130494023073865:
                         await channel.send(embed=edit_embed)
         except AttributeError:
             return
@@ -157,7 +157,7 @@ class Log(commands.Cog):
             for name, value, inline in fields:
                 delete_embed.add_field(name=name, value=value,inline=inline)
             for channel in message.guild.channels:
-                    if channel.name == 'log':
+                    if channel.id == 684130494023073865:
                         await channel.send(embed=delete_embed)
 
     @commands.Cog.listener()
@@ -175,7 +175,7 @@ class Log(commands.Cog):
                 for name, value, inline in fields:
                     delete_embed.add_field(name=name, value=value,inline=inline)
                 for channel in message.guild.channels:
-                    if channel.name == 'log':
+                    if channel.id == 684130494023073865:
                         await channel.send(embed=delete_embed)
 		
 
