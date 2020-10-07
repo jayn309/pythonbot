@@ -12,6 +12,9 @@ class Roles(commands.Cog):
 
     @commands.Cog.listener() 
     async def on_member_join(self, member):
+        guild = self.bot.get_guild(626016069873696791)
+
+        if guild:
             role = get(member.guild.roles, name = "Unvelvified") 
             await member.add_roles(role)
             print(f"{member} just joined.")

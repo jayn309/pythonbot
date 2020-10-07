@@ -12,18 +12,20 @@ class Log(commands.Cog):
             
     @commands.Cog.listener()
     async def on_member_join(self, member):
+        guild = self.bot.get_guild(626016069873696791)
         channel =  self.bot.get_channel(706728600874909712)
         welcome_channel = self.bot.get_channel(626016070624346113)
-        if channel:
-            embed = discord.Embed(description=f'{len(member.guild.members)}th member joined', 
-                                colour=member.color,timestamp=datetime.datetime.utcnow())
-            embed.set_thumbnail(url=member.avatar_url)
-            embed.set_author(name=member.name, icon_url=member.avatar_url)
-            embed.set_footer(text=member.guild, icon_url=member.guild.icon_url)
-            await channel.send(embed=embed)
-        
-        if welcome_channel:
-            await welcome_channel.send(f'Welcome to WenRene Discord, {member.mention}! Pick a role tag in <#681672202822877207>. Enjoy your stay!')
+        if guild:
+            if channel:
+                embed = discord.Embed(description=f'{len(member.guild.members)}th member joined', 
+                                    colour=member.color,timestamp=datetime.datetime.utcnow())
+                embed.set_thumbnail(url=member.avatar_url)
+                embed.set_author(name=member.name, icon_url=member.avatar_url)
+                embed.set_footer(text=member.guild, icon_url=member.guild.icon_url)
+                await channel.send(embed=embed)
+            
+            if welcome_channel:
+                await welcome_channel.send(f'Welcome to WenRene Discord, {member.mention}! Pick a role tag in <#681672202822877207>. Enjoy your stay!')
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
