@@ -9,6 +9,7 @@ from discord.ext import commands, tasks
 from itertools import cycle
 from discord.utils import get
 from time import time
+from discord import Intents
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 bot = commands.Bot(command_prefix = '_',owner_id=359401025330741248) 
@@ -37,6 +38,7 @@ print("All cogs are loaded.")
     #await con.execute('''
         #DROP TABLE mytab;
     #''')
+intents=Intents.all()
 
 @bot.event
 async def on_ready():
