@@ -5,15 +5,15 @@ import asyncio
 import asyncpg
 import apscheduler
 
-from discord import Intents
 from discord.ext import commands, tasks
 from itertools import cycle
 from discord.utils import get
 from time import time
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
-bot = commands.Bot(command_prefix = '_',owner_id=359401025330741248) 
-intent = Intents().all()
+intents = discord.Intents.all()
+bot = commands.Bot(command_prefix = '_',owner_id=359401025330741248,intents=intents) 
+
 
 bot.load_extension(f'cogs.Administrator')
 bot.load_extension(f'cogs.CommandEvents')
