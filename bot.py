@@ -12,6 +12,7 @@ from discord.utils import get
 from time import time
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from db.mongo import Document
+from pymongo import MongoClient
 
 #async def main():
     #con = await asyncpg.connect(os.environ['DATABASE_URL'])
@@ -19,21 +20,6 @@ from db.mongo import Document
     #await con.execute('''
         #DROP TABLE mytab;
     #''')
-
-async def get_prefix(bot, message):
-    # If dm's
-    if not message.guild:
-        return commands.when_mentioned_or("-")(bot, message)
-
-    try:
-        data = await bot.config.find(message.guild.id)
-
-        # Make sure we have a useable prefix
-        if not data or "prefix" not in data:
-            return commands.when_mentioned_or("-")(bot, message)
-        return commands.when_mentioned_or(data["prefix"])(bot, message)
-    except:
-        return commands.when_mentioned_or("-")(bot, message)
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix = get_prefix,owner_id=359401025330741248,intents=intents) 
@@ -78,6 +64,21 @@ async def on_ready():
     else:
         print("ERROR: Database not set")
         return
+
+async def get_prefix(bot, message):
+    # If dm's
+    if not message.guild:
+        return commands.when_mentioned_or("-")(bot, message)
+
+    try:
+        data = await bot.config.find(message.guild.id)
+
+        # Make sure we have a useable prefix
+        if not data or "prefix" not in data:
+            return commands.when_mentioned_or("-")(bot, message)
+        return commands.when_mentioned_or(data["prefix"])(bot, message)
+    except:
+        return commands.when_mentioned_or("-")(bot, message)
 
 @bot.command(brief='load a cog (Admin only)')
 @commands.has_guild_permissions(administrator=True)
