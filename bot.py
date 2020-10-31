@@ -68,12 +68,16 @@ async def on_ready():
     bot.scheduler.start()
     await bot.change_presence(activity=discord.Activity(type=2,name="Spotify"))
 
-    bot.mongo = motor.motor_asyncio.AsyncIOMotorClient(str(bot.connection_url))
-    bot.db = bot.mongo["sonofthebae"]
-    bot.config = Document(bot.db, "config")
-    print("Initialized Database\n-----")
-    for document in await bot.config.get_all():
-        print(document)
+    if bot.connection_url:
+        bot.mongo = motor.motor_asyncio.AsyncIOMotorClient(str(bot.connection_url))
+        bot.db = bot.mongo["sonofthebae"]
+        bot.config = Document(bot.db, "config")
+        print("Initialized Database\n-----")
+        for document in await bot.config.get_all():
+            print(document)
+    else:
+        print("ERROR: Database not set")
+        return
 
 @bot.command(brief='load a cog (Admin only)')
 @commands.has_guild_permissions(administrator=True)
