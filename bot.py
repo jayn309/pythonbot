@@ -13,10 +13,31 @@ from time import time
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from db.mongo import Document
 
+#async def main():
+    #con = await asyncpg.connect(os.environ['DATABASE_URL'])
+    #print('Database connected.')
+    #await con.execute('''
+        #DROP TABLE mytab;
+    #''')
+
+async def get_prefix(bot, message):
+    # If dm's
+    if not message.guild:
+        return commands.when_mentioned_or("-")(bot, message)
+
+    try:
+        data = await bot.config.find(message.guild.id)
+
+        # Make sure we have a useable prefix
+        if not data or "prefix" not in data:
+            return commands.when_mentioned_or("-")(bot, message)
+        return commands.when_mentioned_or(data["prefix"])(bot, message)
+    except:
+        return commands.when_mentioned_or("-")(bot, message)
 
 intents = discord.Intents.all()
-bot = commands.Bot(command_prefix = '_',owner_id=359401025330741248,intents=intents) 
-
+bot = commands.Bot(command_prefix = get_prefix,owner_id=359401025330741248,intents=intents) 
+bot.connection_url = os.environ.get("mongodb_url")
 
 bot.load_extension(f'cogs.Administrator')
 bot.load_extension(f'cogs.CommandEvents')
@@ -36,12 +57,6 @@ bot.load_extension(f'cogs.Urban')
 bot.load_extension(name='jishaku')
 print("All cogs are loaded.")
 
-#async def main():
-    #con = await asyncpg.connect(os.environ['DATABASE_URL'])
-    #print('Database connected.')
-    #await con.execute('''
-        #DROP TABLE mytab;
-    #''')
 
 @bot.event
 async def on_ready():
@@ -52,8 +67,7 @@ async def on_ready():
     bot.scheduler.start()
     await bot.change_presence(activity=discord.Activity(type=2,name="Spotify"))
 
-    db_url = os.environ.get("mongodb_url")
-    bot.mongo = motor.motor_asyncio.AsyncIOMotorClient(str(db_url))
+    bot.mongo = motor.motor_asyncio.AsyncIOMotorClient(str(bot.connection_url))
     bot.db = bot.mongo['sonofthebae']
     bot.config = Document(bot.db, 'config')
     print("Initialized Database\n-----")
