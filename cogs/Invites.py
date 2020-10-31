@@ -38,22 +38,21 @@ async def on_member_join(self,member):
 		if data is None:
 			data = {"_id": inviter.id, "count": 0, "usersInvited": []}
 
+
+		data["count"] +=1
+		data["usersInvited"].append(member.id)
+		await self.bot.invites.upsert(data)
+
+		channel = self.bot.get_channel(731357775652847686)
+		if not channel:
+			print("Invitation log channel not found! Reconfigure bot!")
 		else:
-
-			data["count"] +=1
-			data["usersInvited"].append(member.id)
-			await self.bot.invites.upsert(data)
-
-			channel = self.bot.get_channel(731357775652847686)
-			if not channel:
-				print("Invitation log channel not found! Reconfigure bot!")
-			else:
-				embed = discord.Embed(title =f'{len(member.guild.members)}th member joined',description=f'Invited by: {inviter.mention}\nInvites: {data["count"]}', 
-										colour=member.color,timestamp=datetime.datetime.utcnow())
-				embed.set_thumbnail(url=member.avatar_url)
-				embed.set_author(name=member.name, icon_url=member.avatar_url)
-				embed.set_footer(text=member.guild, icon_url=member.guild.icon_url)
-				await channel.send(embed=embed)
+			embed = discord.Embed(title =f'{len(member.guild.members)}th member joined',description=f'Invited by: {inviter.mention}\nInvites: {data["count"]}', 
+									colour=member.color,timestamp=datetime.datetime.utcnow())
+			embed.set_thumbnail(url=member.avatar_url)
+			embed.set_author(name=member.name, icon_url=member.avatar_url)
+			embed.set_footer(text=member.guild, icon_url=member.guild.icon_url)
+			await channel.send(embed=embed)
 	else:
 		pass
 

@@ -55,6 +55,7 @@ bot.load_extension(f'cogs.Instagram')
 bot.load_extension(f'cogs.WolframAlpha')
 bot.load_extension(f'cogs.Weather')
 bot.load_extension(f'cogs.Urban')
+bot.load_extension(f'cogs.Invites')
 bot.load_extension(name='jishaku')
 print("All cogs are loaded.")
 
@@ -80,7 +81,6 @@ async def on_ready():
     else:
         print("ERROR: Database not set")
         return
-
 
 @bot.command(brief='load a cog (Admin only)')
 @commands.has_guild_permissions(administrator=True)
