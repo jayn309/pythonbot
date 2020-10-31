@@ -12,7 +12,6 @@ from discord.utils import get
 from time import time
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from db.mongo import Document
-from pymongo import MongoClient
 
 #async def main():
     #con = await asyncpg.connect(os.environ['DATABASE_URL'])
@@ -73,6 +72,7 @@ async def on_ready():
     if bot.connection_url:
         bot.mongo = motor.motor_asyncio.AsyncIOMotorClient(str(bot.connection_url))
         bot.db = bot.mongo["sonofthebae"]
+        bot.col = bot.db["invites"]
         bot.config = Document(bot.db, "config")
         bot.invites = Document(bot.db, "invites")
         print("Initialized Database\n-----")
