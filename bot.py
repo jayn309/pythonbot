@@ -60,7 +60,7 @@ print("All cogs are loaded.")
 
 @bot.event
 async def on_ready():
-    print(f'{bot.user} has connected to Discord!')
+    print(f"-----\nLogged in as: {bot.user.name} : {bot.user.id}\n-----\nMy current prefix is: -\n-----")
     channel = bot.get_channel(686446361419186199)
     await channel.send("Sonbae is now online!")
 
