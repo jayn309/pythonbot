@@ -21,6 +21,22 @@ from pymongo import MongoClient
         #DROP TABLE mytab;
     #''')
 
+async def get_prefix(bot, message):
+    # If dm's
+    if not message.guild:
+        return commands.when_mentioned_or("-")(bot, message)
+
+    try:
+        data = await bot.config.find(message.guild.id)
+
+        # Make sure we have a useable prefix
+        if not data or "prefix" not in data:
+            return commands.when_mentioned_or("-")(bot, message)
+        return commands.when_mentioned_or(data["prefix"])(bot, message)
+    except:
+        return commands.when_mentioned_or("-")(bot, message)
+
+
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix = get_prefix,owner_id=359401025330741248,intents=intents) 
 bot.connection_url = os.environ["mongodb_url"]
@@ -65,20 +81,6 @@ async def on_ready():
         print("ERROR: Database not set")
         return
 
-async def get_prefix(bot, message):
-    # If dm's
-    if not message.guild:
-        return commands.when_mentioned_or("-")(bot, message)
-
-    try:
-        data = await bot.config.find(message.guild.id)
-
-        # Make sure we have a useable prefix
-        if not data or "prefix" not in data:
-            return commands.when_mentioned_or("-")(bot, message)
-        return commands.when_mentioned_or(data["prefix"])(bot, message)
-    except:
-        return commands.when_mentioned_or("-")(bot, message)
 
 @bot.command(brief='load a cog (Admin only)')
 @commands.has_guild_permissions(administrator=True)
@@ -119,6 +121,25 @@ async def on_raw_reaction_add(payload):
         reaction = get(message.reactions, emoji=payload.emoji.name)
         if reaction.count >= 3:
             await message.pin()
+
+@bot.event
+async def on_message(message):
+    # Ignore messages sent by yourself
+    if message.author.bot:
+        return
+
+    # Whenever the bot is tagged, respond with its prefix
+    if message.content.startswith(f"<@!{bot.user.id}>") and \
+        len(message.content) == len(f"<@!{bot.user.id}>"
+    ):
+        data = await bot.config.get_by_id(message.guild.id)
+        if not data or "prefix" not in data:
+            prefix = "-"
+        else:
+            prefix = data["prefix"]
+        await message.channel.send(f"My prefix here is `{prefix}`", delete_after=15)
+
+    await bot.process_commands(message)
 
 #asyncio.get_event_loop().run_until_complete(main())
 bot.run(os.environ['DISCORD_TOKEN'])
