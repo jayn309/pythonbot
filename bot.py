@@ -20,24 +20,24 @@ from db.mongo import Document
         #DROP TABLE mytab;
     #''')
 
-#async def get_prefix(bot, message):
+async def get_prefix(bot, message):
     # If dm's
-    #if not message.guild:
-        #return commands.when_mentioned_or("-")(bot, message)
+    if not message.guild:
+        return commands.when_mentioned_or("-")(bot, message)
 
-    #try:
-        #data = await bot.config.find(message.guild.id)
+    try:
+        data = await bot.config.find(message.guild.id)
 
         # Make sure we have a useable prefix
-        #if not data or "prefix" not in data:
-            #return commands.when_mentioned_or("-")(bot, message)
-        #return commands.when_mentioned_or(data["prefix"])(bot, message)
-    #except:
-        #return commands.when_mentioned_or("-")(bot, message)
+        if not data or "prefix" not in data:
+            return commands.when_mentioned_or("-")(bot, message)
+        return commands.when_mentioned_or(data["prefix"])(bot, message)
+    except:
+        return commands.when_mentioned_or("-")(bot, message)
 
 intents = discord.Intents.all()
-bot = commands.Bot(command_prefix = "_",owner_id=359401025330741248,intents=intents) 
-#bot.connection_url = os.environ["mongodb_url"]
+bot = commands.Bot(command_prefix = get_prefix,owner_id=359401025330741248,intents=intents) 
+bot.connection_url = os.environ["mongodb_url"]
 
 bot.load_extension(f'cogs.Administrator')
 bot.load_extension(f'cogs.CommandEvents')
@@ -63,16 +63,17 @@ async def on_ready():
     print(f'{bot.user} has connected to Discord!')
     channel = bot.get_channel(686446361419186199)
     await channel.send("Sonbae is now online!")
+
     bot.scheduler = AsyncIOScheduler()
     bot.scheduler.start()
     await bot.change_presence(activity=discord.Activity(type=2,name="Spotify"))
 
-    #bot.mongo = motor.motor_asyncio.AsyncIOMotorClient(str(bot.connection_url))
-    #bot.db = bot.mongo['sonofthebae']
-    #bot.config = Document(bot.db, 'config')
-    #print("Initialized Database\n-----")
-    #for document in await bot.config.get_all():
-        #print(document)
+    bot.mongo = motor.motor_asyncio.AsyncIOMotorClient(str(bot.connection_url))
+    bot.db = bot.mongo["sonofthebae"]
+    bot.config = Document(bot.db, "config")
+    print("Initialized Database\n-----")
+    for document in await bot.config.get_all():
+        print(document)
 
 @bot.command(brief='load a cog (Admin only)')
 @commands.has_guild_permissions(administrator=True)
