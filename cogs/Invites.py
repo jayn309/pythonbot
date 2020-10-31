@@ -34,24 +34,9 @@ async def on_member_join(self,member):
 	guild = self.bot.get_guild(626016069873696791)
 	if guild:
 		inviter = await self.tracker.fetch_inviter(member) # inviter is the member who invited
-		data = await self.bot.invites.find(inviter.id)
-		if data is None:
-			data = {"_id": inviter.id, "count": 0, "userInvited": []}
-
-		data["count"] +=1
-		data["userInvited"].append(member.id)
-		await self.bot.invites.upsert(data)
-
-		channel = self.bot.get_channel(731357775652847686)
-		if not channel:
-			print("Invitation log channel not found! Reconfigure bot!")
-		else:
-			embed = discord.Embed(title =f'{len(member.guild.members)}th member joined',description=f'Invited by: {inviter.mention}\nInvites: {data["count"]}', 
-									colour=member.color,timestamp=datetime.datetime.utcnow())
-			embed.set_thumbnail(url=member.avatar_url)
-			embed.set_author(name=member.name, icon_url=member.avatar_url)
-			embed.set_footer(text=member.guild, icon_url=member.guild.icon_url)
-			await channel.send(embed=embed)
+		print(inviter)
+	else:
+		pass
 
 def setup(bot):
 	bot.add_cog(Invites(bot))
