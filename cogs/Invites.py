@@ -37,11 +37,10 @@ async def on_member_join(self,member):
 		data = await self.bot.invites.find(inviter.id)
 		if data is None:
 			data = {"_id": inviter.id, "count": 0, "usersInvited": []}
-
-
-		data["count"] +=1
-		data["usersInvited"].append(member.id)
-		await self.bot.invites.upsert(data)
+		else:
+			data["count"] +=1
+			data["usersInvited"].append(member.id)
+			await self.bot.invites.upsert(data)
 
 		channel = self.bot.get_channel(731357775652847686)
 		if not channel:
