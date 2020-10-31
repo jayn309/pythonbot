@@ -74,6 +74,7 @@ async def on_ready():
         bot.mongo = motor.motor_asyncio.AsyncIOMotorClient(str(bot.connection_url))
         bot.db = bot.mongo["sonofthebae"]
         bot.config = Document(bot.db, "config")
+        bot.invites = Document(bot.db, "invites")
         print("Initialized Database\n-----")
         for document in await bot.config.get_all():
             print(document)
