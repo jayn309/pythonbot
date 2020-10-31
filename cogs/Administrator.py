@@ -446,9 +446,7 @@ class Administrator(commands.Cog):
 	@commands.has_guild_permissions(manage_guild=True)
 	async def prefix(self, ctx, *, prefix="py."):
 		await self.bot.config.upsert({"_id": ctx.guild.id, "prefix": prefix})
-		await ctx.send(
-			f"The guild prefix has been set to `{prefix}`. Use `{prefix}prefix [prefix]` to change it again!"
-		)
+		await ctx.send(f"The guild prefix has been set to `{prefix}`. Use `{prefix}prefix [prefix]` to change it again!")
 
 	@commands.command(
 	name='deleteprefix',
