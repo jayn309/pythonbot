@@ -8,3 +8,4 @@ apscheduler
 psutil
 git+https://github.com/Gorialis/jishaku@master#egg=jishaku
 motor
+pymongo[srv]
