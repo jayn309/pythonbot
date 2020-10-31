@@ -12,6 +12,7 @@ from discord.utils import get
 from time import time
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from db.mongo import Document
+from pymongo import MongoClient
 
 #async def main():
     #con = await asyncpg.connect(os.environ['DATABASE_URL'])
@@ -69,12 +70,10 @@ async def on_ready():
     await bot.change_presence(activity=discord.Activity(type=2,name="Spotify"))
 
     if bot.connection_url:
-        bot.mongo = motor.motor_asyncio.AsyncIOMotorClient(str(bot.connection_url))
-        bot.db = bot.mongo["sonofthebae"]
-        bot.config = Document(bot.db, "config")
-        print("Initialized Database\n-----")
-        for document in await bot.config.get_all():
-            print(document)
+        print(bot.connection_url)
+        db_client = MongoClient(bot.connection_url)
+        db = db_client['sonofthebae']
+        print("Done")
     else:
         print("ERROR: Database not set")
         return
