@@ -24,17 +24,17 @@ from pymongo import MongoClient
 async def get_prefix(bot, message):
     # If dm's
     if not message.guild:
-        return commands.when_mentioned_or("-")(bot, message)
+        return commands.when_mentioned_or("_")(bot, message)
 
     try:
         data = await bot.config.find(message.guild.id)
 
         # Make sure we have a useable prefix
         if not data or "prefix" not in data:
-            return commands.when_mentioned_or("-")(bot, message)
+            return commands.when_mentioned_or("_")(bot, message)
         return commands.when_mentioned_or(data["prefix"])(bot, message)
     except:
-        return commands.when_mentioned_or("-")(bot, message)
+        return commands.when_mentioned_or("_")(bot, message)
 
 
 intents = discord.Intents.all()
@@ -62,7 +62,7 @@ print("All cogs are loaded.")
 
 @bot.event
 async def on_ready():
-    print(f"-----\nLogged in as: {bot.user.name} : {bot.user.id}\n-----\nMy current prefix is: -\n-----")
+    print(f"-----\nLogged in as: {bot.user.name} : {bot.user.id}\n-----\nMy current prefix is: _\n-----")
     channel = bot.get_channel(686446361419186199)
     await channel.send("Sonbae is now online!")
 
@@ -134,7 +134,7 @@ async def on_message(message):
     ):
         data = await bot.config.get_by_id(message.guild.id)
         if not data or "prefix" not in data:
-            prefix = "-"
+            prefix = "_"
         else:
             prefix = data["prefix"]
         await message.channel.send(f"My prefix here is `{prefix}`", delete_after=15)
