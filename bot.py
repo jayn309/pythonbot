@@ -38,8 +38,7 @@ async def get_prefix(bot, message):
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix = get_prefix,owner_id=359401025330741248,intents=intents) 
-bot.connection_url.pw = os.environ["password"]
-bot.connection_url = "mongodb+srv://sonofthebae:<password>@cluster0.wrcss.mongodb.net/<dbname>?retryWrites=true&w=majority"
+bot.connection_url.pw = os.environ["mongodb_url"]
 
 bot.load_extension(f'cogs.Administrator')
 bot.load_extension(f'cogs.CommandEvents')
