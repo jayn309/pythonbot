@@ -55,7 +55,7 @@ bot.load_extension(f'cogs.Instagram')
 bot.load_extension(f'cogs.WolframAlpha')
 bot.load_extension(f'cogs.Weather')
 bot.load_extension(f'cogs.Urban')
-bot.load_extension(f'cogs.Invites')
+#bot.load_extension(f'cogs.Invites')
 bot.load_extension(name='jishaku')
 print("All cogs are loaded.")
 
@@ -74,7 +74,7 @@ async def on_ready():
         bot.mongo = motor.motor_asyncio.AsyncIOMotorClient(str(bot.connection_url))
         bot.db = bot.mongo["sonofthebae"]
         bot.config = Document(bot.db, "config")
-        bot.invites = Document(bot.db, "invites")
+        #bot.invites = Document(bot.db, "invites")
         print("Initialized Database\n-----")
         for document in await bot.config.get_all():
             print(document)
