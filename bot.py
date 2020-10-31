@@ -74,7 +74,7 @@ async def on_ready():
         bot.config = Document(bot.db, "config")
         print("Initialized Database\n-----")
         for document in await bot.config.get_all():
-            await channel.send(f'{document}')
+            print(document)
     else:
         print("ERROR: Database not set")
         return
