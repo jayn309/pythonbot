@@ -4,12 +4,15 @@ import time
 import asyncio
 import asyncpg
 import apscheduler
+import motor.motor_asyncio
 
 from discord.ext import commands, tasks
 from itertools import cycle
 from discord.utils import get
 from time import time
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from db.mongo import Document
+
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix = '_',owner_id=359401025330741248,intents=intents) 
@@ -48,6 +51,14 @@ async def on_ready():
     bot.scheduler = AsyncIOScheduler()
     bot.scheduler.start()
     await bot.change_presence(activity=discord.Activity(type=2,name="Spotify"))
+
+    db_url = os.environ.get("mongodb_url")
+    bot.mongo = motor.motor_asyncio.AsyncIOMotorClient(str(db_url))
+    bot.db = bot.mongo['sonofthebae']
+    bot.config = Document(bot.db, 'config')
+    print("Initialized Database\n-----")
+    for document in await bot.config.get_all():
+        print(document)
 
 @bot.command(brief='load a cog (Admin only)')
 @commands.has_guild_permissions(administrator=True)
