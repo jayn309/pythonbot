@@ -13,7 +13,7 @@ class Log(commands.Cog):
 	@commands.Cog.listener()
 	async def on_member_join(self, member):
 		guild = self.bot.get_guild(626016069873696791)
-		channel = self.bot.get_channel(731357775652847686)
+		channel = self.bot.get_channel(706728600874909712)
 		welcome_channel = self.bot.get_channel(626016070624346113)
 		if guild:
 			if channel:
