@@ -125,8 +125,9 @@ class Log(commands.Cog):
 
 	@commands.Cog.listener()
 	async def on_message_edit(self, before,after):
+		role = discord.utils.get(before.guild.roles, name='Bot' or 'bot')
 		try:
-			if before.author.id == 685307035142586380 or before.author.id == 325387620266016768 or before.author.id == 234395307759108106 or before.author.id == 235088799074484224 or before.author.id == 172002275412279296 or before.author.id == 359401025330741248 or before.author.id == 408785106942164992:
+			if role in before.author.roles :
 				return
 			if before.content == after.content:
 				return
@@ -148,7 +149,7 @@ class Log(commands.Cog):
 	async def on_message_delete(self, message):
 		if message.guild.id  != 626016069873696791:
 			return
-		role = discord.utils.get(message.guild.roles, name='Bot')
+		role = discord.utils.get(message.guild.roles, name='Bot' or 'bot')
 		if role in message.author.roles:
 			return
 		if not message.author.id == 685307035142586380:
