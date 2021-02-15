@@ -58,10 +58,6 @@ class Roles(commands.Cog):
             else:
                 print("Role not found.")
 
-        if  message_id == 684015060888453148:
-            guild_id = payload.guild_id
-            guild = discord.utils.find(lambda g : g.id == guild_id, self.bot.guilds)
-
             if payload.emoji.name == 'ireneevilsmile':
                 role18 = discord.utils.get(guild.roles, name='Yadong Yaseol')
 
