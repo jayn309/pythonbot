@@ -36,6 +36,8 @@ class Roles(commands.Cog):
                 role = discord.utils.get(guild.roles, name='Ensign')
             if payload.emoji.name == 'irenemunch':
                 role = discord.utils.get(guild.roles, name='Camping House')
+            if payload.emoji.name == 'ireneevilsmile':
+                role18 = discord.utils.get(guild.roles, name='Yadong Yaseol')
 
             if role is not None:
                 member = discord.utils.find(lambda m: m.id == payload.user_id, guild.members)
@@ -57,9 +59,6 @@ class Roles(commands.Cog):
                     print("Member not found.")
             else:
                 print("Role not found.")
-
-            if payload.emoji.name == 'ireneevilsmile':
-                role18 = discord.utils.get(guild.roles, name='Yadong Yaseol')
 
             if role18 is not None:
                 member = discord.utils.find(lambda m: m.id == payload.user_id, guild.members)
