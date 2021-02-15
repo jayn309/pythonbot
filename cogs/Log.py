@@ -148,6 +148,9 @@ class Log(commands.Cog):
 	async def on_message_delete(self, message):
 		if message.guild.id  != 626016069873696791:
 			return
+		role = discord.utils.get(message.guild.roles, name='Bot')
+		if role in message.author.roles:
+			return
 		if not message.author.id == 685307035142586380:
 			delete_embed = discord.Embed(title="Message deleted", description=f"Action by {message.author.name} in {message.channel.mention}.",
 							colour = message.author.colour, 
