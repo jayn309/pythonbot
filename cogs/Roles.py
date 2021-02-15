@@ -36,8 +36,6 @@ class Roles(commands.Cog):
                 role = discord.utils.get(guild.roles, name='Ensign')
             if payload.emoji.name == 'irenemunch':
                 role = discord.utils.get(guild.roles, name='Camping House')
-            if payload.emoji.name == 'ireneevilsmile':
-                role = discord.utils.get(guild.roles, name='Yadong Yaseol')
 
             if role is not None:
                 member = discord.utils.find(lambda m: m.id == payload.user_id, guild.members)
@@ -51,6 +49,32 @@ class Roles(commands.Cog):
                     else:
                         await member.add_roles(role)
                         await channel.send(f'Role was added.')
+                        await asyncio.sleep(2)
+                        await channel.purge(limit=1)
+                    msg = await channel.fetch_message(payload.message_id)
+                    await msg.remove_reaction(payload.emoji,payload.member)
+                else:
+                    print("Member not found.")
+            else:
+                print("Role not found.")
+
+        if  message_id == 810772977003528233:
+            guild_id = payload.guild_id
+            guild = discord.utils.find(lambda g : g.id == guild_id, self.bot.guilds)
+            if payload.emoji.name == 'ireneevilsmile':
+                role = discord.utils.get(guild.roles, name='Yadong Yaseol')
+
+            if role is not None:
+                member = discord.utils.find(lambda m: m.id == payload.user_id, guild.members)
+                channel = discord.utils.find(lambda c : c.id == channel_id, guild.channels)
+                if member is not None:
+                    if role in member.roles:
+                        await member.remove_roles(role)
+                        await channel.send(f'Role was removed.')
+                        await asyncio.sleep(2)
+                        await channel.purge(limit=1)
+                    else:
+                        await channel.send(f'You do not have this role to be removed.')
                         await asyncio.sleep(2)
                         await channel.purge(limit=1)
                     msg = await channel.fetch_message(payload.message_id)
