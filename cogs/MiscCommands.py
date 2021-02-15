@@ -389,7 +389,6 @@ class MicsCommands(commands.Cog):
 		await ctx.send(embed=embed)
 
 	@commands.command(aliases=['cs'])
-	@commands.has_guild_permissions(administrator=True)
 	@commands.guild_only()
 	@commands.bot_has_guild_permissions(manage_channels=True)
 	async def channelstats(self, ctx, channel):
