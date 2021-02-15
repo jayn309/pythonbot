@@ -400,7 +400,7 @@ class MicsCommands(commands.Cog):
 		channel_mentions = ctx.message.channel_mentions
 		channel = discord.utils.get(channel_mentions, mention=channel)
 	
-		embed = discord.Embed(title=f"Stats for **{channel.name}**", description=f"{'Category: {}'.format(channel.category.name) if channel.category else 'This channel is not in a category'}", color=random.choice(self.bot.color_list))
+		embed = discord.Embed(title=f"Stats for **{channel.name}**", description=f"{'Category: {}'.format(channel.category.name) if channel.category else 'This channel is not in a category'}", color = ctx.guild.owner.colour)
 		embed.add_field(name="Channel Guild", value=ctx.guild.name, inline=False)
 		embed.add_field(name="Channel Id", value=channel.id, inline=False)
 		embed.add_field(name="Channel Topic", value=f"{channel.topic if channel.topic else 'No topic.'}", inline=False)
