@@ -37,19 +37,15 @@ class Roles(commands.Cog):
             if payload.emoji.name == 'irenemunch':
                 role = discord.utils.get(guild.roles, name='Camping House')
             if payload.emoji.name == 'ireneevilsmile':
-                role18 = discord.utils.get(guild.roles, name='Yadong Yaseol')
+                role = discord.utils.get(guild.roles, name='Yadong Yaseol')
 
             if role is not None:
                 member = discord.utils.find(lambda m: m.id == payload.user_id, guild.members)
                 channel = discord.utils.find(lambda c : c.id == channel_id, guild.channels)
                 if member is not None:
-                    if role or role18 in member.roles:
+                    if role in member.roles:
                         await member.remove_roles(role)
                         await channel.send(f'Role was removed.')
-                        await asyncio.sleep(2)
-                        await channel.purge(limit=1)
-                    elif role18 not in member.roles:
-                        await channel.send(f'You do not have this role.')
                         await asyncio.sleep(2)
                         await channel.purge(limit=1)
                     else:
