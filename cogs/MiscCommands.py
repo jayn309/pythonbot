@@ -388,10 +388,10 @@ class MicsCommands(commands.Cog):
 
 		await ctx.send(embed=embed)
 
-	@commands.command(aliases=['cs'])
+	@commands.command(aliases=['ci'],brief='get info of the channel')
 	@commands.guild_only()
 	@commands.bot_has_guild_permissions(manage_channels=True)
-	async def channelstats(self, ctx, channel):
+	async def channelinfo(self, ctx, channel):
 		"""
 		Sends a nice fancy embed with some channel stats
 		!channelstats
