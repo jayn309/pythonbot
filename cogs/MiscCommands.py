@@ -339,19 +339,19 @@ class MicsCommands(commands.Cog):
 			embed.title = f'{user.name} is not listening to Spotify right now!'
 			await ctx.send(embed=embed)
 
-	@commands.command(aliases=['tl'],brief='google translate')
-	@commands.guild_only()
-	async def translate(self,ctx, lang, *, args):
-		if lang is None:
-			await ctx.send('Please provide a language.')
-		else:
-			try:
-				t = Translator()
-				a = t.translate(args, dest=lang)
-				await ctx.send(a.text)
-			except ValueError:
-				await ctx.send('Invalid language.')
-				return
+	#@commands.command(aliases=['tl'],brief='google translate')
+	#@commands.guild_only()
+	#async def translate(self,ctx, lang, *, args):
+		#if lang is None:
+			#await ctx.send('Please provide a language.')
+		#else:
+			#try:
+				#t = Translator()
+				#a = t.translate(args, dest=lang)
+				#await ctx.send(a.text)
+			#except ValueError:
+				#await ctx.send('Invalid language.')
+				#return
 
 	@commands.command(aliases=['svinfo','si'],brief='get info of the server')
 	@commands.guild_only()
