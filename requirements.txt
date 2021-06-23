@@ -2,7 +2,7 @@ discord.py==1.5.1
 asyncio
 git+https://github.com/Rapptz/discord-ext-menus
 pendulum
-googletrans
+googletrans==4.0.0-rc1
 asyncpg
 apscheduler
 psutil
