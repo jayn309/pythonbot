@@ -491,7 +491,7 @@ class MicsCommands(commands.Cog):
 					and reaction.emoji != payload.emoji.name):
 					await message.remove_reaction(reaction.emoji, payload.member)
 
-	@commands.command(aliases=['tr'],brief='translation')
+	@commands.command(aliases=['tr','tl'],description='translation')
 	@commands.guild_only()
 	async def translate(self, ctx, lang_to, *args):
 		lang_to = lang_to.lower()
