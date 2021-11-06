@@ -133,7 +133,7 @@ class Log(commands.Cog):
 				return
 			if before.content == after.content:
 				return
-			else:
+			if before.guild.id == 626016069873696791:
 				edit_embed = discord.Embed(title="Message edited",description=f'{before.author.name} edited a message in {before.channel.mention}', 
 												colour = before.author.colour,
 												timestamp=datetime.datetime.utcnow())
@@ -144,17 +144,29 @@ class Log(commands.Cog):
 				for channel in before.guild.channels:
 					if channel.id == 684130494023073865:
 						await channel.send(embed=edit_embed)
+
+			if before.guild.id == 806468043651678218:
+				edit_embed = discord.Embed(title="Message edited",description=f'{before.author.name} edited a message in {before.channel.mention}', 
+												colour = before.author.colour,
+												timestamp=datetime.datetime.utcnow())
+				edit_embed.set_author(name=f'{before.author.name}#{before.author.discriminator}', icon_url=before.author.avatar_url)
+				edit_embed.set_footer(text=f"Author ID:{before.author.id} • Message ID: {before.id}")
+				edit_embed.add_field(name='Before:', value=before.content, inline=False)
+				edit_embed.add_field(name="After:", value=after.content, inline=False)
+				for channel in before.guild.channels:
+					if channel.id == 906401882346500106:
+						await channel.send(embed=edit_embed)
+			else:
+				return
 		except AttributeError:
 			return
 
 	@commands.Cog.listener()
 	async def on_message_delete(self, message):
-		if message.guild.id  != 626016069873696791:
-			return
 		role = discord.utils.get(message.guild.roles, name='Bot' or 'bot')
 		if role in message.author.roles:
 			return
-		if not message.author.id == 685307035142586380:
+		if not message.author.id == 685307035142586380 and message.guild.id == 626016069873696791:
 			delete_embed = discord.Embed(title="Message deleted", description=f"Action by {message.author.name} in {message.channel.mention}.",
 							colour = message.author.colour, 
 							timestamp=datetime.datetime.utcnow())
@@ -166,13 +178,23 @@ class Log(commands.Cog):
 			for channel in message.guild.channels:
 					if channel.id == 684130494023073865:
 						await channel.send(embed=delete_embed)
+		if not message.author.id == 685307035142586380 and message.guild.id != 806468043651678218:
+			delete_embed = discord.Embed(title="Message deleted", description=f"Action by {message.author.name} in {message.channel.mention}.",
+							colour = message.author.colour, 
+							timestamp=datetime.datetime.utcnow())
+			delete_embed.set_footer(text=f"Author ID:{message.author.id} • Message ID: {message.id}")
+			delete_embed.set_author(name=f'{message.author.name}#{message.author.discriminator}', icon_url=message.author.avatar_url)
+			fields = [("Content",message.content, False)]
+			for name, value, inline in fields:
+				delete_embed.add_field(name=name, value=value,inline=inline)
+			for channel in message.guild.channels:
+					if channel.id == 906401882346500106:
+						await channel.send(embed=delete_embed)
 
 	@commands.Cog.listener()
 	async def on_bulk_message_delete(self, messages):
 		for message in messages:
-			if message.guild.id  != 626016069873696791:
-				return
-			if not message.author.id == 685307035142586380:
+			if not message.author.id == 685307035142586380 and message.guild.id == 626016069873696791:
 				delete_embed = discord.Embed(title="Message deleted", description=f"Action by {message.author.name} in {message.channel.mention}.",
 								colour = message.author.colour, 
 								timestamp=datetime.datetime.utcnow())
@@ -184,7 +206,18 @@ class Log(commands.Cog):
 				for channel in message.guild.channels:
 					if channel.id == 684130494023073865:
 						await channel.send(embed=delete_embed)
-		
+			if not message.author.id == 685307035142586380 and message.guild.id != 806468043651678218:
+				delete_embed = discord.Embed(title="Message deleted", description=f"Action by {message.author.name} in {message.channel.mention}.",
+								colour = message.author.colour, 
+								timestamp=datetime.datetime.utcnow())
+				delete_embed.set_footer(text=f"Author ID:{message.author.id} • Message ID: {message.id}")
+				delete_embed.set_author(name=f'{message.author.name}#{message.author.discriminator}', icon_url=message.author.avatar_url)
+				fields = [("Content",message.content, False)]
+				for name, value, inline in fields:
+					delete_embed.add_field(name=name, value=value,inline=inline)
+				for channel in message.guild.channels:
+						if channel.id == 906401882346500106:
+							await channel.send(embed=delete_embed)
 
 def setup(bot):
 	bot.add_cog(Log(bot))
