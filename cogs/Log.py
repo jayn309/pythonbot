@@ -178,7 +178,7 @@ class Log(commands.Cog):
 			for channel in message.guild.channels:
 					if channel.id == 684130494023073865:
 						await channel.send(embed=delete_embed)
-		if not message.author.id == 685307035142586380 and message.guild.id != 806468043651678218:
+		if not message.author.id == 685307035142586380 and message.guild.id == 806468043651678218:
 			delete_embed = discord.Embed(title="Message deleted", description=f"Action by {message.author.name} in {message.channel.mention}.",
 							colour = message.author.colour, 
 							timestamp=datetime.datetime.utcnow())
@@ -206,7 +206,7 @@ class Log(commands.Cog):
 				for channel in message.guild.channels:
 					if channel.id == 684130494023073865:
 						await channel.send(embed=delete_embed)
-			if not message.author.id == 685307035142586380 and message.guild.id != 806468043651678218:
+			if not message.author.id == 685307035142586380 and message.guild.id == 806468043651678218:
 				delete_embed = discord.Embed(title="Message deleted", description=f"Action by {message.author.name} in {message.channel.mention}.",
 								colour = message.author.colour, 
 								timestamp=datetime.datetime.utcnow())
