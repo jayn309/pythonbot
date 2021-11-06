@@ -38,7 +38,7 @@ class HelpCommands(commands.Cog):
             embed = discord.Embed(description='Here is the list of commands! \nFor more info on a specific command use _help {command}',
                         colour = discord.Colour.blurple())
             embed.set_author(name="Command list")
-            embed.add_field(name='👑 **Admin**', value="`ping`  `kick`  `ban`  `unban` `mute`  `unmute`  `purge`  `say`  `edit`  `showemotes`  `addrole`  `removerole`  `move`  `alladdrole`  `allremoverole`  `countr`  `showemotes`  `slowmode`  `limit`  `emojistat`  `prefix`  `deleteprefix`"
+            embed.add_field(name='👑 **Admin**', value="`ping`  `kick`  `ban`  `unban` `mute`  `unmute`  `purge`  `say`  `edit`  `addrole`  `removerole`  `move`  `alladdrole`  `allremoverole`  `countr`  `showemotes`  `slowmode`  `limit`  `emojistat`  `prefix`  `deleteprefix`"
                 ,inline=False)
             embed.add_field(name='🎉 **Fun**', value="`eightb`  `coinflip`  `f`  `choose`  `hug`  `rate`  `hot`  `slot`  `tableflip`  `unflip`  `calc`  `numgame`  `rps`  `riddle`  `pun`"
                 ,inline=False)
