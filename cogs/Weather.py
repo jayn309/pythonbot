@@ -1,6 +1,7 @@
 import asyncio
 import logging
 import os
+import keys
 
 import aiohttp
 import pendulum
@@ -69,7 +70,7 @@ class Weather(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.app_id = os.environ['wtapp_id']
+        self.app_id = keys.wtapp_id
         self.session = aiohttp.ClientSession()
 
     async def _make_request(self, method, route):

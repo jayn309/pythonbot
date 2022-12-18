@@ -5,6 +5,7 @@ import asyncio
 import asyncpg
 import apscheduler
 import motor.motor_asyncio
+import keys
 
 from discord.ext import commands, tasks
 from itertools import cycle
@@ -38,7 +39,7 @@ async def get_prefix(bot, message):
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix = get_prefix,owner_id=359401025330741248,intents=intents) 
-bot.connection_url = os.environ["mongodb_url"]
+bot.connection_url = keys.mongodb_url
 
 bot.load_extension(f'cogs.Administrator')
 bot.load_extension(f'cogs.CommandEvents')
@@ -142,5 +143,5 @@ async def on_message(message):
     await bot.process_commands(message)
 
 #asyncio.get_event_loop().run_until_complete(main())
-bot.run(os.environ['DISCORD_TOKEN'])
+bot.run(keys.TOKEN)
 

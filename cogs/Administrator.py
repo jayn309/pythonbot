@@ -459,5 +459,11 @@ class Administrator(commands.Cog):
 		await self.bot.config.unset({"_id": ctx.guild.id, "prefix": 1})
 		await ctx.send("This guilds prefix has been set back to the default")
 
+	@commands.guild_only()
+	@commands.has_guild_permissions(administrator=True)
+	async def terminate(self,ctx):
+		await ctx.send('Terminating...')
+		await self.bot.logout()
+
 def setup(bot):
 	bot.add_cog(Administrator(bot))
