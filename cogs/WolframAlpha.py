@@ -2,6 +2,7 @@ import asyncio
 import logging
 from io import BytesIO
 import os
+import keys
 
 import aiohttp
 from discord import File
